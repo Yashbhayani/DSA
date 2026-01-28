@@ -286,3 +286,9 @@ Node head = LeetCodeFunctionsClass.createList(num);
 //Node? result  = LeetCodeFunctionsClass.RemoveNthNodeFromEnd(head, 2);
 //Node? result  = LeetCodeFunctionsClass.RemoveNthNodeFromEnd2(head, 2);
 //LeetCodeFunctionsClass.printList(result);
+
+// Delete Node in a Linked List
+//Node? result = LeetCodeFunctionsClass.DeleteNodeinaLinkedList(head, 1);
+//Node? result = LeetCodeFunctionsClass.DeleteNodeinaLinkedList2(head, 1);
+Node? result = LeetCodeFunctionsClass.DeleteNodeinaLinkedList3(head, 2);
+LeetCodeFunctionsClass.printList(result);
