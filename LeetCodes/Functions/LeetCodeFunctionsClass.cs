@@ -1014,5 +1014,83 @@ namespace LeetCodes.Functions
             return dummy.next;
         }
 
+        public static Node? DeleteNodeinaLinkedList(Node head, int target)
+        {
+            if (head == null || target == 0) return head;
+
+            int count = 0;
+
+            Node dummy = new Node(0);
+            Node cdu = dummy;
+
+            while (head != null)
+            {
+                if (count == target)
+                {
+                    head = head.next;
+                }
+
+                cdu.next = new Node(head.value);
+                cdu = cdu.next;
+                head = head.next;
+                count++;
+            }
+
+
+            return dummy.next;
+        }
+
+        public static Node? DeleteNodeinaLinkedList2(Node head, int target)
+        {
+            if (head == null || target == 0) return head;
+
+            int count = 0;
+
+            Node dummy = new Node(0);
+            Node cdu = dummy;
+
+            while (head != null)
+            {
+                if (count == target)
+                {
+                    head = head.next;
+                }
+
+                Node node = head.next;
+                head.next = null;
+                cdu.next = head;
+                cdu = cdu.next;
+                head = node;
+                count++;
+            }
+
+
+            return dummy.next;
+        }
+
+
+        public static Node? DeleteNodeinaLinkedList3(Node head, int target)
+        {
+            if (head == null || target == 0) return head;
+
+            int count = 0;
+
+            Node dummy = new Node(0);
+            Node cdu = dummy;
+
+            while (head != null)
+            {
+                if (count == target)
+                {
+                    head = head.next;
+                }
+
+                cdu.next = head;
+                cdu = head;
+                head = head.next;
+                count++;
+            }
+            return dummy.next;
+        }
     }
 }
