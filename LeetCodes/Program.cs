@@ -207,44 +207,6 @@ LeetCodeFunctionsClass.printList(newhead);
 //---------------------------------------------------------------------------------------------------------
 
 
-//LeetCode Problem :1
-/*int[] num = { 2, 7, 11, 15 };
-int[] result = LeetCodeFunctionsClass.TwoSum(num, 9);
-
-if (result != null){
-    Console.WriteLine($"[{result[0]}, {result[1]}]");
-}else{
-    Console.WriteLine("No solution found");
-}
-
-int[] num2 = { 3,2,4};
-result = LeetCodeFunctionsClass.TwoSum2(num2, 6);
-
-if (result != null){
-    Console.WriteLine($"[{result[0]}, {result[1]}]");
-}else{
-    Console.WriteLine("No solution found");
-}*/
-
-
-//LeetCode Problem :2
-/*ListNode result = LeetCodeFunctionsClass.AddTwoNumbersfun();
-while (result != null)
-{
-    Console.Write(result.value + " ");
-    result = result.next;
-}*/
-
-
-//LetCode Problem :3
-/*string val = "abcabcbb";
-int res = LeetCodeFunctionsClass.LengthOfLongestSubstring3(val);
-Console.WriteLine(res);*/
-
-
-
-
-
 //LinkedList Levels
 
 
@@ -277,8 +239,8 @@ Console.WriteLine(res);*/
 
 
 
-int[] num = { 1, 2, 3, 4, 5 };
-Node head = LeetCodeFunctionsClass.createList(num);
+/*int[] num = { 1, 2, 3, 4, 5 };
+Node head = LeetCodeCodeFunctionsClass.createList(num);*/
 
 //LEVEL 3: Two-pointer logic
 
@@ -290,5 +252,48 @@ Node head = LeetCodeFunctionsClass.createList(num);
 // Delete Node in a Linked List
 //Node? result = LeetCodeFunctionsClass.DeleteNodeinaLinkedList(head, 1);
 //Node? result = LeetCodeFunctionsClass.DeleteNodeinaLinkedList2(head, 1);
-Node? result = LeetCodeFunctionsClass.DeleteNodeinaLinkedList3(head, 2);
-LeetCodeFunctionsClass.printList(result);
+//Node? result = LeetCodeFunctionsClass.DeleteNodeinaLinkedList3(head, 2);
+//LeetCodeFunctionsClass.printList(result);
+
+
+//------------------------------------------------------LeetCode-------------------------------------------------------------------
+
+//LeetCode Problem :1
+/*int[] num = { 2, 7, 11, 15 };
+int[] result = LeetCodeClass.TwoSum(num, 9);
+
+if (result != null)
+{
+    Console.WriteLine($"[{result[0]}, {result[1]}]");
+}
+else
+{
+    Console.WriteLine("No solution found");
+}
+
+int[] num2 = { 3, 2, 4 };
+result = LeetCodeClass.TwoSum2(num2, 6);
+
+if (result != null)
+{
+    Console.WriteLine($"[{result[0]}, {result[1]}]");
+}
+else
+{
+    Console.WriteLine("No solution found");
+}*/
+
+
+//LeetCode Problem :2
+/*ListNode result = LeetCodeClass.AddTwoNumbersfun();
+while (result != null)
+{
+    Console.Write(result.value + " ");
+    result = result.next;
+}
+*/
+
+//LetCode Problem :3
+/*string val = "abcabcbb";
+int res = LeetCodeClass.LengthOfLongestSubstring3(val);
+Console.WriteLine(res);*/
