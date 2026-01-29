@@ -11,9 +11,6 @@ namespace LeetCodes.Functions
 {
     internal class LeetCodeCodeFunctionsClass
     {
-
-
-
         //-2, 1, -3, 4, -1, 2, 1, -5, 4
         public static int Maximumsubarraysum(int[] arr)
         {
