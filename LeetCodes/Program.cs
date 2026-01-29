@@ -288,4 +288,9 @@ int res = LeetCodeClass.LengthOfLongestSubstring3(val);
 Console.WriteLine(res);*/
 
 
+//4. Median of Two Sorted Arrays
 
+int[] nums1 = [1,2];
+int[] nums2 = [3,4];
+double res = LeetCodeClass.MedianofTwoSortedArrays2(nums1, nums2);
+Console.WriteLine(res);

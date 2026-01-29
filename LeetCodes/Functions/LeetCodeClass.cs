@@ -2,6 +2,7 @@
 using LeetCodes.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -133,6 +134,62 @@ namespace LeetCodes.Functions
             }
             return maxLen;
         }
+
+        public static double MedianofTwoSortedArrays(int[] nums1, int[] nums2)
+        {
+            int[] arr = nums1.Concat(nums2).OrderBy(x => x).ToArray();
+            int n = arr.Length;
+            if (n % 2 == 1)
+            {
+                return arr[n / 2];
+            }
+            else
+            {
+                return (arr[n / 2 - 1] + arr[n / 2]) / 2.0;
+            }
+        }
+
+        public static double MedianofTwoSortedArrays2(int[] nums1, int[] nums2)
+        {
+            int n1 = nums1.Length;
+            int n2 = nums2.Length;
+            int n = n1 + n2;
+
+            int i = 0, j = 0;
+            int prev = 0, curr = 0;
+
+            for (int count = 0; count <= n / 2; count++)
+            {
+                prev = curr;
+
+                if (i < n1 && (j >= n2 || nums1[i] <= nums2[j]))
+                {
+                    curr = nums1[i];
+                    i++;
+                }
+                else
+                {
+                    curr = nums2[j];
+                    j++;
+                }
+            }
+
+            if (n % 2 == 1)
+                return curr;
+
+            return (prev + curr) / 2.0;
+        }
+
+        public static string LongestPalindromicSubstring(string s)
+        {
+            string maxString = null;
+            for(int i = 0; i < s.Length; i++)
+            {
+
+            }
+            return null;
+        }
+
 
     }
 }
