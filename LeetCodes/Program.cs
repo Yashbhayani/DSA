@@ -289,8 +289,34 @@ Console.WriteLine(res);*/
 
 
 //4. Median of Two Sorted Arrays
-
-int[] nums1 = [1,2];
+/*int[] nums1 = [1,2];
 int[] nums2 = [3,4];
 double res = LeetCodeClass.MedianofTwoSortedArrays2(nums1, nums2);
 Console.WriteLine(res);
+*/
+
+
+// 5. Longest Palindromic Substring
+/*string s = "ccc";
+Console.WriteLine(LeetCodeClass.LongestPalindromicSubstring(s));*/
+
+
+//6. Zigzag Conversion
+/*string s = "AB";
+int numRows = 1;
+Console.WriteLine(LeetCodeClass.ZigzagConversion2(s, numRows));*/
+
+
+//7. Reverse Integer
+/*int num = -2147483648;
+Console.WriteLine(LeetCodeClass.reverse3(num)); */
+
+
+//8. String to Integer (atoi)
+/*string s = "+45";
+Console.WriteLine(LeetCodeClass.MyAtoi5(s));
+*/
+
+//9. Palindrome Number
+int x = 10;
+Console.WriteLine(LeetCodeClass.IsPalindrome(x));
