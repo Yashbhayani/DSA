@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -575,10 +576,60 @@ namespace LeetCodes.Functions
 
         public static bool IsPalindrome(int x)
         {
-            if(x < 0) return false;
-            int s = int.Parse(new string(x.ToString().Reverse().ToArray()));
+            if (x < 0 || (x != 0 && x % 10 == 0)) return false;
+
+            string rev = new string(x.ToString().Reverse().ToArray());
+
+            if (!long.TryParse(rev, out long s)) return false;
+            if (s > int.MaxValue) return false;
             return s == x;
         }
 
+        public static bool IsPalindrome2(int x)
+        {
+            if (x < 0 || (x != 0 && x % 10 == 0)) return false;
+
+
+            int result = 0;
+            int temp = x;
+            while (temp > 0)
+            {
+                int digit = temp % 10;
+
+                if (result > (int.MaxValue - digit) / 10)
+                    return false;
+
+                result = (result * 10) + digit;
+                temp /=  10;
+            }
+            return result == x;
+        }
+
+        public static bool IsPalindrome3(int x)
+        {
+            if (x < 0 || (x != 0 && x % 10 == 0)) return false;
+
+            string result = "";
+            int temp = x;
+            while (temp > 0)
+            {
+                result += (temp % 10).ToString();
+                temp = temp / 10;
+            }
+
+            if (!long.TryParse(result, out long val)) return false;
+            if (val > int.MaxValue) return false;
+
+            return int.Parse(result) == x;
+        }
+
+        public static bool RegularExpressionMatching(string s, string p)
+        {
+
+            if(string.IsNullOrEmpty(s) ||  s.Length <= 20  || s.Length <= 0 || p.Length <= 0) return false;
+
+            return false;
+
+        }
     }
 }

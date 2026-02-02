@@ -318,5 +318,14 @@ Console.WriteLine(LeetCodeClass.MyAtoi5(s));
 */
 
 //9. Palindrome Number
-int x = 10;
+/*int x = 10;
 Console.WriteLine(LeetCodeClass.IsPalindrome(x));
+Console.WriteLine(LeetCodeClass.IsPalindrome2(x));
+Console.WriteLine(LeetCodeClass.IsPalindrome3(x));*/
+
+
+//10. Regular Expression Matching
+string s = "mississippi";
+string p = "mis*is*ip*.";
+
+Console.WriteLine(LeetCodeClass.RegularExpressionMatching(s, p));
