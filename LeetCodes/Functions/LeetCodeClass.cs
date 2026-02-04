@@ -626,10 +626,175 @@ namespace LeetCodes.Functions
         public static bool RegularExpressionMatching(string s, string p)
         {
 
-            if(string.IsNullOrEmpty(s) ||  s.Length <= 20  || s.Length <= 0 || p.Length <= 0) return false;
+            int rows = s.Length;
+            int columns = p.Length;
 
+            if (rows == 0 && columns == 0)
+            {
+                return true;
+            }
+            if (columns == 0)
+            {
+                return false;
+            }
+
+            bool[,] dp = new bool[rows + 1, columns + 1];
+            dp[0, 0] = true;
+
+            for (int i = 2; i <= columns; i++)
+            {
+                if (p[i - 1] == '*')
+                {
+                    dp[0, i] = dp[0, i - 2];
+                }
+            }
+
+            for (int i = 1; i <= rows; i++)
+            {
+                for (int j = 1; j <= columns; j++)
+                {
+                    if (s[i - 1] == p[j - 1] || p[j - 1] == '.')
+                    {
+                        dp[i, j] = dp[i - 1, j - 1];
+                    }
+                    else if (j > 1 && p[j - 1] == '*')
+                    {
+                        dp[i, j] = dp[i, j - 2];
+                        if (p[j - 2] == '.' || p[j - 2] == s[i - 1])
+                        {
+                            dp[i, j] = dp[i, j] || dp[i - 1, j];
+                        }
+                    }
+                }
+            }
+
+            return dp[rows, columns];
+
+        }
+        public static bool RegularExpressionMatching2(string s, string p)
+        {
+            var regex = new Regex(p);
+            var match = regex.Match(s, 0, s.Length);
+            if (match.Success)
+            {
+                return match.Value == s;
+            }
             return false;
+        }
 
+        public static int maxArea(int[] height)
+        {
+            int ANS = 0;
+            int B = height.Length - 1;
+
+            for (int i = 0; i < height.Length;)
+            {
+                int DD = Math.Min(height[i], height[B]);
+                ANS = Math.Max(ANS, DD * (B - i));
+                if (height[i] < height[B])
+                {
+                    i++;
+                }
+                else
+                {
+                    B--;
+                }
+                if (i > B)
+                {
+                    break;
+                }
+            }
+            return ANS;
+        }
+
+        public static string intToRoman(int num)
+        {
+            string HH = "";
+            int[] M = { 1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000 };
+            string[] C = { "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M" };
+            int k = M.Length - 1;
+            for (int i = k; i >= 0; i--)
+            {
+                if (num >= M[i])
+                {
+                    int Do = num / M[i];
+                    for (int j = 1; j <= Do; j++)
+                    {
+                        HH += C[i];
+                    }
+                    num %= M[i];
+
+                }
+            }
+            return HH;
+        }
+        public static string intToRoman2(int num)
+        {
+            string HH = "";
+            while (num != 0)
+            {
+                if (num >= 1000)
+                {
+                    num -= 1000;
+                    HH += "M";
+                }
+                else if (num >= 500)
+                {
+                    num -= 500;
+                    HH += "D";
+                }
+                else if (num >= 100)
+                {
+                    num -= 100;
+                    HH += "C";
+                }
+                else if (num >= 50)
+                {
+                    num -= 50;
+                    HH += "L";
+                }
+                else if (num >= 40)
+                {
+                    num -= 40;
+                    HH += "XL";
+                }
+
+                else if (num >= 10)
+                {
+                    num -= 10;
+                    HH += "X";
+                }
+
+                else if (num >= 9)
+                {
+                    num -= 9;
+                    HH += "IX";
+                }
+
+                else if (num >= 5)
+                {
+                    num -= 5;
+                    HH += "V";
+                }
+
+                else if (num >= 4)
+                {
+                    num -= 4;
+                    HH += "IV";
+                }
+
+                else if (num >= 1)
+                {
+                    num -= 1;
+                    HH += "I";
+                }
+
+                else
+                {
+                    num = 0;
+                }
+            }
+                return HH;
         }
     }
 }

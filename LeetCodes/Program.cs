@@ -325,7 +325,26 @@ Console.WriteLine(LeetCodeClass.IsPalindrome3(x));*/
 
 
 //10. Regular Expression Matching
-string s = "mississippi";
+/*string s = "mississippi";
 string p = "mis*is*ip*.";
+*/
+/*string s = "mississippi";
+string p = "mis*is*p*.";*/
+/*string s = "aab";
+string p = "c*a*b";
 
-Console.WriteLine(LeetCodeClass.RegularExpressionMatching(s, p));
+
+Console.WriteLine(LeetCodeClass.RegularExpressionMatching(s, p));*/
+
+//11. Container With Most Water
+/*int[] val = [1, 8, 6, 2, 5, 4, 8, 3, 7];
+Console.WriteLine(LeetCodeClass.maxArea(val));
+*/
+
+
+//12. Integer to Roman
+/*Console.WriteLine(LeetCodeClass.intToRoman2(3749));*/
+
+//13. Roman to Integer
+
+
