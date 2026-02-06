@@ -353,11 +353,17 @@ Console.WriteLine(LeetCodeClass.maxArea(val));
 /*string[] s = ["dog", "racecar", "car"];
 Console.WriteLine(LeetCodeClass.LongestCommonPrefix3(s));*/
 
-//
-int[] nums = [-1, 0, 1, 2, -1, -4];
+//15. 3Sum
+/*int[] nums = [-1, 0, 1, 2, -1, -4];
 IList<IList<int>> s = LeetCodeClass.ThreeSum2(nums);
 foreach (var item in s)
 {
     Console.WriteLine(string.Join(",", item));
-}
+}*/
+
+//16. 3Sum Closest
+int[] nums = [-1, 2, 1, -4]; int target = 1;
+Console.WriteLine(LeetCodeClass.threeSumClosest(nums, target));
+
+
 

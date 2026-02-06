@@ -1088,5 +1088,34 @@ namespace LeetCodes.Functions
             return triplets;
         }
 
+        public static int threeSumClosest(int[] nums, int target)
+        {
+            Array.Sort(nums);
+            int n = nums.Length;
+            int closest = nums[0] + nums[1] + nums[n - 1];
+            for (int i = 0; i < n - 2; i++)
+            {
+                int j = i + 1;
+                int k = n - 1;
+                while (j < k)
+                {
+                    int sum = nums[i] + nums[j] + nums[k];
+                    if (sum <= target)
+                    {
+                        j++;
+                    }
+                    else
+                    {
+                        k--;
+                    }
+                    if (Math.Abs(closest - target) > Math.Abs(sum - target))
+                    {
+                        closest = sum;
+                    }
+                }
+            }
+            return closest;
+        }
+
     }
 }
