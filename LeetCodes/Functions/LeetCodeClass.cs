@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Numerics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -600,7 +601,7 @@ namespace LeetCodes.Functions
                     return false;
 
                 result = (result * 10) + digit;
-                temp /=  10;
+                temp /= 10;
             }
             return result == x;
         }
@@ -794,7 +795,298 @@ namespace LeetCodes.Functions
                     num = 0;
                 }
             }
-                return HH;
+            return HH;
         }
+
+        public static int RomanToInt(string s)
+        {
+            Dictionary<char, int> romanMap = new Dictionary<char, int> {
+                { 'I', 1 },
+                { 'V', 5 },
+                { 'X', 10 },
+                { 'L', 50 },
+                { 'C', 100 },
+                { 'D', 500 },
+                { 'M', 1000 }
+            };
+            int n = s.Length;
+            int num = romanMap[s[n - 1]];
+
+            for (int i = n - 2; i >= 0; i--)
+            {
+                if (romanMap[s[i]] >= romanMap[s[i + 1]])
+                {
+                    num += romanMap[s[i]];
+                }
+                else
+                {
+                    num -= romanMap[s[i]];
+                }
+            }
+            return num;
+        }
+        public static int fromRomanToInt(char c)
+        {
+            if (c == 'I')
+            {
+                return 1;
+            }
+            else if (c == 'V')
+            {
+                return 5;
+            }
+            else if (c == 'X')
+            {
+                return 10;
+            }
+            else if (c == 'L')
+            {
+                return 50;
+            }
+            else if (c == 'C')
+            {
+                return 100;
+            }
+            else if (c == 'D')
+            {
+                return 500;
+            }
+            else if (c == 'M')
+            {
+                return 1000;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public static int RomanToInt2(string s)
+        {
+            int numero = 0;
+            int current;
+            int next;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+
+                current = fromRomanToInt(s[i]);
+
+                if (i + 1 < s.Length)
+                {
+                    next = fromRomanToInt(s[i + 1]);
+
+                    if (current >= next)
+                    {
+                        numero += current;
+                    }
+                    else
+                    {
+                        numero -= current;
+                    }
+
+                }
+                else
+                {
+                    numero += current;
+                }
+
+            }
+
+            return numero;
+        }
+
+        public static int RomanToInt3(string s)
+        {
+            int num = 0;
+            int current;
+            int next;
+
+            for (int i = 1; i <= s.Length; i++)
+            {
+                current = fromRomanToInt(s[i - 1]);
+                if (i == s.Length)
+                {
+                    num += current;
+                    break;
+                }
+                next = fromRomanToInt(s[i]);
+
+                if (current >= next)
+                {
+                    num += current;
+                }
+                else
+                {
+                    num -= current;
+                }
+
+            }
+
+            return num;
+        }
+
+
+        public static string LongestCommonPrefix(string[] strs)
+        {
+            StringBuilder longestCommonPrefix = new StringBuilder();
+
+            if (strs == null || strs.Length == 0)
+            {
+                return longestCommonPrefix.ToString();
+            }
+
+            int minimumLength = strs[0].Length;
+
+            for (int i = 1; i < strs.Length; i++)
+            {
+                minimumLength = Math.Min(minimumLength, strs[i].Length);
+            }
+
+            for (int i = 0; i < minimumLength; i++)
+            {
+                char current = strs[0][i];
+
+                foreach (string str in strs)
+                {
+                    if (str[i] != current)
+                    {
+                        return longestCommonPrefix.ToString();
+                    }
+                }
+
+                longestCommonPrefix.Append(current);
+            }
+
+            return longestCommonPrefix.ToString();
+        }
+
+        public static string LongestCommonPrefix2(string[] strs)
+        {
+            string prefix = strs[0];
+
+            for (int i = 1; i < strs.Length; i++)
+            {
+                while (!strs[i].StartsWith(prefix))
+                {
+                    prefix = prefix.Substring(0, prefix.Length - 1);
+                    if (prefix == "")
+                        return "";
+                }
+            }
+
+            return prefix;
+        }
+
+        public static string LongestCommonPrefix3(string[] strs)
+        {
+            int ML = strs[0].Length;
+            string MLs = strs[0];
+            foreach (string str in strs)
+            {
+                if (str.Length < ML)
+                {
+                    MLs = str;
+                }
+                ML = Math.Min(ML, str.Length);
+
+            }
+
+
+            string prefix = "";
+            bool sd = true;
+            for (int i = 0; i < ML; i++)
+            {
+                foreach (string str in strs)
+                {
+                    if (str[i] != MLs[i])
+                    {
+                        sd = false;
+                    }
+                }
+
+                if (sd)
+                {
+                    prefix += MLs[i];
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return prefix;
+        }
+
+        public static IList<IList<int>> ThreeSum(int[] nums)
+        {
+            Array.Sort(nums);
+            int n = nums.Length;
+            IList<IList<int>> triplets = new List<IList<int>>();
+
+            for (int i = 0; i < n; i++)
+            {
+                if (i > 0 && nums[i] == nums[i - 1])
+                {
+                    continue;
+                }
+
+                int j = i + 1;
+                int k = n - 1;
+
+                while (j < k)
+                {
+                    int sum = nums[i] + nums[j] + nums[k];
+
+                    if (sum == 0)
+                    {
+                        triplets.Add(new List<int> { nums[i], nums[j], nums[k] });
+
+                        j++;
+                        k--;
+
+                        while (j < k && nums[j] == nums[j - 1]) j++;
+                        while (j < k && nums[k] == nums[k + 1]) k--;
+                    }
+                    else if (sum < 0)
+                    {
+                        j++;
+                    }
+                    else
+                    {
+                        k--;
+                    }
+                }
+            }
+
+            return triplets;
+        }
+
+        public static IList<IList<int>> ThreeSum2(int[] nums)
+        {
+            Array.Sort(nums);
+
+            IList<IList<int>> triplets = new List<IList<int>>();
+
+            for (int i = 0; i < nums.Length - 1; i++)
+            {
+                int newval = nums[i] + nums[i + 1];
+
+                if (newval < 0 && newval != 0)
+                {
+                    newval = -newval;
+                }
+
+                int val = Array.IndexOf(nums, newval);
+
+                if (val > 0 &&  val != i && val != (i+1))
+                {
+                    triplets.Add(new List<int> { nums[i], nums[i + 1], newval });
+                }
+            }
+
+            return triplets;
+        }
+
     }
 }

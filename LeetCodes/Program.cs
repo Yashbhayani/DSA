@@ -346,5 +346,18 @@ Console.WriteLine(LeetCodeClass.maxArea(val));
 /*Console.WriteLine(LeetCodeClass.intToRoman2(3749));*/
 
 //13. Roman to Integer
+/*Console.WriteLine(LeetCodeClass.RomanToInt3("MCMXCIV"));*/
 
+//14. Longest Common Prefix
+//string[] s = ["flower", "flow", "flight"];
+/*string[] s = ["dog", "racecar", "car"];
+Console.WriteLine(LeetCodeClass.LongestCommonPrefix3(s));*/
+
+//
+int[] nums = [-1, 0, 1, 2, -1, -4];
+IList<IList<int>> s = LeetCodeClass.ThreeSum2(nums);
+foreach (var item in s)
+{
+    Console.WriteLine(string.Join(",", item));
+}
 
