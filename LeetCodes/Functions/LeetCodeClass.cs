@@ -683,6 +683,40 @@ namespace LeetCodes.Functions
             return false;
         }
 
+        public static bool RegularExpressionMatching3(string s, string p)
+        {
+            if (string.IsNullOrEmpty(p)) return string.IsNullOrEmpty(s);
+
+            int MaxLenght = s.Length > p.Length ? s.Length : p.Length;
+
+            if (p.Contains('*') && p.Contains('.') && s != p) return false;
+            bool IsMatch = false;
+            int i = 0, j = 0;
+            string prefix = "";
+            for (int k = 0; k < MaxLenght; k++)
+            {
+
+                if (s[i] == p[j] || p[j] == '.')
+                {
+                    prefix += s[i];
+                    IsMatch = true;
+                    i++; j++;
+                }
+
+                if (p[j] == '*' && s[i] == s[i + 1])
+                {
+                    prefix += s[i];
+                    IsMatch = true;
+                    i++;
+                }
+
+                if (p[j] == '*' && s[i] != s[i + 1]) { prefix += s[i]; IsMatch = true; i++; j++; }
+            }
+
+            return false;
+        }
+
+
         public static int maxArea(int[] height)
         {
             int ANS = 0;
@@ -1079,7 +1113,7 @@ namespace LeetCodes.Functions
 
                 int val = Array.IndexOf(nums, newval);
 
-                if (val > 0 &&  val != i && val != (i+1))
+                if (val > 0 && val != i && val != (i + 1))
                 {
                     triplets.Add(new List<int> { nums[i], nums[i + 1], newval });
                 }

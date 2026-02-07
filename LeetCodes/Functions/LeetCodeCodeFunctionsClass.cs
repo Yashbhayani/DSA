@@ -971,5 +971,31 @@ namespace LeetCodes.Functions
             return dummy.next;
         }
 
+        public static void LoopCode()
+        {
+            int n = 6;
+            for (int i = 1; i<= n; i++)
+            {
+                int k = n - 1;
+                string s = "";
+                int val = 0;
+                for(int j = i; j>=1; j--)
+                {
+                    if(j == i)
+                    {
+                        val = i;
+                        s = i.ToString();
+                    }
+                    else
+                    {
+                        val += k;
+                        s = val.ToString() + " " + s;
+                        k--;
+                    }
+                }
+                Console.WriteLine(s);
+            }
+        }
+
     }
 }

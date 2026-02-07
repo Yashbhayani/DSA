@@ -7,6 +7,9 @@ using System.Reflection.Emit;
 using System.Xml.Linq;
 
 
+//LeetCodeCodeFunctionsClass.LoopCode();
+
+
 //Maximum subarray sum
 /*int[] num = { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
 int[] num = { 2, 3, -8, 7, -1, 2, 3};
@@ -362,8 +365,8 @@ foreach (var item in s)
 }*/
 
 //16. 3Sum Closest
-int[] nums = [-1, 2, 1, -4]; int target = 1;
-Console.WriteLine(LeetCodeClass.threeSumClosest(nums, target));
+//int[] nums = [-1, 2, 1, -4]; int target = 1;
+//Console.WriteLine(LeetCodeClass.threeSumClosest(nums, target));
 
 
 
