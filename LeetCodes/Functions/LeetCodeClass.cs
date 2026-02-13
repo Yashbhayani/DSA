@@ -2,6 +2,7 @@
 using LeetCodes.Model;
 using Microsoft.VisualBasic;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -683,39 +684,6 @@ namespace LeetCodes.Functions
             return false;
         }
 
-        public static bool RegularExpressionMatching3(string s, string p)
-        {
-            if (string.IsNullOrEmpty(p)) return string.IsNullOrEmpty(s);
-
-            int MaxLenght = s.Length > p.Length ? s.Length : p.Length;
-
-            if (p.Contains('*') && p.Contains('.') && s != p) return false;
-            bool IsMatch = false;
-            int i = 0, j = 0;
-            string prefix = "";
-            for (int k = 0; k < MaxLenght; k++)
-            {
-
-                if (s[i] == p[j] || p[j] == '.')
-                {
-                    prefix += s[i];
-                    IsMatch = true;
-                    i++; j++;
-                }
-
-                if (p[j] == '*' && s[i] == s[i + 1])
-                {
-                    prefix += s[i];
-                    IsMatch = true;
-                    i++;
-                }
-
-                if (p[j] == '*' && s[i] != s[i + 1]) { prefix += s[i]; IsMatch = true; i++; j++; }
-            }
-
-            return false;
-        }
-
 
         public static int maxArea(int[] height)
         {
@@ -1149,6 +1117,210 @@ namespace LeetCodes.Functions
                 }
             }
             return closest;
+        }
+
+        public static int threeSumClosest2(int[] nums, int target)
+        {
+            int n = nums.Length;
+            int closest = nums[0] + nums[1] + nums[2];
+            for (int i = 0; i < n - 2; i++)
+            {
+                for (int j = i + 1; j < n - 1; j++)
+                {
+                    for (int k = j + 1; k < n; k++)
+                    {
+                        int sum = nums[i] + nums[k] + nums[j];
+                        if (Math.Abs(closest - target) > Math.Abs(sum - target))
+                        {
+                            closest = sum;
+                        }
+                    }
+                }
+            }
+            return closest;
+        }
+
+        public static IList<string> LetterCombinations(string digits)
+        {
+            List<string> result = new List<string>();
+            if (string.IsNullOrEmpty(digits)) return result;
+
+            string[] map = new string[] {
+            "", "", "abc", "def", "ghi", "jkl",
+            "mno", "pqrs", "tuv", "wxyz"
+        };
+
+            Backtracking(digits, new StringBuilder(), map, 0, result);
+            return result;
+        }
+
+        public static void Backtracking(string digits, StringBuilder temp, string[] map, int index, List<string> result)
+        {
+            if (index == digits.Length)
+            {
+                result.Add(temp.ToString());
+                return;
+            }
+
+            string cur = map[digits[index] - '0'];
+
+            foreach (char c in cur)
+            {
+                temp.Append(c);
+                Backtracking(digits, temp, map, index + 1, result);
+                temp.Remove(temp.Length - 1, 1);
+            }
+
+
+        }
+
+        public static IList<string> LetterCombinations2(string digits)
+        {
+            List<string> result = new List<string>();
+            if (string.IsNullOrEmpty(digits)) return result;
+
+            Dictionary<char, string> contactString = new Dictionary<char, string> {
+        {'2', "abc"},
+        {'3', "def"},
+        {'4', "ghi"},
+        {'5', "jkl"},
+        {'6', "mno"},
+        {'7', "pqrs"},
+        {'8', "tuv"},
+        {'9', "wxyz"},
+    };
+
+            Queue<string> q = new Queue<string>();
+            q.Enqueue("");
+
+            foreach (char c in digits)
+            {
+                string letters = contactString[c];
+                int size = q.Count;
+
+                for (int i = 0; i < size; i++)
+                {
+                    string cur = q.Dequeue();
+
+                    foreach (char la in letters)
+                    {
+                        q.Enqueue(cur + la);
+                    }
+                }
+            }
+
+            return q.ToList();
+        }
+
+        public static IList<string> LetterCombinations3(string digits)
+        {
+            var result = new List<string>();
+            if (string.IsNullOrEmpty(digits)) return result;
+
+            string[] map = {
+            "", "", "abc", "def", "ghi",
+            "jkl", "mno", "pqrs", "tuv", "wxyz"
+        };
+
+
+            result.Add("");
+
+            foreach (char d in digits)
+            {
+                var temp = new List<string>();
+                string letters = map[d - '0'];
+
+                foreach (var item in result)
+                {
+                    foreach (var item1 in letters)
+                    {
+                        temp.Add(item + item1);
+                    }
+                }
+                result = temp;
+            }
+
+            return result;
+        }
+
+        public static IList<IList<int>> FourSum(int[] nums, int target)
+        {
+            Array.Sort(nums);
+            var ans = new List<IList<int>>();
+            NSum(nums, 4, target, 0, nums.Length - 1, new List<int>(), ans);
+            return ans;
+        }
+
+        private static void NSum(int[] nums, int n, long target, int l, int r,
+                          List<int> path, List<IList<int>> ans)
+        {
+            if (r - l + 1 < n || target < (long)nums[l] * n || target > (long)nums[r] * n)
+                return;
+
+            if (n == 2)
+            {
+                while (l < r)
+                {
+                    int sum = nums[l] + nums[r];
+
+                    if (sum == target)
+                    {
+                        path.Add(nums[l]);
+                        path.Add(nums[r]);
+                        ans.Add(new List<int>(path));
+
+                        path.RemoveAt(path.Count - 1);
+                        path.RemoveAt(path.Count - 1);
+
+                        l++;
+                        r--;
+
+                        while (l < r && nums[l] == nums[l - 1]) l++;
+                        while (l < r && nums[r] == nums[r + 1]) r--;
+                    }
+                    else if (sum < target)
+                    {
+                        l++;
+                    }
+                    else
+                    {
+                        r--;
+                    }
+                }
+                return;
+            }
+
+            for (int i = l; i <= r; i++)
+            {
+                if (i > l && nums[i] == nums[i - 1])
+                    continue;
+
+                path.Add(nums[i]);
+                NSum(nums, n - 1, target - nums[i], i + 1, r, path, ans);
+                path.RemoveAt(path.Count - 1);
+            }
+        }
+
+        public static IList<IList<int>> FourSum2(int[] nums, int target)
+        {
+            var ans = new List<IList<int>>();
+            for (int i = 0; i < nums.Length - 3; i++)
+            {
+                for (int j = i + 1; j < nums.Length - 2; j++)
+                {
+                    for (int k = j + 1; k < nums.Length - 1; k++)
+                    {
+                        for (int l = k + 1; l < nums.Length; l++)
+                        {
+                            if (nums[i] + nums[j] + nums[k] + nums[l] == target)
+                            {
+                                ans.Add(new List<int> { nums[i], nums[j], nums[k], nums[k] });
+                            }
+                        }
+                    }
+                }
+            }
+            return ans;
         }
 
     }

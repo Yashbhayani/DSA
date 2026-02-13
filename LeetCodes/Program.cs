@@ -333,11 +333,12 @@ string p = "mis*is*ip*.";
 */
 /*string s = "mississippi";
 string p = "mis*is*p*.";*/
+
 /*string s = "aab";
 string p = "c*a*b";
 
 
-Console.WriteLine(LeetCodeClass.RegularExpressionMatching(s, p));*/
+Console.WriteLine(LeetCodeClass.RegularExpressionMatching2(s, p));*/
 
 //11. Container With Most Water
 /*int[] val = [1, 8, 6, 2, 5, 4, 8, 3, 7];
@@ -365,8 +366,29 @@ foreach (var item in s)
 }*/
 
 //16. 3Sum Closest
-//int[] nums = [-1, 2, 1, -4]; int target = 1;
-//Console.WriteLine(LeetCodeClass.threeSumClosest(nums, target));
+/*int[] nums = [-1, 2, 1, -4]; int target = 1;
+Console.WriteLine(LeetCodeClass.threeSumClosest2(nums, target));*/
+
+//17. Letter Combinations of a Phone Number
+/*string Input = "23";
+IList<string> output = LeetCodeClass.LetterCombinations3(Input);
+foreach (string s in output)
+{
+    Console.WriteLine(s);
+}
+*/
 
 
+//18. 4Sum
+int[] nums = [1, 0, -1, 0, -2, 2];
+int target = 0;
+IList<IList<int>> res = LeetCodeClass.FourSum2(nums, target);
+foreach (var item in res)
+{
+    foreach (var item1 in item)
+    {
+        Console.Write(item1 + ",");
+    }
 
+    Console.WriteLine("\n");
+}
