@@ -380,7 +380,7 @@ foreach (string s in output)
 
 
 //18. 4Sum
-int[] nums = [1, 0, -1, 0, -2, 2];
+/*int[] nums = [1, 0, -1, 0, -2, 2];
 int target = 0;
 IList<IList<int>> res = LeetCodeClass.FourSum2(nums, target);
 foreach (var item in res)
@@ -391,4 +391,30 @@ foreach (var item in res)
     }
 
     Console.WriteLine("\n");
-}
+}*/
+
+
+
+//19. Remove Nth Node From End of List
+/*int[] num = { 1,2,3,4,5 };
+int n = 2;
+Node head = LeetCodeCodeFunctionsClass.createList(num);
+
+Node nh = LeetCodeClass.RemoveNthFromEnd2(head, n);
+LeetCodeCodeFunctionsClass.printList(nh);
+*/
+
+
+//20. Valid Parentheses
+/*string s = "()[]{}";
+Console.WriteLine(LeetCodeClass.IsValid(s));*/
+
+
+//21. Merge Two Sorted Lists
+
+int[] num1 = { 1, 2, 4 };
+int[] num2 = { 1, 3, 4 };
+Node head1 = LeetCodeCodeFunctionsClass.createList(num1);
+Node head2 = LeetCodeCodeFunctionsClass.createList(num2);
+Node re = LeetCodeClass.MergeTwoLists2(head1, head2);
+LeetCodeCodeFunctionsClass.printList(re);

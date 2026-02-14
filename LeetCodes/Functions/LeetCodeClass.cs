@@ -1323,5 +1323,222 @@ namespace LeetCodes.Functions
             return ans;
         }
 
+
+        public static Node RemoveNthFromEnd(Node head, int n)
+        {
+            Node slow = head;
+            Node fast = head;
+
+            while (n-- > 0)
+                fast = fast.next;
+
+            if (fast == null)
+                return head.next;
+
+            while (fast.next != null)
+            {
+                slow = slow.next;
+                fast = fast.next;
+            }
+
+            slow.next = slow.next.next;
+
+            return head;
+        }
+
+        public static Node? RemoveNthFromEnd2(Node head, int target)
+        {
+            if (head == null || target == 0) return head;
+            int? count = LeetCodeCodeFunctionsClass.ListCount(head);
+            int c = 0;
+            Node dummy = new Node(0);
+            Node cdu = dummy;
+
+            while (head != null)
+            {
+                if (c == (count - target))
+                {
+                    head = head.next;
+                }
+
+                cdu.next = head;
+                cdu = head;
+                head = head.next;
+                c++;
+            }
+            return dummy.next;
+        }
+
+        public static bool IsValid(string s)
+        {
+            Stack<char> stack = new Stack<char>();
+
+            foreach (char c in s)
+            {
+                if (c == '(')
+                    stack.Push(')');
+                else if (c == '{')
+                    stack.Push('}');
+                else if (c == '[')
+                    stack.Push(']');
+                else if (stack.Count == 0 || stack.Pop() != c)
+                    return false;
+            }
+
+            return stack.Count == 0;
+        }
+
+        public static bool IsValid2(string s)
+        {
+
+            if (string.IsNullOrEmpty(s))
+            {
+                return true;
+            }
+            ArrayList arList1 = new ArrayList();
+
+            char[] charArray = s.Trim().ToCharArray();
+
+            foreach (char item in charArray)
+            {
+                int i = arList1.Count;
+                if (item == '(' || item == '[' || item == '{')
+                {
+                    arList1.Add(item);
+                }
+
+                if (item == ')' || item == ']' || item == '}')
+                {
+                    if (arList1.Count == 0) return false;
+
+                    if (item == ')' && (char?)arList1[i - 1] == '(' ||
+                        item == ']' && (char?)arList1[i - 1] == '[' ||
+                        item == '}' && (char?)arList1[i - 1] == '{')
+                    {
+                        arList1.RemoveAt(i - 1);
+                    }
+                    else { return false; }
+                }
+            }
+
+            return arList1.Count == 0;
+        }
+
+        public static bool IsValid3(string s)
+        {
+
+            if (string.IsNullOrEmpty(s))
+            {
+                return true;
+            }
+            Stack<char> arList1 = new Stack<char>();
+
+            char[] charArray = s.Trim().ToCharArray();
+
+            foreach (char item in charArray)
+            {
+                int i = arList1.Count;
+                if (item == '(' || item == '[' || item == '{')
+                {
+                    arList1.Push(item);
+                }
+
+                if (item == ')' || item == ']' || item == '}')
+                {
+                    if (arList1.Count == 0) return false;
+
+                    if (item == ')' && arList1.Peek() != '(' ||
+                    item == ']' && arList1.Peek() != ']' ||
+                    item == '}' && arList1.Peek() != '}')
+                    {
+                        return false;
+                    }
+
+                    arList1.Pop();
+                }
+            }
+
+            return arList1.Count == 0;
+        }
+
+        public static bool IsValid4(string s)
+        {
+
+            if (string.IsNullOrEmpty(s))
+            {
+                return true;
+            }
+            List<char> charList = s.Trim().ToList();
+            for (int i = 0; i < charList.Count; i++)
+            {
+                if (charList[i] == ')' || charList[i] == ']' || charList[i] == '}')
+                {
+                    if (i == 0)
+                    {
+                        return false;
+                    }
+                    if (charList[i] == ')' && charList[i - 1] != '(' ||
+                        charList[i] == ']' && charList[i - 1] != '[' ||
+                        charList[i] == '}' && charList[i - 1] != '{')
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        charList.RemoveAt(i);
+                        charList.RemoveAt(i - 1);
+                        i -= 2;
+                    }
+                }
+            }
+
+            return charList.Count == 0;
+        }
+
+        public static Node MergeTwoLists(Node list1, Node list2)
+        {
+            if (list1 == null || list2 == null)
+                return list1 == null ? list2 : list1;
+
+            if (list1.value > list2.value)
+            {
+                Node temp = list1;
+                list1 = list2;
+                list2 = temp;
+            }
+
+            list1.next = MergeTwoLists(list1.next, list2);
+            return list1;
+        }
+
+        public static Node? MergeTwoLists2(Node list1, Node list2)
+        {
+
+            Node nNode = new Node(0);
+            Node dum = nNode;
+
+            while (list1 != null && list2 != null)
+            {
+                if (list1.value >= list2.value)
+                {
+                    Node tempNnode2 = list2.next;
+                    list2.next = null;
+                    dum.next = list2;
+                    list2 = tempNnode2;
+                }
+                else
+                {
+
+                    Node tempNnode1 = list1.next;
+                    list1.next = null;
+                    dum.next = list1;
+                    list1 = tempNnode1;
+                }
+                dum = dum.next;
+            }
+
+            dum.next = (list1 == null ? list2 : list1);
+            return nNode.next;
+        }
     }
 }
