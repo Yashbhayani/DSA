@@ -1537,7 +1537,7 @@ namespace LeetCodes.Functions
                 dum = dum.next;
             }
 
-            dum.next = (list1 == null ? list2 : list1);
+            dum.next = list1 ?? list2;
             return nNode.next;
         }
     }
