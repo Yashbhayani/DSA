@@ -1540,5 +1540,145 @@ namespace LeetCodes.Functions
             dum.next = list1 ?? list2;
             return nNode.next;
         }
+
+        public static IList<string> GenerateParenthesis(int n)
+        {
+            var ans = new List<string>();
+            Dfs(n, n, new StringBuilder(), ans);
+            return ans;
+        }
+
+        private static void Dfs(int l, int r, StringBuilder sb, IList<string> ans)
+        {
+            if (l == 0 && r == 0)
+            {
+                ans.Add(sb.ToString());
+                return;
+            }
+
+            if (l > 0)
+            {
+                sb.Append("(");
+                Dfs(l - 1, r, sb, ans);
+                sb.Length--; 
+            }
+
+            if (l < r)
+            {
+                sb.Append(")");
+                Dfs(l, r - 1, sb, ans);
+                sb.Length--; 
+            }
+        }
+
+        public static IList<string> GenerateParenthesis2(int n)
+        {
+            var result = new List<string>();
+            var queue = new Queue<(string str, int open, int close)>();
+
+            queue.Enqueue(("", 0, 0));
+
+            while (queue.Count > 0)
+            {
+                var (str, open, close) = queue.Dequeue();
+
+                if (str.Length == 2 * n)
+                {
+                    result.Add(str);
+                    continue;
+                }
+
+                if (open < n)
+                    queue.Enqueue((str + "(", open + 1, close));
+
+                if (close < open)
+                    queue.Enqueue((str + ")", open, close + 1));
+            }
+
+            return result;
+        }
+
+        public static IList<string> GenerateParenthesis3(int n)
+        {
+            List<string> result = new List<string>();
+            Build(result, "", 0, 0, n);
+            return result;
+        }
+
+        private static void Build(List<string> result, string current, int open, int close, int n)
+        {
+            if (current.Length == 2 * n)
+            {
+                result.Add(current);
+                return;
+            }
+
+            if (open < n)
+                Build(result, current + "(", open + 1, close, n);
+
+            if (close < open)
+                Build(result, current + ")", open, close + 1, n);
+        }
+
+        public static IList<string> GenerateParenthesis4(int n)
+        {
+            var result = new List<string>();
+            var st = new Stack<(string str, int open, int close)>();
+
+            st.Push(("", 0, 0));
+
+            while (st.Count > 0)
+            {
+                var (str, open, close) = st.Pop();
+
+                if (str.Length == 2 * n)
+                {
+                    result.Add(str);
+                    continue;
+                }
+
+                if (open < n)
+                    st.Push((str + "(", open + 1, close));
+
+                if (close < open)
+                    st.Push((str + ")", open, close + 1));
+            }
+
+            return result;
+        }
+
+        public static Node MergeKLists(Node[] head)
+        {
+            if (head == null || head.Length == 0)
+                return null;
+
+            List<int> li = new List<int>();
+
+            foreach (var list in head)
+            {
+                Node node = list;
+                while (node != null)
+                {
+                    li.Add(node.value);
+                    node = node.next;
+                }
+            }
+
+            li.Sort();
+
+            if (li.Count == 0)
+                return null;
+
+            Node headd = new Node(li[0]);
+            Node current = headd;
+
+            for (int i = 1; i < li.Count; i++)
+            {
+                current.next = new Node(li[i]);
+                current = current.next;
+            }
+
+            return headd;
+        }
     }
 }

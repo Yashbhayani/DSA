@@ -411,10 +411,27 @@ Console.WriteLine(LeetCodeClass.IsValid(s));*/
 
 
 //21. Merge Two Sorted Lists
-
-int[] num1 = { 1, 2, 4 };
+/*int[] num1 = { 1, 2, 4 };
 int[] num2 = { 1, 3, 4 };
 Node head1 = LeetCodeCodeFunctionsClass.createList(num1);
 Node head2 = LeetCodeCodeFunctionsClass.createList(num2);
 Node re = LeetCodeClass.MergeTwoLists2(head1, head2);
-LeetCodeCodeFunctionsClass.printList(re);
+LeetCodeCodeFunctionsClass.printList(re);*/
+
+//22. Generate Parentheses
+/*int n = 3;
+IList<string> result = LeetCodeClass.GenerateParenthesis4(n);
+foreach (var item in result)
+{
+    Console.WriteLine(item);
+}*/
+
+
+//23. Merge k Sorted Lists
+/*Node l1 = new Node(1, new Node(4, new Node(5)));
+Node l2 = new Node(1, new Node(3, new Node(4)));
+Node l3 = new Node(2, new Node(6));
+
+Node[] lists = new Node[] { l1, l2, l3 };
+Node result = LeetCodeClass.MergeKLists(lists);
+LeetCodeCodeFunctionsClass.printList(result);*/
