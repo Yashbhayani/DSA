@@ -433,5 +433,5 @@ Node l2 = LeetCodeCodeFunctionsClass.createList([1,3,4]);
 Node l3 = LeetCodeCodeFunctionsClass.createList([2,6]);
 
 Node[] lists = new Node[] { l1, l2, l3 };
-Node result = LeetCodeClass.MergeKLists2(lists);
+Node result = LeetCodeClass.MergeKLists3(lists);
 LeetCodeCodeFunctionsClass.printList(result);

@@ -1702,7 +1702,7 @@ namespace LeetCodes.Functions
                 Node cur = node;
                 while (cur != null)
                 {
-                    list.AddLast(cur.value);   
+                    list.AddLast(cur.value);
                     cur = cur.next;
                 }
             }
@@ -1729,6 +1729,49 @@ namespace LeetCodes.Functions
             }
 
             return dummy.next;
+        }
+
+        public static Node MergeKLists3(Node[] head)
+        {
+            Node nd = new Node(0);
+            Node dummy = nd;
+
+            Node NewTemp = new Node(0);
+            Node d = NewTemp;
+
+            foreach (var item in head)
+            {
+                Node i = item;
+                while (i != null)
+                {
+                    d.next  = new Node(i.value);
+                    i = i.next;
+                    d = d.next;
+                }
+            }
+
+            NewTemp = NewTemp.next;
+            while(NewTemp != null)
+            {
+                Node i = NewTemp.next;
+
+                while(i != null)
+                {
+                    if(i.value < NewTemp.value)
+                    {
+                        int tV  = NewTemp.value;
+                        NewTemp.value = i.value;
+                        i.value = tV;
+                    }
+
+                    i = i.next;
+                }
+                dummy.next = NewTemp;
+                NewTemp = NewTemp.next;
+                dummy = dummy.next;
+            }
+
+            return nd.next;
         }
     }
 }
