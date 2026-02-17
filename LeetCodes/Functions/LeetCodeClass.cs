@@ -213,10 +213,8 @@ namespace LeetCodes.Functions
 
             for (int i = 0; i < s.Length; i++)
             {
-                // Odd length palindrome
                 ExpandFromCenter(s, i, i, ref start, ref maxLen);
 
-                // Even length palindrome
                 ExpandFromCenter(s, i, i + 1, ref start, ref maxLen);
             }
 
@@ -228,7 +226,7 @@ namespace LeetCodes.Functions
             if (string.IsNullOrEmpty(s) || s.Length < 2)
                 return s;
 
-            string maxString = s[0].ToString();   // important for cases like "a"
+            string maxString = s[0].ToString();
 
             for (int i = 0; i < s.Length - 1; i++)
             {
@@ -237,7 +235,7 @@ namespace LeetCodes.Functions
                 {
                     ss += s[j].ToString();
 
-                    if (s[i] == s[j] && IsPalindrome(ss))   // ONLY real fix
+                    if (s[i] == s[j] && IsPalindrome(ss))
                     {
                         maxString = maxString.Length >= ss.Length ? maxString : ss;
                     }
@@ -1560,14 +1558,14 @@ namespace LeetCodes.Functions
             {
                 sb.Append("(");
                 Dfs(l - 1, r, sb, ans);
-                sb.Length--; 
+                sb.Length--;
             }
 
             if (l < r)
             {
                 sb.Append(")");
                 Dfs(l, r - 1, sb, ans);
-                sb.Length--; 
+                sb.Length--;
             }
         }
 
@@ -1679,6 +1677,58 @@ namespace LeetCodes.Functions
             }
 
             return headd;
+        }
+
+        public static Node MergeKLists2(Node[] head)
+        {
+            if (head == null || head.Length == 0)
+                return null;
+
+            LinkedList<int> linkedList = new LinkedList<int>();
+
+            AddAllValues(head, linkedList);
+
+            if (linkedList.Count == 0)
+                return null;
+
+            SortLinkedList(linkedList);
+
+            return BuildNodeList(linkedList);
+        }
+        static void AddAllValues(Node[] heads, LinkedList<int> list)
+        {
+            foreach (var node in heads)
+            {
+                Node cur = node;
+                while (cur != null)
+                {
+                    list.AddLast(cur.value);   
+                    cur = cur.next;
+                }
+            }
+        }
+        static void SortLinkedList(LinkedList<int> list)
+        {
+            int[] arr = list.ToArray();
+            Array.Sort(arr);
+
+            list.Clear();
+            foreach (var v in arr)
+                list.AddLast(v);
+        }
+
+        static Node BuildNodeList(LinkedList<int> list)
+        {
+            Node dummy = new Node(0);
+            Node tail = dummy;
+
+            foreach (int v in list)
+            {
+                tail.next = new Node(v);
+                tail = tail.next;
+            }
+
+            return dummy.next;
         }
     }
 }

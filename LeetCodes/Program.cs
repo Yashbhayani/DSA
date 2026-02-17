@@ -428,10 +428,10 @@ foreach (var item in result)
 
 
 //23. Merge k Sorted Lists
-/*Node l1 = new Node(1, new Node(4, new Node(5)));
-Node l2 = new Node(1, new Node(3, new Node(4)));
-Node l3 = new Node(2, new Node(6));
+Node l1 = LeetCodeCodeFunctionsClass.createList([1,4,5]);
+Node l2 = LeetCodeCodeFunctionsClass.createList([1,3,4]);
+Node l3 = LeetCodeCodeFunctionsClass.createList([2,6]);
 
 Node[] lists = new Node[] { l1, l2, l3 };
-Node result = LeetCodeClass.MergeKLists(lists);
-LeetCodeCodeFunctionsClass.printList(result);*/
+Node result = LeetCodeClass.MergeKLists2(lists);
+LeetCodeCodeFunctionsClass.printList(result);
