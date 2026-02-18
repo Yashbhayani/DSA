@@ -1744,22 +1744,22 @@ namespace LeetCodes.Functions
                 Node i = item;
                 while (i != null)
                 {
-                    d.next  = new Node(i.value);
+                    d.next = new Node(i.value);
                     i = i.next;
                     d = d.next;
                 }
             }
 
             NewTemp = NewTemp.next;
-            while(NewTemp != null)
+            while (NewTemp != null)
             {
                 Node i = NewTemp.next;
 
-                while(i != null)
+                while (i != null)
                 {
-                    if(i.value < NewTemp.value)
+                    if (i.value < NewTemp.value)
                     {
-                        int tV  = NewTemp.value;
+                        int tV = NewTemp.value;
                         NewTemp.value = i.value;
                         i.value = tV;
                     }
@@ -1773,5 +1773,109 @@ namespace LeetCodes.Functions
 
             return nd.next;
         }
+
+        public static Node SwapPairs(Node head)
+        {
+            if (head == null || head.next == null)
+            {
+                return head;
+            }
+
+            Node newHead = head.next;
+            Node prev = null;
+
+            while (head != null && head.next != null)
+            {
+                Node first = head;
+                Node second = head.next;
+
+                first.next = second.next;
+                second.next = first;
+
+                if (prev != null)
+                {
+                    prev.next = second;
+                }
+
+                prev = first;
+                head = first.next;
+            }
+
+            return newHead;
+        }
+
+        public static Node SwapPairs2(Node head)
+        {
+            if (head != null && head.next != null)
+            {
+                int fi = head.value;
+                head.value = head.next.value;
+                head.next.value = fi;
+                SwapPairs2(head.next.next);
+            }
+            return head;
+        }
+
+        public static Node SwapPairs3(Node head)
+        {
+            Node newHead = new Node(0);
+            Node ntemp = newHead;
+
+            while(head != null && head.next != null)
+            {
+                Node first = head;
+                Node second = head.next;
+
+                first.next = second.next;
+                second.next = first;
+
+                ntemp.next = second;
+
+                ntemp = first;
+
+                head = first.next;
+            }
+            if (head != null)
+                ntemp.next = head;
+
+            return newHead.next;
+        }
+
+
+        public static Node ReverseKGroup(Node head, int k)
+        {
+            if (head == null)
+                return null;
+
+            Node tail = head;
+
+            for (int i = 0; i < k; i++)
+            {
+                if (tail == null)
+                    return head;
+                tail = tail.next;
+            }
+
+            Node newHead = Reverse(head, tail);
+            head.next = ReverseKGroup(tail, k);
+            return newHead;
+        }
+
+        private static Node Reverse(Node head, Node tail)
+        {
+            Node prev = null;
+            Node curr = head;
+
+            while (curr != tail)
+            {
+                Node next = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = next;
+            }
+
+            return prev;
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using LeetCodes.Functions;
 using LeetCodes.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Xml.Linq;
@@ -428,10 +429,22 @@ foreach (var item in result)
 
 
 //23. Merge k Sorted Lists
-Node l1 = LeetCodeCodeFunctionsClass.createList([1,4,5]);
+/*Node l1 = LeetCodeCodeFunctionsClass.createList([1,4,5]);
 Node l2 = LeetCodeCodeFunctionsClass.createList([1,3,4]);
 Node l3 = LeetCodeCodeFunctionsClass.createList([2,6]);
 
 Node[] lists = new Node[] { l1, l2, l3 };
 Node result = LeetCodeClass.MergeKLists3(lists);
-LeetCodeCodeFunctionsClass.printList(result);
+LeetCodeCodeFunctionsClass.printList(result);*/
+
+
+//24. Swap Nodes in Pairs
+/*Node l = LeetCodeCodeFunctionsClass.createList([1, 2, 3, 4]);
+Node result = LeetCodeClass.SwapPairs3(l);
+LeetCodeCodeFunctionsClass.printList(result);*/
+
+
+//24. 25. Reverse Nodes in k-Group
+Node l = LeetCodeCodeFunctionsClass.createList([1, 2, 3, 4, 5]);
+Node result = LeetCodeClass.ReverseKGroup(l,3);
+LeetCodeCodeFunctionsClass.printList(result); 
