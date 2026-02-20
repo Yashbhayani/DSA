@@ -1821,7 +1821,7 @@ namespace LeetCodes.Functions
             Node newHead = new Node(0);
             Node ntemp = newHead;
 
-            while(head != null && head.next != null)
+            while (head != null && head.next != null)
             {
                 Node first = head;
                 Node second = head.next;
@@ -1877,5 +1877,209 @@ namespace LeetCodes.Functions
             return prev;
         }
 
+        public static Node ReverseKGroup2(Node head, int k)
+        {
+            if (head == null || k == 1)
+                return head;
+
+            Node dummy = new Node(0);
+            dummy.next = head;
+
+            Node prevGroupEnd = dummy;
+
+            while (true)
+            {
+                Node kthNode = GetKthNode(prevGroupEnd, k);
+                if (kthNode == null)
+                    break;
+
+                Node groupStart = prevGroupEnd.next;
+                Node nextGroupStart = kthNode.next;
+
+                Node prev = nextGroupStart;
+                Node curr = groupStart;
+
+                while (curr != nextGroupStart)
+                {
+                    Node temp = curr.next;
+                    curr.next = prev;
+                    prev = curr;
+                    curr = temp;
+                }
+
+                prevGroupEnd.next = kthNode;
+                prevGroupEnd = groupStart;
+            }
+
+            return dummy.next;
+        }
+        public static Node GetKthNode(Node curr, int k)
+        {
+            while (curr != null && k > 0)
+            {
+                curr = curr.next;
+                k--;
+            }
+            return curr;
+        }
+        public static Node ReverseKGroup3(Node head, int k)
+        {
+            if (head == null || k == 1) return head;
+
+            Node dummy = new Node(0);
+            dummy.next = head;
+
+            Node groupPrev = dummy;
+
+            while (true)
+            {
+                Node kth = GetKthNode(groupPrev.next, k);
+                if (kth == null) break;
+
+                Node groupNext = kth.next;
+
+                Node prev = groupNext;
+                Node curr = groupPrev.next;
+
+                while (curr != groupNext)
+                {
+                    Node temp = curr.next;
+                    curr.next = prev;
+                    prev = curr;
+                    curr = temp;
+                }
+
+                Node tempHead = groupPrev.next;
+                groupPrev.next = kth;
+                groupPrev = tempHead;
+            }
+
+            return dummy.next;
+        }
+        public static Node ReverseKGroup4(Node head, int k)
+        {
+            if (head == null || k == 1) return head;
+
+            Node newhead = new Node(0);
+            Node dummy = newhead;
+
+            while (head != null)
+            {
+                Node check = head;
+                int count = 0;
+                while (count < k && check != null)
+                {
+                    check = check.next;
+                    count++;
+                }
+
+                if (count < k)
+                {
+                    dummy.next = head;
+                    break;
+                }
+
+                Node knth = head;
+                Node dm = null;
+                int i = k;
+
+                while (i > 0)
+                {
+                    Node temp = knth.next;
+                    knth.next = dm;
+                    dm = knth;
+                    knth = temp;
+                    i--;
+                }
+
+                dummy.next = dm;
+                dummy = head;                   
+                head = knth;    
+            }
+
+            return newhead.next;
+        }
+        public static Node ReverseKGroup6(Node head, int k)
+        {
+            if (head == null || k == 1) return head;
+
+            Node newhead = new Node(0);
+            Node dummy = newhead;
+
+            while (head != null)
+            {
+                Node check = head;
+                int count = 0;
+                while (count < k && check != null)
+                {
+                    check = check.next;
+                    count++;
+                }
+
+                if (count < k)
+                {
+                    dummy.next = head;   
+                    break;
+                }
+
+                Node curr = head;
+                Node prev = null;
+                int i = 0;
+
+                while (i < k)
+                {
+                    Node temp = curr.next;
+                    curr.next = prev;
+                    prev = curr;
+                    curr = temp;
+                    i++;
+                }
+
+                dummy.next = prev;
+                dummy = head;  
+                head = curr;   
+            }
+
+            return newhead.next;
+        }
+        public static Node ReverseKGroup5(Node head, int k)
+        {
+            if (head == null || k == 1) return head;
+
+            Node dummy = new Node(0);
+            dummy.next = head;
+
+            Node groupPrev = dummy;
+
+            while (true)
+            {
+                Node kth = groupPrev;
+                for (int i = 0; i < k && kth != null; i++)
+                {
+                    kth = kth.next;
+                }
+
+                if (kth == null) break;
+
+                Node groupNext = kth.next;
+
+                Node prev = groupNext;
+                Node curr = groupPrev.next;
+
+                while (curr != groupNext)
+                {
+                    Node temp = curr.next;
+                    curr.next = prev;
+                    prev = curr;
+                    curr = temp;
+                }
+
+                Node temp2 = groupPrev.next;
+                groupPrev.next = kth;
+                groupPrev = temp2;
+            }
+
+            return dummy.next;
+        }
     }
 }
