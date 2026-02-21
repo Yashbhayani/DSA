@@ -445,6 +445,10 @@ LeetCodeCodeFunctionsClass.printList(result);*/
 
 
 //24. 25. Reverse Nodes in k-Group
-Node l = LeetCodeCodeFunctionsClass.createList([1, 2, 3, 4, 5]);
+/*Node l = LeetCodeCodeFunctionsClass.createList([1, 2, 3, 4, 5]);
 Node result = LeetCodeClass.ReverseKGroup(l,3);
-LeetCodeCodeFunctionsClass.printList(result); 
+LeetCodeCodeFunctionsClass.printList(result); */
+
+//26. Remove Duplicates from Sorted Array
+int[] nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
+Console.WriteLine(LeetCodeClass.RemoveDuplicates(nums));

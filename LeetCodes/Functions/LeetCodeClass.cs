@@ -1993,8 +1993,8 @@ namespace LeetCodes.Functions
                 }
 
                 dummy.next = dm;
-                dummy = head;                   
-                head = knth;    
+                dummy = head;
+                head = knth;
             }
 
             return newhead.next;
@@ -2018,7 +2018,7 @@ namespace LeetCodes.Functions
 
                 if (count < k)
                 {
-                    dummy.next = head;   
+                    dummy.next = head;
                     break;
                 }
 
@@ -2036,8 +2036,8 @@ namespace LeetCodes.Functions
                 }
 
                 dummy.next = prev;
-                dummy = head;  
-                head = curr;   
+                dummy = head;
+                head = curr;
             }
 
             return newhead.next;
@@ -2081,5 +2081,37 @@ namespace LeetCodes.Functions
 
             return dummy.next;
         }
+
+        public static int RemoveDuplicates(int[] nums)
+        {
+            int count = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (i < nums.Length - 1 && nums[i] == nums[i + 1])
+                {
+                    continue;
+                }
+                nums[count] = nums[i];
+                count++;
+            }
+            return count;
+        }
+
+        public static int RemoveDuplicates2(int[] nums)
+        {
+            int count = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (i < nums.Length - 1 && nums[i] == nums[i + 1])
+                {
+                    continue;
+                }
+                nums[count] = nums[i];
+                count++;
+            }
+            return count;
+        }
     }
 }
+
+
