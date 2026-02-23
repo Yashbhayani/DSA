@@ -450,5 +450,24 @@ Node result = LeetCodeClass.ReverseKGroup(l,3);
 LeetCodeCodeFunctionsClass.printList(result); */
 
 //26. Remove Duplicates from Sorted Array
-int[] nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
-Console.WriteLine(LeetCodeClass.RemoveDuplicates(nums));
+/*int[] nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
+Console.WriteLine(LeetCodeClass.RemoveDuplicates3(nums));*/
+
+//27. Remove Element
+/*int[] nums = [3, 2, 2, 3];
+Console.WriteLine(LeetCodeClass.removeElement2(nums, 3));*/
+
+//28. Find the Index of the First Occurrence in a String
+/*string haystack = "sadbutsad", needle = "sad";
+Console.WriteLine(LeetCodeClass.strStr(haystack, needle));*/
+
+
+//29. Divide Two Integers
+/*int dividend = 10, divisor = 3;
+Console.WriteLine(LeetCodeClass.Divide(dividend, divisor));*/
+
+
+//30. Substring with Concatenation of All Words
+string s = "barfoothefoobarman";
+string[] words = ["foo", "bar"];
+IList<int> res = LeetCodeClass.FindSubstring(s,words);

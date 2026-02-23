@@ -2100,9 +2100,49 @@ namespace LeetCodes.Functions
         public static int RemoveDuplicates2(int[] nums)
         {
             int count = 0;
+            for (int i = 0; i < nums.Length - 1; i++)
+            {
+                if (nums[i] != nums[i + 1])
+                {
+                    count++;
+                }
+            }
+            return count + 1;
+        }
+        public static int RemoveDuplicates3(int[] nums)
+        {
+            int c = 0;
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (nums[c] != nums[i])
+                {
+                    c++;
+                    nums[c] = nums[i];
+                }
+            }
+            return c + 1;
+        }
+
+        public static int RemoveDuplicates4(int[] nums)
+        {
+            int currentPosition = 1;
+            for (int i = 0; i < nums.Length - 1; i++)
+            {
+                if (nums[i] != nums[i + 1])
+                {
+                    nums[currentPosition] = nums[i + 1];
+                    currentPosition++;
+                }
+            }
+            return currentPosition;
+        }
+
+        public static int removeElement(int[] nums, int val)
+        {
+            int count = 0;
             for (int i = 0; i < nums.Length; i++)
             {
-                if (i < nums.Length - 1 && nums[i] == nums[i + 1])
+                if (nums[i] == val)
                 {
                     continue;
                 }
@@ -2110,6 +2150,228 @@ namespace LeetCodes.Functions
                 count++;
             }
             return count;
+        }
+
+        public static int removeElement2(int[] nums, int val)
+        {
+            int count = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] != val)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        public static int strStr(string haystack, string needle)
+        {
+            return haystack.IndexOf(needle);
+        }
+
+        public static int strStr2(string haystack, string needle)
+        {
+            if (!haystack.Contains(needle))
+            {
+                return -1;
+            }
+
+            int index = 0;
+            string word = "";
+
+            for (int i = 0; i < haystack.Length; i++)
+            {
+                if (haystack[i] == needle[index])
+                {
+                    word += haystack[i];
+
+                    if (word == needle)
+                    {
+                        index = i + 1 - word.Length;
+                        break;
+                    }
+
+                    index++;
+                    continue;
+                }
+
+                i = i - word.Length;
+                index = 0;
+                word = "";
+            }
+
+            return index;
+        }
+        public static int StrStr2(string haystack, string needle)
+        {
+
+
+            if (haystack.Length < needle.Length)
+                return -1;
+
+            for (int i = 0; i <= haystack.Length - needle.Length; i++)
+            {
+                int j = 0;
+
+                for (int k = 0; k < needle.Length; k++)
+                {
+                    if ((i + k) >= haystack.Length)
+                        break;
+
+                    if (haystack[i + k] == needle[k])
+                    {
+                        j++;
+                    }
+                }
+
+                if (j == needle.Length)
+                    return i;
+            }
+
+            return -1;
+
+        }
+
+        public static int Divide(int dividend, int divisor)
+        {
+            if (dividend == int.MinValue && divisor == -1)
+            {
+                return int.MaxValue;
+            }
+            bool isNegative = (dividend < 0) ^ (divisor < 0);
+
+            long absDividend = Math.Abs((long)dividend);
+            long absDivisor = Math.Abs((long)divisor);
+
+            int quotient = 0;
+            while (absDividend >= absDivisor)
+            {
+                long tempDivisor = absDivisor;
+                int multiple = 1;
+
+                while (absDividend >= (tempDivisor << 1))
+                {
+                    tempDivisor <<= 1;
+                    multiple <<= 1;
+                }
+
+                absDividend -= tempDivisor;
+                quotient += multiple;
+            }
+            return isNegative ? -quotient : quotient;
+        }
+
+        public static IList<int> FindSubstring(string s, string[] words)
+        {
+            if (string.IsNullOrEmpty(s) || words.Length == 0)
+                return new List<int>();
+
+            int k = words.Length; int n = words[0].Length;
+            List<int> ans = new List<int>();
+
+            Dictionary<string, int> count = new Dictionary<string, int>();
+
+            foreach (string word in words)
+            {
+                if (count.ContainsKey(word))
+                    count[word]++;
+                else
+                    count[word] = 1;
+            }
+
+            for (int i = 0; i <= s.Length - k * n; i++)
+            {
+                Dictionary<string, int> seen = new Dictionary<string, int>();
+                int j = 0;
+
+                for (; j < k; j++)
+                {
+                    string word = s.Substring(i + j * n, n);
+
+                    if (seen.ContainsKey(word))
+                        seen[word]++;
+                    else
+                        seen[word] = 1;
+
+                    if (!count.ContainsKey(word) || seen[word] > count[word])
+                        break;
+                }
+
+                if (j == k)
+                    ans.Add(i);
+            }
+
+            return ans;
+        }
+
+        public static IList<int> FindSubstring2(string s, string[] words)
+        {
+            var cnt = new Dictionary<string, int>();
+            foreach (var w in words)
+            {
+                if (cnt.ContainsKey(w))
+                {
+                    cnt[w]++;
+                }
+                else
+                {
+                    cnt[w] = 1;
+                }
+            }
+
+            var ans = new List<int>();
+            int m = s.Length, n = words.Length, k = words[0].Length;
+
+            for (int i = 0; i < k; ++i)
+            {
+                int l = i, r = i;
+                var cnt1 = new Dictionary<string, int>();
+                while (r + k <= m)
+                {
+                    var t = s.Substring(r, k);
+                    r += k;
+
+                    if (!cnt.ContainsKey(t))
+                    {
+                        cnt1.Clear();
+                        l = r;
+                        continue;
+                    }
+
+                    if (cnt1.ContainsKey(t))
+                    {
+                        cnt1[t]++;
+                    }
+                    else
+                    {
+                        cnt1[t] = 1;
+                    }
+
+                    while (cnt1[t] > cnt[t])
+                    {
+                        var w = s.Substring(l, k);
+                        cnt1[w]--;
+                        if (cnt1[w] == 0)
+                        {
+                            cnt1.Remove(w);
+                        }
+                        l += k;
+                    }
+
+                    if (r - l == n * k)
+                    {
+                        ans.Add(l);
+                    }
+                }
+            }
+
+            return ans;
+        }
+
+        public static IList<int> FindSubstring3(string s, string[] words)
+        {
+            return null;
         }
     }
 }
