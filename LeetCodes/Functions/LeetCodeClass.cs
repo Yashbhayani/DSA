@@ -2473,11 +2473,11 @@ namespace LeetCodes.Functions
                 i--;
             }
             i = nums.Length - 1;
-            while (i - 1 >= 0  &&  MinPos != -1)
+            while (i - 1 >= 0 && MinPos != -1)
             {
                 if (nums[MinPos] < nums[i])
                 {
-                    MaxPos = i ;
+                    MaxPos = i;
                     break;
                 }
                 i--;
@@ -2486,7 +2486,7 @@ namespace LeetCodes.Functions
             if (MinPos == MaxPos)
             {
                 Array.Sort(nums);
-                }
+            }
             else
             {
                 int tempval = nums[MaxPos];
@@ -2498,6 +2498,32 @@ namespace LeetCodes.Functions
 
             return nums;
 
+        }
+
+        public static int[] NextPermutation3(int[] nums)
+        {
+            int index = nums.Length - 1;
+
+            while (index >= 1 && nums[index] <= nums[index - 1])
+                index--;
+
+            if (index < 1)
+            {
+                Array.Sort(nums);
+                return nums;
+            }
+
+            int swap = nums.Length - 1;
+            while (swap >= index && nums[index - 1] >= nums[swap])
+                swap--;
+
+            int temp = nums[swap];
+            nums[swap] = nums[index - 1];
+            nums[index - 1] = temp;
+
+            Array.Reverse(nums, index, nums.Length - index);
+
+            return nums;
         }
     }
 }
