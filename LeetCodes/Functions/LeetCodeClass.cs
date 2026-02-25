@@ -2525,6 +2525,32 @@ namespace LeetCodes.Functions
 
             return nums;
         }
+
+        public static int[] NextPermutation4(int[] nums)
+        {
+            if (nums.Length == 1) return nums;
+
+            int i = nums.Length - 2;
+            while (i >= 0 && nums[i + 1] <= nums[i]) i--;
+
+            if (i >= 0)
+            {
+                int j = nums.Length - 1;
+                while (nums[j] <= nums[i]) j--;
+
+                (nums[i], nums[j]) = (nums[j], nums[i]);
+            }
+
+            int left = i + 1;
+            int right = nums.Length - 1;
+            while (left < right)
+            {
+                (nums[left], nums[right]) = (nums[right], nums[left]);
+                left++;
+                right--;
+            }
+            return nums;
+        }
     }
 }
 
