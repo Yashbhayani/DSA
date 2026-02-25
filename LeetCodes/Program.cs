@@ -468,6 +468,33 @@ Console.WriteLine(LeetCodeClass.Divide(dividend, divisor));*/
 
 
 //30. Substring with Concatenation of All Words
-string s = "barfoothefoobarman";
-string[] words = ["foo", "bar"];
-IList<int> res = LeetCodeClass.FindSubstring(s,words);
+/*string s = "barfoothefoobarman";
+string[] words = ["foo", "bar"];*/
+
+/*string s = "wordgoodgoodgoodbestword";
+string[] words = ["word", "good", "best", "word"];*/
+
+
+/*string s = "barfoofoobarthefoobarman";
+string[] words = ["bar", "foo", "the"];
+IList<int> res = LeetCodeClass.FindSubstring3(s,words);
+foreach (var item in res)
+{
+    Console.Write(item + ",");
+}
+*/
+
+
+//31. Next Permutation
+
+
+int[] nums = [1, 2, 3];
+/*int[] nums = [3, 2, 1];
+int[] nums = [1, 1, 5];
+int[] nums = [1, 3, 2];
+int[] nums = [1, 4, 3, 2];
+int[] nums = [2, 5, 4, 3, 1];
+int[] nums = [1, 5, 8, 4, 7, 6, 5, 3, 1];
+int[] nums = [1, 2, 7, 4, 3, 1];*/
+int[] res = LeetCodeClass.NextPermutation2(nums);
+Console.WriteLine(string.Join(", ", res));

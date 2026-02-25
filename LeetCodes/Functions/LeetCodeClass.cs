@@ -2267,7 +2267,8 @@ namespace LeetCodes.Functions
             if (string.IsNullOrEmpty(s) || words.Length == 0)
                 return new List<int>();
 
-            int k = words.Length; int n = words[0].Length;
+            int k = words.Length;
+            int n = words[0].Length;
             List<int> ans = new List<int>();
 
             Dictionary<string, int> count = new Dictionary<string, int>();
@@ -2371,7 +2372,132 @@ namespace LeetCodes.Functions
 
         public static IList<int> FindSubstring3(string s, string[] words)
         {
-            return null;
+            int sL = s.Length;
+            int sWL = words.Length;
+            int sAL = words[0].Length;
+            IList<int> ListVal = new List<int>();
+            List<string> ans = new List<string>();
+            ans.AddRange(words);
+
+            for (int i = 0; i < sL - (sWL * sAL); i++)
+            {
+                int j = i;
+                int StartVal = i;
+                while (true)
+                {
+                    string SubS = s.Substring(j, sAL);
+
+                    if (ans.Count == 0)
+                        break;
+
+
+                    int ind = ans.IndexOf(SubS);
+                    if (ind >= 0)
+                    {
+                        ans.RemoveAt(ind);
+                        j += sAL;
+                    }
+                    else
+                    {
+                        StartVal = -1;
+                        ans.Clear();
+                        break;
+                    }
+                }
+
+                if (StartVal >= 0)
+                {
+                    ListVal.Add(StartVal);
+                }
+
+                ans.AddRange(words);
+            }
+            return ListVal;
+        }
+
+        public static int[] NextPermutation(int[] nums)
+        {
+            int n = nums.Length;
+
+            int i;
+            for (i = n - 2; i >= 0; i--)
+            {
+                if (nums[i] < nums[i + 1])
+                    break;
+            }
+
+            if (i >= 0)
+            {
+                for (int j = n - 1; j > i; j--)
+                {
+                    if (nums[j] > nums[i])
+                    {
+                        Swap(nums, i, j);
+                        break;
+                    }
+                }
+            }
+
+            Reversee(nums, i + 1, n - 1);
+
+            return nums;
+        }
+
+        public static void Reversee(int[] nums, int left, int right)
+        {
+            while (left < right)
+            {
+                Swap(nums, left, right);
+                left++;
+                right--;
+            }
+        }
+
+        public static void Swap(int[] nums, int i, int j)
+        {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+        public static int[] NextPermutation2(int[] nums)
+        {
+            int i = nums.Length - 1;
+            int MinPos = -1, MaxPos = -1;
+            while (i - 1 >= 0)
+            {
+                if (nums[i] > nums[i - 1])
+                {
+                    MinPos = i - 1;
+                    break;
+                }
+                i--;
+            }
+            i = nums.Length - 1;
+            while (i - 1 >= 0  &&  MinPos != -1)
+            {
+                if (nums[MinPos] < nums[i])
+                {
+                    MaxPos = i ;
+                    break;
+                }
+                i--;
+            }
+
+            if (MinPos == MaxPos)
+            {
+                Array.Sort(nums);
+                }
+            else
+            {
+                int tempval = nums[MaxPos];
+                nums[MaxPos] = nums[MinPos];
+                nums[MinPos] = tempval;
+                // Array.Sort(nums, (MinPos+1), nums.Length - (MinPos+1));
+                Array.Reverse(nums, MinPos + 1, nums.Length - (MinPos + 1));
+            }
+
+            return nums;
+
         }
     }
 }
