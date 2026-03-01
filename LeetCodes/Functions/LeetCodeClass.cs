@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Numerics;
+using System.Runtime.Intrinsics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -2551,6 +2552,112 @@ namespace LeetCodes.Functions
             }
             return nums;
         }
+
+
+        public static int LongestValidParentheses(string s)
+        {
+            string s2 = ")" + s;
+            int[] dp = new int[s2.Length];
+
+            for (int i = 1; i < s2.Length; i++)
+            {
+                if (s2[i] == ')')
+                {
+                    int prevIndex = i - dp[i - 1] - 1;
+
+                    if (prevIndex >= 0 && s2[prevIndex] == '(')
+                    {
+                        dp[i] = dp[i - 1] + 2;
+
+                        int beforeIndex = i - dp[i - 1] - 2;
+                        if (beforeIndex >= 0)
+                            dp[i] += dp[beforeIndex];
+                    }
+                }
+            }
+
+            return dp.Max();
+        }
+
+        public static int LongestValidParentheses2(string s)
+        {
+            if (string.IsNullOrEmpty(s)) return 0;
+
+            Stack<int> stack = new Stack<int>();
+
+            stack.Push(-1);
+
+            int maxLength = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                {
+                    stack.Push(i);
+                }
+                else
+                {
+                    stack.Pop();
+
+                    if (stack.Count == 0)
+                    {
+                        stack.Push(i);
+                    }
+                    else
+                    {
+                        int length = i - stack.Peek();
+                        maxLength = Math.Max(maxLength, length);
+                    }
+                }
+            }
+
+            return maxLength;
+        }
+
+        public static int LongestValidParentheses3(string s)
+        {
+            if (string.IsNullOrEmpty(s)) return 0;
+
+            int open = 0, close = 0, maxLen = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                    open++;
+                else
+                    close++;
+
+                if (open == close)
+                    maxLen = Math.Max(maxLen, 2 * close);
+                else if (close > open)
+                {
+                    open = 0;
+                    close = 0;
+                }
+            }
+
+            open = 0;
+            close = 0;
+
+            for (int i = s.Length - 1; i >= 0; i--)
+            {
+                if (s[i] == '(')
+                    open++;
+                else
+                    close++;
+
+                if (open == close)
+                    maxLen = Math.Max(maxLen, 2 * open);
+                else if (open > close)
+                {
+                    open = 0;
+                    close = 0;
+                }
+            }
+
+            return maxLen;
+        }
+
     }
 }
 

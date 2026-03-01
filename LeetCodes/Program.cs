@@ -487,14 +487,25 @@ foreach (var item in res)
 
 //31. Next Permutation
 
-
-int[] nums = [1, 2, 3];
-/*int[] nums = [3, 2, 1];
+/*int[] nums = [1, 2, 3];
+int[] nums = [3, 2, 1];
 int[] nums = [1, 1, 5];
 int[] nums = [1, 3, 2];
 int[] nums = [1, 4, 3, 2];
 int[] nums = [2, 5, 4, 3, 1];
 int[] nums = [1, 5, 8, 4, 7, 6, 5, 3, 1];
 int[] nums = [1, 2, 7, 4, 3, 1];*/
-int[] res = LeetCodeClass.NextPermutation2(nums);
+/*int[] res = LeetCodeClass.NextPermutation2(nums);
 Console.WriteLine(string.Join(", ", res));
+*/
+
+//32. Longest Valid Parentheses
+string s = "(()()((()))";
+//string s = ")()())";
+//string s = "())(";
+//string s = "())(())";
+//string s = "(())";
+//string s = "(()";
+//string s = "(()))(()";
+//string s = "()())()()(";
+Console.WriteLine(LeetCodeClass.LongestValidParentheses3(s));
