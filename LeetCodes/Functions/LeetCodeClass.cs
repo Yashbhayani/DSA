@@ -2658,6 +2658,164 @@ namespace LeetCodes.Functions
             return maxLen;
         }
 
+        public static int Search(int[] nums, int target)
+        {
+            int l = 0;
+            int r = nums.Length - 1;
+
+            while (l <= r)
+            {
+                int m = l + (r - l) / 2;
+
+                if (nums[m] == target)
+                    return m;
+
+                if (nums[l] <= nums[m])
+                {
+                    if (nums[l] <= target && target < nums[m])
+                        r = m - 1;
+                    else
+                        l = m + 1;
+                }
+                else
+                {
+                    if (nums[m] < target && target <= nums[r])
+                        l = m + 1;
+                    else
+                        r = m - 1;
+                }
+            }
+
+            return -1;
+        }
+        public static int Search2(int[] nums, int target)
+        {
+            int i = Array.IndexOf(nums, target);
+            return i >= 0 ? i : -1;
+        }
+
+        public static int Search3(int[] nums, int target)
+        {
+
+            int i = 0;
+            int j = nums.Length - 1;
+            int k = 0;
+            while (i <= j)
+            {
+                if (nums[i] == target)
+                    return i;
+
+                if (nums[j] == target)
+                    return j;
+
+                if (nums[j] < target && nums[i] > target) return -1;
+
+                if (nums[j] > target)
+                {
+                    j--;
+                    continue;
+                }
+
+                if (nums[i] < target)
+                {
+                    i++;
+                }
+            }
+
+            return -1;
+        }
+
+        public static int Search4(int[] nums, int target)
+        {
+            var left = 0;
+            var right = nums.Length - 1;
+            var min = nums[0];
+            var deflectionIndex = 0;
+
+            while (left <= right)
+            {
+                if (nums[left] < nums[right])
+                {
+                    if (nums[left] < min)
+                    {
+                        min = nums[left];
+                        deflectionIndex = left;
+                    }
+                    break;
+                }
+
+                var curr = (left + right) / 2;
+                if (nums[curr] < min)
+                {
+                    min = nums[curr];
+                    deflectionIndex = curr;
+                }
+
+                if (nums[curr] >= nums[left])
+                {
+                    left = curr + 1;
+                }
+                else
+                {
+                    right = curr - 1;
+                }
+            }
+            var firstArrayResult = SearchArray(nums[..deflectionIndex], target);
+            if (firstArrayResult != -1) return firstArrayResult;
+            var secondArrayResult = SearchArray(nums[deflectionIndex..], target);
+            if (secondArrayResult != -1) return secondArrayResult + deflectionIndex;
+            return -1;
+        }
+
+        private static int SearchArray(int[] nums, int target)
+        {
+            var left = 0;
+            var right = nums.Length - 1;
+
+            while (left <= right)
+            {
+                var curr = (left + right) / 2;
+
+                if (nums[curr] == target)
+                {
+                    return curr;
+                }
+                if (nums[curr] > target)
+                {
+                    right = curr - 1;
+                }
+                else
+                {
+                    left = curr + 1;
+                }
+            }
+            return -1;
+        }
+
+        public static int[] searchRange(int[] nums, int target)
+        {
+            int l = firstGreaterEqual(nums, target);
+            if (l == nums.Length || nums[l] != target)
+                return new int[] { -1, -1 };
+            int r = firstGreaterEqual(nums, target + 1) - 1;
+            return new int[] { l, r };
+        }
+
+        private static int firstGreaterEqual(int[] arr, int target)
+        {
+            int l = 0;
+            int r = arr.Length;
+            while (l < r)
+            {
+                int m = (l + r) / 2;
+                if (arr[m] >= target)
+                    r = m;
+                else
+                    l = m + 1;
+            }
+            return l;
+        }
+
     }
 }
 

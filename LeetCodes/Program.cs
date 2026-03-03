@@ -500,12 +500,33 @@ Console.WriteLine(string.Join(", ", res));
 */
 
 //32. Longest Valid Parentheses
-string s = "(()()((()))";
+/*string s = "((())()(()";
+//string s = "(()()((()))";
+//s = ")()())()()(";
+//s = ")()())";
 //string s = ")()())";
 //string s = "())(";
 //string s = "())(())";
 //string s = "(())";
+//string s = "(((()";
 //string s = "(()";
 //string s = "(()))(()";
 //string s = "()())()()(";
-Console.WriteLine(LeetCodeClass.LongestValidParentheses3(s));
+Console.WriteLine(LeetCodeClass.LongestValidParentheses(s));*/
+
+
+//33. Search in Rotated Sorted Array
+/*int[] nums = [4, 5, 6, 7, 0, 1, 2];
+int target = 6;
+Console.WriteLine(LeetCodeClass.Search3(nums, target));*/
+
+
+//34. Find First and Last Position of Element in Sorted Array
+
+int[] nums = [5, 7, 7, 8, 8, 10];
+int target = 8;
+int[] res = LeetCodeClass.searchRange(nums, target);
+foreach (var item in res)
+{
+    Console.Write(string.Join(",", item));
+}
