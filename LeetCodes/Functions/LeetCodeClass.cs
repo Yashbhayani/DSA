@@ -2816,6 +2816,49 @@ namespace LeetCodes.Functions
             return l;
         }
 
+        public static int[] SearchRange2(int[] nums, int target)
+        {
+            int FI = Array.IndexOf(nums, target);
+            int LI = Array.LastIndexOf(nums, target);
+            return new int[] { FI, LI };
+        }
+
+        public static int[] SearchRange3(int[] nums, int target)
+        {
+            int FI = -1;
+            int LI = -1;
+            for (int i = 0; i<nums.Length; i++)
+            {
+                if (nums[i] != target)
+                    continue;
+
+                if (FI == -1)
+                    FI = i;
+
+                if (nums[i] == target)
+                    LI = i;
+             }
+            return new int[] { FI, LI };
+        }
+
+        public static int[] SearchRange4(int[] nums, int target)
+        {
+            int FI = -1;
+            int LI = -1;
+            for (int i = 0; nums[i] <= target; i++)
+            {
+                if (nums[i] != target)
+                    continue;
+
+                if (FI == -1)
+                    FI = i;
+
+                if (nums[i] == target)
+                    LI = i;
+            }
+            return new int[] { FI, LI };
+        }
+
     }
 }
 

@@ -525,7 +525,7 @@ Console.WriteLine(LeetCodeClass.Search3(nums, target));*/
 
 int[] nums = [5, 7, 7, 8, 8, 10];
 int target = 8;
-int[] res = LeetCodeClass.searchRange(nums, target);
+int[] res = LeetCodeClass.SearchRange4(nums, target);
 foreach (var item in res)
 {
     Console.Write(string.Join(",", item));
