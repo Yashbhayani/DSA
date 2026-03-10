@@ -523,10 +523,62 @@ Console.WriteLine(LeetCodeClass.Search3(nums, target));*/
 
 //34. Find First and Last Position of Element in Sorted Array
 
-int[] nums = [5, 7, 7, 8, 8, 10];
+/*int[] nums = [5, 7, 7, 8, 8, 10];
 int target = 8;
 int[] res = LeetCodeClass.SearchRange4(nums, target);
 foreach (var item in res)
 {
     Console.Write(string.Join(",", item));
-}
+}*/
+
+//35. Search Insert Position
+int[] nums = [1, 3, 5, 6]; int target = 7;
+Console.WriteLine(LeetCodeClass.SearchInsert4(nums, target));
+
+
+
+// 36.Valid Sudoku
+char[][] board =
+{
+    new char[] {'5','3','.','.','7','.','.','.','.'},
+    new char[] {'6','.','.','1','9','5','.','.','.'},
+    new char[] {'.','9','8','.','.','.','.','6','.'},
+    new char[] {'8','.','.','.','6','.','.','.','3'},
+    new char[] {'4','.','.','8','.','3','.','.','1'},
+    new char[] {'7','.','.','.','2','.','.','.','6'},
+    new char[] {'.','6','.','.','.','.','2','8','.'},
+    new char[] {'.','.','.','4','1','9','.','.','5'},
+    new char[] {'.','.','.','.','8','.','.','7','9'}
+};
+
+char[][] board1 =
+{
+    new char[] {'5','3','.','.','7','.','.','.','.'},
+    new char[] {'6','.','.','1','9','5','.','.','.'},
+    new char[] {'5','9','8','.','.','.','.','6','.'}, // duplicate 5 in column
+    new char[] {'8','.','.','.','6','.','.','.','3'},
+    new char[] {'4','.','.','8','.','3','.','.','1'},
+    new char[] {'7','.','.','.','2','.','.','.','6'},
+    new char[] {'.','6','.','.','.','.','2','8','.'},
+    new char[] {'.','.','.','4','1','9','.','.','5'},
+    new char[] {'.','.','.','.','8','.','.','7','9'}
+};
+
+char[][] board2 =
+{
+    new char[] {'5','3','.','.','7','.','.','.','.'},
+    new char[] {'6','5','.','1','9','5','.','.','.'}, // duplicate 5 in box
+    new char[] {'.','9','8','.','.','.','.','6','.'},
+    new char[] {'8','.','.','.','6','.','.','.','3'},
+    new char[] {'4','.','.','8','.','3','.','.','1'},
+    new char[] {'7','.','.','.','2','.','.','.','6'},
+    new char[] {'.','6','.','.','.','.','2','8','.'},
+    new char[] {'.','.','.','4','1','9','.','.','5'},
+    new char[] {'.','.','.','.','8','.','.','7','9'}
+};
+
+/*Console.WriteLine(LeetCodeClass.IsValidSudoku4(board));
+Console.WriteLine(LeetCodeClass.IsValidSudoku4(board1));
+Console.WriteLine(LeetCodeClass.IsValidSudoku4(board2));*/
+
+

@@ -2827,7 +2827,7 @@ namespace LeetCodes.Functions
         {
             int FI = -1;
             int LI = -1;
-            for (int i = 0; i<nums.Length; i++)
+            for (int i = 0; i < nums.Length; i++)
             {
                 if (nums[i] != target)
                     continue;
@@ -2837,7 +2837,7 @@ namespace LeetCodes.Functions
 
                 if (nums[i] == target)
                     LI = i;
-             }
+            }
             return new int[] { FI, LI };
         }
 
@@ -2857,6 +2857,238 @@ namespace LeetCodes.Functions
                     LI = i;
             }
             return new int[] { FI, LI };
+        }
+        public static int SearchInsert(int[] nums, int target)
+        {
+            int l = 0;
+            int r = nums.Length;
+
+            while (l < r)
+            {
+                int m = (l + r) / 2;
+                if (nums[m] == target)
+                    return m;
+                if (nums[m] < target)
+                    l = m + 1;
+                else
+                    r = m;
+            }
+
+            return l;
+        }
+
+        public static int SearchInsert2(int[] nums, int target)
+        {
+            int v = -1;
+            for (int i = 0; nums[i] < target + 1; i++)
+            {
+                if (nums[i] != target)
+                    continue;
+
+                if (nums[i] > target)
+                    v = i;
+            }
+            return v;
+        }
+
+
+        public static int SearchInsert3(int[] nums, int target)
+        {
+            int v = 0;
+            int N = nums.Length;
+            for (int i = 0; i < N - 1; i++)
+            {
+                if ((nums[i] < target && nums[i + 1] >= target) || (i + 1 == N - 1 && nums[i + 1] < target))
+                {
+                    v = (i + 1 == N - 1 && target > nums[i + 1] ? N : i + 1);
+                    break;
+                }
+            }
+            return v;
+        }
+
+
+        public static int SearchInsert4(int[] nums, int target)
+        {
+            int r = 0;
+            int k = nums.Length;
+
+            while (r < k)
+            {
+                int m = r + (k - r) / 2;
+
+                if (nums[m] == target)
+                    return m;
+
+                int rMi = target - nums[r];
+                int mMi = target - nums[m];
+
+                if (rMi >= 0 && mMi >= 0)
+                {
+                    int Di = Math.Min(rMi, mMi);
+
+                    if (mMi == Di)
+                    {
+                        r = m + 1;
+                    }
+                    else
+                    {
+                        k = m;
+                    }
+                    continue;
+                }
+
+                if (mMi < 0)
+                {
+                    k = m;
+                }
+                else
+                {
+                    r = m + 1;
+                }
+            }
+
+            return r;
+        }
+        public static int SearchInsert5(int[] nums, int target)
+        {
+            int l = 0;
+            int r = nums.Length - 1;
+
+            while (l <= r)
+            {
+                int m = l + (r - l) / 2;
+
+                if (nums[m] == target)
+                    return m;
+
+                if (nums[m] < target)
+                    l = m + 1;
+                else
+                    r = m - 1;
+            }
+
+            return l;
+        }
+
+        public static bool IsValidSudoku(char[][] board)
+        {
+            HashSet<string> seen = new HashSet<string>();
+
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (board[i][j] == '.')
+                        continue;
+
+                    char c = board[i][j];
+
+                    if (!seen.Add(c + "@row" + i) ||
+                        !seen.Add(c + "@col" + j) ||
+                        !seen.Add(c + "@box" + (i / 3) + (j / 3)))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool IsValidSudoku2(char[][] board)
+        {
+            int[] rows = new int[9];
+            int[] cols = new int[9];
+            int[] boxes = new int[9];
+
+            for (int r = 0; r < 9; r++)
+            {
+                for (int c = 0; c < 9; c++)
+                {
+                    char val = board[r][c];
+
+                    if (val == '.') continue;
+
+                    int bit = 1 << (val - '0');
+                    int boxIdx = (r / 3) * 3 + (c / 3);
+
+                    if ((rows[r] & bit) != 0 ||
+                        (cols[c] & bit) != 0 ||
+                        (boxes[boxIdx] & bit) != 0)
+                    {
+                        return false;
+                    }
+
+                    rows[r] |= bit;
+                    cols[c] |= bit;
+                    boxes[boxIdx] |= bit;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool IsValidSudoku3(char[][] board)
+        {
+            bool[,] rows = new bool[9, 9];
+            bool[,] cols = new bool[9, 9];
+            bool[,] boxes = new bool[9, 9];
+
+            for (int r = 0; r < 9; r++)
+            {
+                for (int c = 0; c < 9; c++)
+                {
+                    if (board[r][c] == '.') continue;
+
+                    int num = board[r][c] - '1';
+
+                    int boxIdx = (r / 3) * 3 + (c / 3);
+
+                    if (rows[r, num] || cols[c, num] || boxes[boxIdx, num])
+                    {
+                        return false;
+                    }
+
+                    rows[r, num] = true;
+                    cols[c, num] = true;
+                    boxes[boxIdx, num] = true;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool IsValidSudoku4(char[][] board)
+        {
+            List<HashSet<char>> row = new List<HashSet<char>>();
+            List<HashSet<char>> col = new List<HashSet<char>>();
+            List<HashSet<char>> box = new List<HashSet<char>>();
+
+            for (int i = 0; i < 9; i++)
+            {
+                row.Add(new HashSet<char>());
+                col.Add(new HashSet<char>());
+                box.Add(new HashSet<char>());
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    char val = board[i][j];
+
+                    if (val == '.') continue;
+
+                    HashSet<char> ro = row[i];
+                    HashSet<char> co = col[j];
+                    HashSet<char> bo = box[(i / 3) * 3 + (j / 3)];
+
+                    if (!ro.Add(val)) return false;
+                    if (!co.Add(val)) return false;
+                    if (!bo.Add(val)) return false;
+                }
+            }
+
+            return true;
         }
 
     }
