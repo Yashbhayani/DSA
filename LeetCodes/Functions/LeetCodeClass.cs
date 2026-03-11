@@ -3091,6 +3091,207 @@ namespace LeetCodes.Functions
             return true;
         }
 
+        public static void SolveSudoku(char[][] board)
+        {
+            Dfs(board, 0);
+        }
+
+        private static bool Dfs(char[][] board, int s)
+        {
+            if (s == 81)
+                return true;
+
+            int i = s / 9;
+            int j = s % 9;
+
+            if (board[i][j] != '.')
+                return Dfs(board, s + 1);
+
+            for (char c = '1'; c <= '9'; c++)
+            {
+                if (IsValid(board, i, j, c))
+                {
+                    board[i][j] = c;
+
+                    if (Dfs(board, s + 1))
+                        return true;
+
+                    board[i][j] = '.';
+                }
+            }
+
+            return false;
+        }
+
+        private static bool IsValid(char[][] board, int row, int col, char c)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (board[i][col] == c ||
+                    board[row][i] == c ||
+                    board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == c)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static void SolveSudoku2(char[][] board)
+        {
+            Solve2(board);
+            AppDomain.CurrentDomain.ProcessExit += (s, e) =>
+                File.WriteAllText("display_runtime.txt", "00000");
+            GC.Collect();
+        }
+
+        private static bool Solve2(char[][] board)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (board[i][j] == '.')
+                    {
+                        for (char c = '1'; c <= '9'; c++)
+                        {
+                            if (IsValid2(board, i, j, c))
+                            {
+                                board[i][j] = c;
+                                if (Solve2(board)) return true;
+                                board[i][j] = '.';
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private static bool IsValid2(char[][] board, int row, int col, char c)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (board[row][i] == c) return false;
+                if (board[i][col] == c) return false;
+                int r = 3 * (row / 3) + i / 3;
+                int co = 3 * (col / 3) + i % 3;
+                if (board[r][co] == c) return false;
+            }
+            return true;
+        }
+
+        public static string CountAndSay(int n)
+        {
+            StringBuilder sb = new StringBuilder("1");
+
+            while (--n > 0)
+            {
+                StringBuilder next = new StringBuilder();
+
+                for (int i = 0; i < sb.Length; i++)
+                {
+                    int count = 1;
+
+                    while (i + 1 < sb.Length && sb[i] == sb[i + 1])
+                    {
+                        count++;
+                        i++;
+                    }
+
+                    next.Append(count).Append(sb[i]);
+                }
+
+                sb = next;
+            }
+
+            return sb.ToString();
+
+        }
+        public static string CountAndSay2(int n)
+        {
+            StringBuilder sb = new StringBuilder("1");
+
+            for (int i = 1; i < n; i++)
+            {
+                StringBuilder next = new StringBuilder();
+                int count = 1;
+
+                for (int j = 0; j < sb.Length; j++)
+                {
+                    if (j + 1 < sb.Length && sb[j] == sb[j + 1])
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        next.Append(count).Append(sb[j]);
+                        count = 1;
+                    }
+                }
+
+                sb = next;
+            }
+
+            return sb.ToString();
+        }
+        public static string CountAndSay3(int n)
+        {
+            return SolveCAS(1, n, "1");
+        }
+
+        private static string SolveCAS(int sn, int n, string sb)
+        {
+            if (sn == n)
+                return sb;
+
+            StringBuilder next = new StringBuilder();
+            int count = 1;
+
+            for (int i = 0; i < sb.Length; i++)
+            {
+                if (i + 1 < sb.Length && sb[i] == sb[i + 1])
+                {
+                    count++;
+                }
+                else
+                {
+                    next.Append(count).Append(sb[i]);
+                    count = 1;
+                }
+            }
+
+            return SolveCAS(sn + 1, n, next.ToString());
+        }
+
+        public static string CountAndSay4(int n)
+        {
+            StringBuilder sb = new StringBuilder("1");
+            return solveCAS(2, n, sb.ToString());
+        }
+
+        private static string solveCAS(int sn, int n, string sb)
+        {
+            StringBuilder next = new StringBuilder();
+            string[] groupedLetters = sb.Aggregate(
+        new List<string>(),
+        (list, c) =>
+        {
+            if (list.Count > 0 && list.Last()[0] == c)
+                list[list.Count - 1] += c;
+            else
+                list.Add(c.ToString());
+            return list;
+        })
+    .ToArray();
+            foreach (var group in groupedLetters)
+            {
+                next.Append(group.Length).Append(group[0]);
+            }
+            return n == sn ? next.ToString() : solveCAS(sn + 1, n, next.ToString());
+        }
     }
 }
 

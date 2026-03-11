@@ -532,8 +532,8 @@ foreach (var item in res)
 }*/
 
 //35. Search Insert Position
-int[] nums = [1, 3, 5, 6]; int target = 7;
-Console.WriteLine(LeetCodeClass.SearchInsert4(nums, target));
+/*int[] nums = [1, 3, 5, 6]; int target = 7;
+Console.WriteLine(LeetCodeClass.SearchInsert4(nums, target));*/
 
 
 
@@ -582,3 +582,14 @@ Console.WriteLine(LeetCodeClass.IsValidSudoku4(board1));
 Console.WriteLine(LeetCodeClass.IsValidSudoku4(board2));*/
 
 
+//37. Sudoku Solver
+
+/*LeetCodeClass.SolveSudoku(board);
+
+for (int i = 0; i < 9; i++)
+{
+    Console.WriteLine(string.Join(" ", board[i]));
+}*/
+
+//38. Count and Say
+Console.WriteLine(LeetCodeClass.CountAndSay4(5));
