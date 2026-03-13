@@ -3718,36 +3718,19 @@ namespace LeetCodes.Functions
             for (int i = 0; i < nums.Length; i++)
             {
                 if (nums[i] <= 0 || nums[i] > nums.Length + 1)
-                {
                     nums[i] = nums.Length + 1;
-                }
-            }
-
-
-            /*for (int i = 0; i < nums.Length;)
-            {
-                if (nums[i] > 0 && nums[i] <= nums.Length)
-                {
-                    if (nums[nums[i] - 1] != nums[i])
-                    {
-                        int val = nums[nums[i] - 1];
-                        int index = nums[i] - 1;
-                        nums[index] = nums[i];
-                        nums[i] = val;
-                    }
-                    else
-                    {
-                        i++;
-                    }
-                }
-                else
-                {
-                    i++;
-                }
             }
 
             for (int i = 0; i < nums.Length; i++)
-                if (nums[i] != i + 1) return i + 1;*/
+            {
+                int e = Math.Abs(nums[i]);
+                if (e == nums.Length + 1) continue;
+                if (nums[e - 1] > 0)
+                    nums[e - 1] = -nums[e - 1];
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+                if (nums[i] > 0) return i + 1;
 
             return nums.Length + 1;
         }
