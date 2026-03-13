@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -3284,13 +3285,471 @@ namespace LeetCodes.Functions
             else
                 list.Add(c.ToString());
             return list;
-        })
-    .ToArray();
+        }).ToArray();
             foreach (var group in groupedLetters)
             {
                 next.Append(group.Length).Append(group[0]);
             }
             return n == sn ? next.ToString() : solveCAS(sn + 1, n, next.ToString());
+        }
+
+        public static IList<IList<int>> CombinationSum(int[] candidates, int target)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            Array.Sort(candidates);
+
+            DFS(candidates, 0, target, new List<int>(), ans);
+
+            return ans;
+        }
+
+        private static void DFS(int[] candidates, int s, int target, List<int> path, IList<IList<int>> ans)
+        {
+            if (target < 0)
+                return;
+
+            if (target == 0)
+            {
+                ans.Add(new List<int>(path));
+                return;
+            }
+
+            for (int i = s; i < candidates.Length; i++)
+            {
+                path.Add(candidates[i]);
+                DFS(candidates, i, target - candidates[i], path, ans);
+                path.RemoveAt(path.Count - 1);
+            }
+        }
+
+        public static IList<IList<int>> CombinationSum2(int[] candidates, int target)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            Array.Sort(candidates);
+
+            var stack = new Stack<(List<int> varList, int startVal, int sumVal)>();
+            stack.Push(new(new List<int>(), 0, 0));
+            while (stack.Count > 0)
+            {
+                var (varL, startV, sumV) = stack.Pop();
+
+                if (sumV == target)
+                {
+                    ans.Add(varL);
+                    continue;
+                }
+
+                for (int i = startV; i < candidates.Length; i++)
+                {
+                    int newSum = sumV + candidates[i];
+
+                    if (newSum <= target)
+                    {
+                        var newCom = new List<int>(varL);
+                        newCom.Add(candidates[i]);
+                        stack.Push(new(newCom, i, newSum));
+                    }
+                }
+            }
+
+            return ans;
+        }
+
+        public static IList<IList<int>> CombinationSum3(int[] candidates, int target)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            Array.Sort(candidates);
+
+            var ques = new Queue<(List<int> varList, int startVal, int sumVal)>();
+            ques.Enqueue(new(new List<int>(), 0, 0));
+            while (ques.Count > 0)
+            {
+                var (varL, startV, sumV) = ques.Dequeue();
+
+                if (sumV == target)
+                {
+                    ans.Add(varL);
+                    continue;
+                }
+
+                for (int i = startV; i < candidates.Length; i++)
+                {
+                    int newSum = sumV + candidates[i];
+
+                    if (newSum <= target)
+                    {
+                        var newCom = new List<int>(varL);
+                        newCom.Add(candidates[i]);
+                        ques.Enqueue(new(newCom, i, newSum));
+                    }
+                }
+            }
+
+            return ans;
+        }
+
+        public static IList<IList<int>> CombinationSum5(int[] candidates, int target)
+        {
+            var result = new List<IList<int>>();
+            Backtrack(0, target, new List<int>());
+            return result;
+
+            void Backtrack(int index, int target, List<int> path)
+            {
+                if (target == 0)
+                {
+                    result.Add(new List<int>(path));
+                    return;
+                }
+                if (index >= candidates.Length || target < 0)
+                {
+                    return;
+                }
+                path.Add(candidates[index]);
+                Backtrack(index, target - candidates[index], path);
+                path.RemoveAt(path.Count - 1);
+                Backtrack(index + 1, target, path);
+
+            }
+        }
+
+        public static IList<IList<int>> CombinationSums2(int[] candidates, int target)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            Array.Sort(candidates);
+
+            DFS2(candidates, 0, target, new List<int>(), ans);
+
+            return ans;
+        }
+
+        private static void DFS2(int[] candidates, int s, int target, List<int> path, IList<IList<int>> ans)
+        {
+            if (target < 0)
+                return;
+
+            if (target == 0)
+            {
+                ans.Add(new List<int>(path));
+                return;
+            }
+
+            for (int i = s; i < candidates.Length; i++)
+            {
+                if (i > s && candidates[i] == candidates[i - 1])
+                    continue;
+
+                path.Add(candidates[i]);
+
+                DFS2(candidates, i + 1, target - candidates[i], path, ans);
+
+                path.RemoveAt(path.Count - 1);
+            }
+        }
+        public static IList<IList<int>> CombinationSums22(int[] candidates, int target)
+        {
+            var result = new List<IList<int>>();
+            Array.Sort(candidates);
+            Backtrack(0, target, new List<int>());
+            return result;
+
+            void Backtrack(int index, int target, List<int> path)
+            {
+                if (target == 0)
+                {
+                    result.Add(new List<int>(path));
+                    return;
+                }
+                if (index >= candidates.Length || target < 0)
+                {
+                    return;
+                }
+                path.Add(candidates[index]);
+                Backtrack(index + 1, target - candidates[index], path);
+                path.RemoveAt(path.Count - 1);
+                int next = index + 1;
+                while (next < candidates.Length && candidates[next] == candidates[index])
+                    next++;
+                Backtrack(next, target, path);
+
+            }
+        }
+
+        public static IList<IList<int>> CombinationSum23(int[] candidates, int target)
+        {
+            Array.Sort(candidates);
+            List<IList<int>> result = new List<IList<int>>();
+            ConfigArray(result, new List<int>(), candidates, target, 0);
+            return result;
+        }
+
+        static void ConfigArray(List<IList<int>> result, List<int> temp
+        , int[] candidates, int remain, int start)
+        {
+            if (remain == 0)
+            {
+                result.Add(new List<int>(temp));
+                return;
+            }
+            if (remain < 0)
+                return;
+
+            for (int i = start; i < candidates.Length; i++)
+            {
+                int val = candidates[i];
+                if (val > remain)
+                    break;
+                if (i > start && val == candidates[i - 1])
+                    continue;
+                temp.Add(val);
+                ConfigArray(result, temp, candidates, remain - val, i + 1);
+                temp.RemoveAt(temp.Count - 1);
+            }
+        }
+        public static IList<IList<int>> CombinationSum24(int[] candidates, int target)
+        {
+            var result = new List<IList<int>>();
+            Array.Sort(candidates);
+            Backtrack(candidates, 0, target, new List<int>(), result);
+            return result;
+        }
+
+        public static void Backtrack(int[] candidates, int start, int target, List<int> path, List<IList<int>> result)
+        {
+            if (target == 0)
+            {
+                result.Add(new List<int>(path));
+                return;
+            }
+
+            var processed = new HashSet<int>();
+            for (int i = start; i < candidates.Length; i++)
+            {
+                if (candidates[i] > target)
+                    continue;
+
+                if (processed.Contains(candidates[i]))
+                {
+                    continue;
+                }
+                else
+                {
+                    processed.Add(candidates[i]);
+                }
+
+                path.Add(candidates[i]);
+                Backtrack(candidates, i + 1, target - candidates[i], path, result);
+                path.RemoveAt(path.Count - 1);
+            }
+        }
+
+        public static IList<IList<int>> CombinationSums25(int[] candidates, int target)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            Array.Sort(candidates);
+
+            DFS3(candidates, 0, target, new List<int>(), ans);
+
+            return ans;
+        }
+
+        private static void DFS3(int[] candidates, int s, int target, List<int> path, IList<IList<int>> ans)
+        {
+            if (target < path.Sum())
+                return;
+
+            if (target == path.Sum())
+            {
+                ans.Add(new List<int>(path));
+                return;
+            }
+
+            for (int i = s; i < candidates.Length; i++)
+            {
+                if (i > s && candidates[i] == candidates[i - 1])
+                    continue;
+
+                path.Add(candidates[i]);
+
+                DFS3(candidates, i + 1, target, path, ans);
+
+                path.RemoveAt(path.Count - 1);
+            }
+        }
+
+        public static int firstMissingPositive(int[] nums)
+        {
+            int n = nums.Length;
+
+            for (int i = 0; i < n; ++i)
+                while (nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i] - 1])
+                    swap(nums, i, nums[i] - 1);
+
+            for (int i = 0; i < n; ++i)
+                if (nums[i] != i + 1)
+                    return i + 1;
+
+            return n + 1;
+        }
+
+        private static void swap(int[] nums, int i, int j)
+        {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+
+        public static int firstMissingPositive2(int[] nums)
+        {
+            int i = 1;
+            HashSet<int> visited = nums.Distinct().ToHashSet();
+
+            while (nums.Length > i)
+            {
+                if (!visited.Contains(i))
+                    return i;
+                else
+                    i++;
+            }
+            return i;
+        }
+
+        public static int firstMissingPositive3(int[] nums)
+        {
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int val = nums[i] - 1;
+
+                if (nums[i] < nums.Length && nums[i] > 0 && nums[i] != nums[val])
+                {
+                    int newVal = nums[i];
+                    nums[i] = nums[val];
+                    nums[val] = newVal;
+                }
+                else { i++; }
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] != i + 1) return i + 1;
+            }
+
+            return nums.Length + 1;
+
+        }
+
+        public static int firstMissingPositive4(int[] nums)
+        {
+            int i = 1;
+            foreach (var item in nums)
+            {
+                if (!nums.Contains(i))
+                    return i;
+                else
+                    i++;
+            }
+            return i;
+        }
+        public static int firstMissingPositive5(int[] nums)
+        {
+            Array.Sort(nums); int j = 1;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] < j)
+                    continue;
+
+                if (nums[i] == j)
+                    j++;
+                else
+                    return j;
+            }
+            return j;
+        }
+
+        public static int firstMissingPositive6(int[] nums)
+        {
+            int[] newarr = new int[nums.Length + 1];
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] > 0 && nums[i] <= nums.Length)
+                    newarr[nums[i] - 1] = nums[i];
+            }
+
+            for (int i = 0; i < newarr.Length; i++)
+                if (newarr[i] == 0)
+                    return i + 1;
+
+
+            return nums.Length + 1;
+        }
+
+        public static int firstMissingPositive7(int[] nums)
+        {
+            for (int i = 0; i < nums.Length;)
+            {
+                if (nums[i] > 0 && nums[i] <= nums.Length)
+                {
+                    if (nums[nums[i] - 1] != nums[i])
+                    {
+                        int val = nums[nums[i] - 1];
+                        int index = nums[i] - 1;
+                        nums[index] = nums[i];
+                        nums[i] = val;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+                if (nums[i] != i + 1) return i + 1;
+
+            return nums.Length + 1;
+        }
+
+        public static int firstMissingPositive8(int[] nums)
+        {
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] <= 0 || nums[i] > nums.Length + 1)
+                {
+                    nums[i] = nums.Length + 1;
+                }
+            }
+
+
+            /*for (int i = 0; i < nums.Length;)
+            {
+                if (nums[i] > 0 && nums[i] <= nums.Length)
+                {
+                    if (nums[nums[i] - 1] != nums[i])
+                    {
+                        int val = nums[nums[i] - 1];
+                        int index = nums[i] - 1;
+                        nums[index] = nums[i];
+                        nums[i] = val;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+                if (nums[i] != i + 1) return i + 1;*/
+
+            return nums.Length + 1;
         }
     }
 }

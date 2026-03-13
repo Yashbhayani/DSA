@@ -592,4 +592,31 @@ for (int i = 0; i < 9; i++)
 }*/
 
 //38. Count and Say
-Console.WriteLine(LeetCodeClass.CountAndSay4(5));
+/*Console.WriteLine(LeetCodeClass.CountAndSay4(5));*/
+
+//39. Combination Sum
+
+/*int[] candidates = [2, 3, 6, 7];
+int target = 8;
+IList<IList<int>> res = LeetCodeClass.CombinationSum3(candidates, target);
+foreach (var item in res)
+{
+    Console.WriteLine("[" + string.Join(", ", item) + "]");
+}*/
+
+//40. Combination Sum II
+
+/*int[] candidates = [10, 1, 2, 7, 6, 1, 5];
+int target = 8;
+IList<IList<int>> res = LeetCodeClass.CombinationSums25(candidates, target);
+foreach (var item in res)
+{
+    Console.WriteLine("[" + string.Join(", ", item) + "]");
+}*/
+
+
+// 41. First Missing Positive
+
+//int[] nums = [3, 4, -1, 1];
+int[] nums = [2, 3, 0, 11, 1, -7, 3];
+Console.WriteLine(LeetCodeClass.firstMissingPositive8(nums));
