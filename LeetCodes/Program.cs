@@ -618,5 +618,14 @@ foreach (var item in res)
 // 41. First Missing Positive
 
 //int[] nums = [3, 4, -1, 1];
-int[] nums = [2, 3, 0, 11, 1, -7, 3];
-Console.WriteLine(LeetCodeClass.firstMissingPositive8(nums));
+/*int[] nums = [2, 3, 0, 11, 1, -7, 3];
+Console.WriteLine(LeetCodeClass.firstMissingPositive8(nums));*/
+
+//42. Trapping Rain Water
+/*int[] height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
+Console.WriteLine(LeetCodeClass.trap3(height));*/
+
+//43. Multiply Strings
+/*string num1 = "123", num2 = "456";
+Console.WriteLine(LeetCodeClass.multiply3(num1, num2));*/
+

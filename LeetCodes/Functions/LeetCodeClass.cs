@@ -3734,6 +3734,170 @@ namespace LeetCodes.Functions
 
             return nums.Length + 1;
         }
+
+        public static int trap(int[] height)
+        {
+            int n = height.Length;
+            int ans = 0;
+            int[] l = new int[n];
+            int[] r = new int[n];
+
+            for (int i = 0; i < n; ++i)
+                l[i] = i == 0 ? height[i] : Math.Max(height[i], l[i - 1]);
+
+            for (int i = n - 1; i >= 0; --i)
+                r[i] = i == n - 1 ? height[i] : Math.Max(height[i], r[i + 1]);
+
+            for (int i = 0; i < n; ++i)
+                ans += Math.Min(l[i], r[i]) - height[i];
+
+            return ans;
+        }
+
+        public static int trap2(int[] height)
+        {
+            int i = 0;
+            int[] val = new int[height.Length];
+            int MaxVal = 0, res = 0;
+            bool ct = true;
+            while ((i < height.Length && i > 0) || i >= 0)
+            {
+
+                if (i < height.Length && ct)
+                {
+                    MaxVal = i == 0 ? height[i] : Math.Max(height[i], MaxVal);
+                    val[i] = MaxVal;
+                    if (i != height.Length - 1)
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        ct = false;
+                    }
+                }
+
+                if (i >= 0 && !ct)
+                {
+                    MaxVal = i == height.Length - 1 ? height[i] : Math.Max(height[i], MaxVal);
+                    int Min = Math.Min(val[i], MaxVal);
+                    res += Min - height[i];
+                    i--;
+                }
+            }
+            return res;
+        }
+
+        public static int trap3(int[] arr)
+        {
+            int res = 0;
+
+            for (int i = 1; i < arr.Length - 1; i++)
+            {
+
+                int left = arr[i];
+                for (int j = 0; j < i; j++)
+                    left = Math.Max(left, arr[j]);
+
+                int right = arr[i];
+                for (int j = i + 1; j < arr.Length; j++)
+                    right = Math.Max(right, arr[j]);
+
+                res += Math.Min(left, right) - arr[i];
+            }
+
+            return res;
+        }
+
+        public static int trap4(int[] height)
+        {
+            int left = 0;
+            int right = height.Length - 1;
+
+            int leftMax = 0;
+            int rightMax = 0;
+
+            int water = 0;
+
+            while (left < right)
+            {
+                if (height[left] < height[right])
+                {
+                    if (height[left] > leftMax)
+                    {
+                        leftMax = height[left];
+                    }
+                    else
+                    {
+                        water += leftMax - height[left];
+                    }
+
+                    left++;
+                }
+                else
+                {
+                    if (height[right] > rightMax)
+                    {
+                        rightMax = height[right];
+                    }
+                    else
+                    {
+                        water += rightMax - height[right];
+                    }
+
+                    right--;
+                }
+            }
+
+            return water;
+        }
+
+        public static string multiply(string num1, string num2)
+        {
+            int m = num1.Length;
+            int n = num2.Length;
+
+            StringBuilder sb = new StringBuilder();
+            int[] pos = new int[m + n];
+
+            for (int i = m - 1; i >= 0; --i)
+                for (int j = n - 1; j >= 0; --j)
+                {
+                    int multiply = (num1[i] - '0') * (num2[j] - '0');
+                    int sum = multiply + pos[i + j + 1];
+                    pos[i + j] += sum / 10;
+                    pos[i + j + 1] = sum % 10;
+                }
+
+            foreach (var p in pos)
+            {
+                if (p > 0 || sb.Length > 0)
+                    sb.Append(p);
+            }
+
+            return sb.Length == 0 ? "0" : sb.ToString();
+        }
+
+        public static string multiply2(string num1, string num2)
+        {
+            return (int.Parse(num1) * int.Parse(num2)).ToString();
+        }
+
+        public static string multiply3(string num1, string num2)
+        {
+            int n1 = 0, n2 = 0;
+            for (int i = 0; i < num1.Length; i++)
+            {
+                n1 = (n1 + ((int)num1[i] - '0')) * 10;
+            }
+
+            for (int i = 0; i < num2.Length; i++)
+            {
+                n2 = (n2 + ((int)num2[i] - '0')) * 10;
+            }
+            return (n1 / 10 * n2 / 10).ToString();
+        }
+
     }
 }
 
