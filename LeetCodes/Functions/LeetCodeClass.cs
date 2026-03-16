@@ -14,6 +14,7 @@ using System.Runtime.Intrinsics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -3897,6 +3898,115 @@ namespace LeetCodes.Functions
             }
             return (n1 / 10 * n2 / 10).ToString();
         }
+
+        public static bool IsMatch(string s, string p)
+        {
+
+            return false;
+        }
+
+        public static int Jump(int[] nums)
+        {
+            int ans = 0;
+            int end = 0;
+            int farthest = 0;
+
+            for (int i = 0; i < nums.Length - 1; ++i)
+            {
+                farthest = Math.Max(farthest, i + nums[i]);
+                if (farthest >= nums.Length - 1)
+                {
+                    ++ans;
+                    break;
+                }
+                if (i == end)
+                {
+                    ++ans;
+                    end = farthest;
+                }
+            }
+
+            return ans;
+        }
+
+        public static int Jump2(int[] nums)
+        {
+            int ans = 0;
+            int end = 0;
+            int farthest = 0;
+
+            for (int i = 0; i < nums.Length - 1; ++i)
+            {
+                farthest = Math.Max(farthest, i + nums[i]);
+
+                if (i == end)
+                {
+                    ans++;
+                    end = farthest;
+                }
+            }
+
+            return ans;
+        }
+
+        public static IList<IList<int>> Permute(int[] nums)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            Dfs(nums, new bool[nums.Length], new List<int>(), ans);
+            return ans;
+        }
+
+        private static void Dfs(int[] nums, bool[] used, List<int> path, IList<IList<int>> ans)
+        {
+            if (path.Count == nums.Length)
+            {
+                ans.Add(new List<int>(path));
+                return;
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (used[i])
+                    continue;
+
+                used[i] = true;
+                path.Add(nums[i]);
+
+                Dfs(nums, used, path, ans);
+
+                path.RemoveAt(path.Count - 1);
+                used[i] = false;
+            }
+        }
+
+        public static IList<IList<int>> Permute2(int[] nums)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+
+            int[] revnum = nums.Reverse().ToArray();
+            ans.Add(new List<int>(nums));
+            while (!nums.SequenceEqual(revnum))
+            {
+                int index = nums.Length - 1;
+
+                while (index >= 1 && nums[index] <= nums[index - 1])
+                    index--;
+
+                int swap = nums.Length - 1;
+                while (swap >= index && nums[index - 1] >= nums[swap])
+                    swap--;
+
+                int temp = nums[swap];
+                nums[swap] = nums[index - 1];
+                nums[index - 1] = temp;
+
+                Array.Reverse(nums, index, nums.Length - index);
+
+                ans.Add(new List<int>(nums));
+            }
+            return ans;
+        }
+
 
     }
 }

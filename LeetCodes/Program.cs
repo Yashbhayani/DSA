@@ -629,3 +629,17 @@ Console.WriteLine(LeetCodeClass.trap3(height));*/
 /*string num1 = "123", num2 = "456";
 Console.WriteLine(LeetCodeClass.multiply3(num1, num2));*/
 
+//44. Wildcard Matching
+
+
+//45. Jump Game II
+/*int[] nums = [2, 3, 1, 1, 4];
+Console.WriteLine(LeetCodeClass.Jump2(nums));*/
+
+//46. Permutations
+int[] nums = [1, 2, 3];
+IList<IList<int>> val = LeetCodeClass.Permute2(nums);
+foreach (var item in val)
+{
+    Console.Write("[" + string.Join(", ", item) + "]");
+}
