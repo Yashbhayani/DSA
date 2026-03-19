@@ -4141,7 +4141,7 @@ namespace LeetCodes.Functions
 
         public static void Rotate3(int[][] matrix)
         {
-            for (int i = 0; i < matrix.Length / 2 + 1; i++)
+            for (int i = 0; i <= matrix.Length - 2; i++)
             {
                 for (int j = i + 1; j < matrix.Length; j++)
                 {
@@ -4164,8 +4164,7 @@ namespace LeetCodes.Functions
 
         public static void Rotate4(int[][] matrix)
         {
-            int n = matrix.Length / 2 + 1;
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i <= matrix.Length - 2; i++)
             {
                 for (int j = i + 1; j < matrix.Length; j++)
                 {
