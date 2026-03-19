@@ -4008,6 +4008,195 @@ namespace LeetCodes.Functions
         }
 
 
+        public static IList<IList<int>> PermuteUnique(int[] nums)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            PermuteUniqueDfs(nums, new bool[nums.Length], new List<int>(), ans);
+            return ans;
+        }
+
+        private static void PermuteUniqueDfs(int[] nums, bool[] used, List<int> path, IList<IList<int>> ans)
+        {
+            if (path.Count == nums.Length)
+            {
+                if (!ans.Contains(new List<int>(nums)))
+                {
+                    ans.Add(new List<int>(nums));
+                }
+                return;
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (used[i])
+                    continue;
+
+                used[i] = true;
+                path.Add(nums[i]);
+
+                Dfs(nums, used, path, ans);
+
+                path.RemoveAt(path.Count - 1);
+                used[i] = false;
+            }
+        }
+
+        public static IList<IList<int>> PermuteUnique2(int[] nums)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+
+            int[] revnum = nums.Reverse().ToArray();
+            ans.Add(new List<int>(nums));
+            while (!nums.SequenceEqual(revnum))
+            {
+                int index = nums.Length - 1;
+
+                while (index >= 1 && nums[index] <= nums[index - 1])
+                    index--;
+
+                int swap = nums.Length - 1;
+                while (swap >= index && nums[index - 1] >= nums[swap])
+                    swap--;
+
+                int temp = nums[swap];
+                nums[swap] = nums[index - 1];
+                nums[index - 1] = temp;
+
+                Array.Reverse(nums, index, nums.Length - index);
+
+                if (!ans.Contains(new List<int>(nums)))
+                {
+                    ans.Add(new List<int>(nums));
+                }
+            }
+            return ans;
+        }
+
+        public static IList<IList<int>> permuteUnique3(int[] nums)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            permuteUnique3Dfs(nums, new bool[nums.Length], new List<int>(), ans);
+            return ans;
+        }
+
+        private static void permuteUnique3Dfs(int[] nums, bool[] used, List<int> path, IList<IList<int>> ans)
+        {
+            if (path.Count == nums.Length)
+            {
+                ans.Add(new List<int>(path));
+                return;
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (used[i])
+                    continue;
+
+                if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1])
+                    continue;
+
+                used[i] = true;
+                path.Add(nums[i]);
+
+                Dfs(nums, used, path, ans);
+
+                path.RemoveAt(path.Count - 1);
+                used[i] = false;
+            }
+        }
+        public static void Rotate(int[][] matrix)
+        {
+            for (int i = 0, j = matrix.Length - 1; i < j; ++i, --j)
+            {
+                int[] temp = matrix[i];
+                matrix[i] = matrix[j];
+                matrix[j] = temp;
+            }
+
+            for (int i = 0; i < matrix.Length; ++i)
+                for (int j = i + 1; j < matrix.Length; ++j)
+                {
+                    int temp = matrix[i][j];
+                    matrix[i][j] = matrix[j][i];
+                    matrix[j][i] = temp;
+                }
+        }
+
+        public static void Rotate2(int[][] matrix)
+        {
+            for (int mn = 0; mn < matrix.Length / 2; ++mn)
+            {
+                int mx = matrix.Length - mn - 1;
+                for (int i = mn; i < mx; ++i)
+                {
+                    int offset = i - mn;
+                    int top = matrix[mn][i];
+                    matrix[mn][i] = matrix[mx - offset][mn];
+                    matrix[mx - offset][mn] = matrix[mx][mx - offset];
+                    matrix[mx][mx - offset] = matrix[i][mx];
+                    matrix[i][mx] = top;
+                }
+            }
+        }
+
+        public static void Rotate3(int[][] matrix)
+        {
+            for (int i = 0; i < matrix.Length / 2 + 1; i++)
+            {
+                for (int j = i + 1; j < matrix.Length; j++)
+                {
+                    int temp = matrix[i][j];
+                    matrix[i][j] = matrix[j][i];
+                    matrix[j][i] = temp;
+                }
+            }
+
+            foreach (int[] row in matrix)
+            {
+                Array.Reverse(row);
+            }
+
+            foreach (var item in matrix)
+            {
+                Console.Write("[" + string.Join(", ", item) + "]");
+            }
+        }
+
+        public static void Rotate4(int[][] matrix)
+        {
+            int n = matrix.Length / 2 + 1;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i + 1; j < matrix.Length; j++)
+                {
+                    int temp = matrix[i][j];
+                    matrix[i][j] = matrix[j][i];
+                    matrix[j][i] = temp;
+                }
+            }
+
+            foreach (int[] subArray in matrix)
+            {
+                int start = 0;
+                int end = subArray.Length - 1;
+
+                while (start < end)
+                {
+                    int temp = subArray[start];
+                    subArray[start] = subArray[end];
+                    subArray[end] = temp;
+
+                    start++;
+                    end--;
+                }
+            }
+
+            foreach (var item in matrix)
+            {
+                Console.Write("[" + string.Join(", ", item) + "]");
+            }
+        }
+
     }
 }
 

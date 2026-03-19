@@ -637,9 +637,23 @@ Console.WriteLine(LeetCodeClass.multiply3(num1, num2));*/
 Console.WriteLine(LeetCodeClass.Jump2(nums));*/
 
 //46. Permutations
-int[] nums = [1, 2, 3];
+/*int[] nums = [1, 2, 3];
 IList<IList<int>> val = LeetCodeClass.Permute2(nums);
 foreach (var item in val)
 {
     Console.Write("[" + string.Join(", ", item) + "]");
-}
+}*/
+
+
+//47. Permutations II
+/*int[] nums = [1, 1, 2];
+IList<IList<int>> val = LeetCodeClass.PermuteUnique(nums);
+foreach (var item in val)
+{
+    Console.Write("[" + string.Join(", ", item) + "]");
+}*/
+
+//48. Rotate Image
+//int[][] matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+int[][] matrix = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]];
+LeetCodeClass.Rotate4(matrix);
