@@ -656,5 +656,22 @@ foreach (var item in val)
 //48. Rotate Image
 //int[][] matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 //int[][] matrix = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]];
-int[][] matrix = [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]];
-LeetCodeClass.Rotate4(matrix);
+/*int[][] matrix = [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]];
+LeetCodeClass.Rotate4(matrix);*/
+
+
+//49. Group Anagrams
+/*string[] strs = ["eat", "tea", "tan", "ate", "nat", "bat"];
+IList<IList<string>> val = LeetCodeClass.GroupAnagrams(strs);
+foreach (var item in val)
+{
+    Console.Write("[" + string.Join(", ", item) + "]");
+}*/
+
+//50. Pow(x, n)
+/*double x = 2.00000; 
+long n = 10;*/
+/*double x = 2.00000; 
+long n = -2;
+Console.WriteLine(LeetCodeClass.myPow2(x,n));*/
+
