@@ -4233,11 +4233,12 @@ namespace LeetCodes.Functions
             double result = 1;
             if (n < 0)
             {
-                x = 1/x;
+                x = 1 / x;
                 n = -n;
             }
-            while (n > 0) {
-                if(n % 2 == 0)
+            while (n > 0)
+            {
+                if (n % 2 == 0)
                 {
                     x *= x;
                     n /= 2;
@@ -4253,7 +4254,7 @@ namespace LeetCodes.Functions
 
         public double MyPow3(double x, int n)
         {
-            long N = n; 
+            long N = n;
 
             if (N < 0)
             {
@@ -4273,6 +4274,134 @@ namespace LeetCodes.Functions
                 return x * FastPow(x, n - 1);
 
             return FastPow(x * x, n / 2);
+        }
+
+        public static IList<IList<string>> SolveNQueens(int n)
+        {
+            var ans = new List<IList<string>>();
+            char[][] board = new char[n][];
+
+            for (int i = 0; i < n; i++)
+            {
+                board[i] = new char[n];
+                Array.Fill(board[i], '.');
+            }
+
+            SolveNQueensDfs(n, 0, new bool[n], new bool[2 * n - 1], new bool[2 * n - 1], board, ans);
+            return ans;
+        }
+
+        private static void SolveNQueensDfs(int n, int i, bool[] cols, bool[] diag1, bool[] diag2,
+                         char[][] board, IList<IList<string>> ans)
+        {
+            if (i == n)
+            {
+                ans.Add(Construct(board));
+                return;
+            }
+
+            for (int j = 0; j < cols.Length; j++)
+            {
+                if (cols[j] || diag1[i + j] || diag2[j - i + n - 1])
+                    continue;
+
+                board[i][j] = 'Q';
+                cols[j] = diag1[i + j] = diag2[j - i + n - 1] = true;
+
+                SolveNQueensDfs(n, i + 1, cols, diag1, diag2, board, ans);
+
+                cols[j] = diag1[i + j] = diag2[j - i + n - 1] = false;
+                board[i][j] = '.';
+            }
+        }
+
+        private static IList<string> Construct(char[][] board)
+        {
+            var listBoard = new List<string>();
+
+            for (int i = 0; i < board.Length; i++)
+            {
+                listBoard.Add(new string(board[i]));
+            }
+
+            return listBoard;
+        }
+
+        public static IList<IList<string>> SolveNQueens2(int n)
+        {
+            var ans = new List<IList<string>>();
+            char[][] board = new char[n][];
+
+            for (int i = 0; i < n; i++)
+            {
+                board[i] = new char[n];
+                Array.Fill(board[i], '.');
+            }
+
+            AddNQueens2IsValid(board, n, 0, ans);
+
+            return ans;
+        }
+
+        private static void AddNQueens2IsValid(char[][] board, int n, int row, List<IList<string>> ans)
+        {
+            if (row == n)
+            {
+                List<string> solution = new List<string>();
+                for (int i = 0; i < n; i++)
+                    solution.Add(new string(board[i]));
+
+                ans.Add(solution);
+                return;
+            }
+
+            for (int j = 0; j < n; j++)
+            {
+                if (SolveNQueens3IsValid(board, n, row, j))
+                {
+                    board[row][j] = 'Q';
+                    AddNQueens2IsValid(board, n, row + 1, ans);
+                    board[row][j] = '.';
+                }
+            }
+        }
+
+        private static bool SolveNQueens2IsValid(char[][] board, int n, int i, int j)
+        {
+            for (int k = 0; k < i; k++)
+                if (board[k][j] == 'Q') return false;
+
+            for (int k = i - 1, l = j - 1; k >= 0 && l >= 0; k--, l--)
+                if (board[k][l] == 'Q') return false;
+
+            for (int k = i - 1, l = j + 1; k >= 0 && l < n; k--, l++)
+                if (board[k][l] == 'Q') return false;
+
+            return true;
+        }
+
+        private static bool SolveNQueens3IsValid(char[][] board, int n, int i, int j)
+        {
+            for (int k = 0; k < i; k++)
+            {
+                if (board[k][j] == 'Q') return false;
+            }
+
+            for (int k = 0; k < j; k++)
+            {
+                if (board[i][k] == 'Q') return false;
+            }
+
+            for (int k = i, l = j; k >= 0 && l < n; k--, l++)
+            {
+                if (board[k][l] == 'Q') return false;
+            }
+
+            for (int k = i - 1, l = j - 1; l >= 0 && k >= 0; k--, l--)
+            {
+                if (board[k][l] == 'Q') return false;
+            }
+            return true;
         }
     }
 }

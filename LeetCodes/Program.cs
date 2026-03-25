@@ -675,3 +675,9 @@ long n = 10;*/
 long n = -2;
 Console.WriteLine(LeetCodeClass.myPow2(x,n));*/
 
+IList<IList<string>> res = LeetCodeClass.SolveNQueens2(4);
+
+foreach (var item in res)
+{
+    Console.WriteLine("[" + string.Join(", ", item) + "]");
+}
