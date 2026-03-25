@@ -675,9 +675,19 @@ long n = 10;*/
 long n = -2;
 Console.WriteLine(LeetCodeClass.myPow2(x,n));*/
 
-IList<IList<string>> res = LeetCodeClass.SolveNQueens2(4);
+//51. N-Queens
+/*IList<IList<string>> res = LeetCodeClass.SolveNQueens2(4);
 
 foreach (var item in res)
 {
     Console.WriteLine("[" + string.Join(", ", item) + "]");
-}
+}*/
+
+//52. N-Queens II
+//Console.WriteLine(LeetCodeClass.TotalNQueens(4));
+
+//53. Maximum Subarray
+
+int[] nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+//int[] nums  = [5, 4, -1, 7, 8];
+Console.WriteLine(LeetCodeClass.MaxSubArray3(nums));

@@ -4403,6 +4403,93 @@ namespace LeetCodes.Functions
             }
             return true;
         }
+
+        public static int TotalNQueens(int n)
+        {
+            int count = 0;
+            char[][] board = new char[n][];
+
+            for (int i = 0; i < n; i++)
+            {
+                board[i] = new char[n];
+                Array.Fill(board[i], '.');
+            }
+
+            TotalNQueensDfs(n, 0, new bool[n], new bool[2 * n - 1], new bool[2 * n - 1], board, ref count);
+            return count;
+        }
+
+        private static void TotalNQueensDfs(int n, int i, bool[] cols, bool[] diag1, bool[] diag2,
+                         char[][] board, ref int count)
+        {
+            if (i == n)
+            {
+                count++;
+                return;
+            }
+
+            for (int j = 0; j < cols.Length; j++)
+            {
+                if (cols[j] || diag1[i + j] || diag2[j - i + n - 1])
+                    continue;
+
+                board[i][j] = 'Q';
+                cols[j] = diag1[i + j] = diag2[j - i + n - 1] = true;
+
+                TotalNQueensDfs(n, i + 1, cols, diag1, diag2, board, ref count);
+
+                cols[j] = diag1[i + j] = diag2[j - i + n - 1] = false;
+                board[i][j] = '.';
+            }
+        }
+        public static int MaxSubArray(int[] nums)
+        {
+            int max = 0;
+            int Cuursum = 0;
+
+            foreach (int item in nums)
+            {
+                if(max == 0 && Cuursum == 0)
+                {
+                    max = item;
+                    Cuursum = item;
+                    continue;
+                }
+                Cuursum = item > item + Cuursum ? item : item + Cuursum;
+                max = Cuursum > max ? Cuursum : max;
+            }
+            return max;
+        }
+
+        public static int MaxSubArray2(int[] nums)
+        {
+            int[] dp = new int[nums.Length];
+
+            dp[0] = nums[0];
+            for (int i = 1; i < nums.Length; ++i)
+                dp[i] = Math.Max(nums[i], dp[i - 1] + nums[i]);
+
+            return dp.Max();
+        }
+
+        public static int MaxSubArray3(int[] nums)
+        {
+            int max = 0;
+            int Cuursum = 0;
+
+            foreach (int item in nums)
+            {
+                if (max == 0 && Cuursum == 0)
+                {
+                    max = item;
+                    Cuursum = item;
+                    continue;
+                }
+                Cuursum = Math.Max(item + Cuursum , item);
+                max = Math.Max(Cuursum, max);
+            }
+            return max;
+        }
     }
 }
 
