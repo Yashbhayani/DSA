@@ -688,6 +688,16 @@ foreach (var item in res)
 
 //53. Maximum Subarray
 
-int[] nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+//int[] nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
 //int[] nums  = [5, 4, -1, 7, 8];
-Console.WriteLine(LeetCodeClass.MaxSubArray3(nums));
+//Console.WriteLine(LeetCodeClass.MaxSubArray3(nums));
+
+
+
+//54. Spiral Matrix
+int[][] matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+IList<int> res = LeetCodeClass.SpiralOrder2(matrix);
+foreach (var item in res)
+{
+    Console.Write(string.Join(", ", item));
+}

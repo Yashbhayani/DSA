@@ -4449,7 +4449,7 @@ namespace LeetCodes.Functions
 
             foreach (int item in nums)
             {
-                if(max == 0 && Cuursum == 0)
+                if (max == 0 && Cuursum == 0)
                 {
                     max = item;
                     Cuursum = item;
@@ -4485,10 +4485,92 @@ namespace LeetCodes.Functions
                     Cuursum = item;
                     continue;
                 }
-                Cuursum = Math.Max(item + Cuursum , item);
+                Cuursum = Math.Max(item + Cuursum, item);
                 max = Math.Max(Cuursum, max);
             }
             return max;
+        }
+
+        public static IList<int> SpiralOrder(int[][] matrix)
+        {
+            if (matrix.Length == 0)
+                return new List<int>();
+
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+            IList<int> ans = new List<int>();
+
+            int r1 = 0, c1 = 0;
+            int r2 = m - 1, c2 = n - 1;
+
+            while (ans.Count < m * n)
+            {
+                for (int j = c1; j <= c2 && ans.Count < m * n; j++)
+                    ans.Add(matrix[r1][j]);
+
+                for (int i = r1 + 1; i <= r2 - 1 && ans.Count < m * n; i++)
+                    ans.Add(matrix[i][c2]);
+
+                for (int j = c2; j >= c1 && ans.Count < m * n; j--)
+                    ans.Add(matrix[r2][j]);
+
+                for (int i = r2 - 1; i >= r1 + 1 && ans.Count < m * n; i--)
+                    ans.Add(matrix[i][c1]);
+
+                r1++;
+                c1++;
+                r2--;
+                c2--;
+            }
+
+            return ans;
+        }
+
+        public static IList<int> SpiralOrder2(int[][] matrix)
+        {
+            if (matrix.Length == 0)
+                return new List<int>();
+
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+            IList<int> ans = new List<int>();
+
+            int t = 0, l = 0;
+            int b = m - 1, r = n - 1;
+
+            while (ans.Count < m * n)
+            {
+                for (int i = t; i < n; i++)
+                {
+                    ans.Add(matrix[t][i]);
+                }
+                t++;
+
+                for (int i = t; i < b; i++)
+                {
+                    ans.Add(matrix[i][r]);
+                }
+                r--;
+
+                if (t <= b)
+                {
+                    for (int i = r; i >= l; i--)
+                    {
+                        ans.Add(matrix[b][i]);
+                    }
+                    b--;
+                }
+
+                if (l <= r)
+                {
+                    for (int i = b; i >= t; i--)
+                    {
+                        ans.Add(matrix[i][l]);
+                    }
+                    l++;
+                }
+            }
+            return ans;
         }
     }
 }
