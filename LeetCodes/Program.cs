@@ -695,9 +695,22 @@ foreach (var item in res)
 
 
 //54. Spiral Matrix
-int[][] matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+/*int[][] matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 IList<int> res = LeetCodeClass.SpiralOrder2(matrix);
 foreach (var item in res)
 {
     Console.Write(string.Join(", ", item));
+}*/
+
+
+//55. Jump Game
+/*int[] nums = [2, 3, 1, 1, 4];
+Console.WriteLine(LeetCodeClass.canJump(nums));*/
+
+//56. Merge Intervals
+int[][] intervals = [[1, 3], [2, 6], [8, 10], [15, 18]];
+intervals = LeetCodeClass.Merge2(intervals);
+foreach (var item in intervals)
+{
+    Console.WriteLine("[" + string.Join(", ", item) + "]");
 }

@@ -4572,6 +4572,65 @@ namespace LeetCodes.Functions
             }
             return ans;
         }
+
+        public static bool canJump(int[] nums)
+        {
+            int i = 0;
+
+            for (int reach = 0; i < nums.Length && i <= reach; ++i)
+                reach = Math.Max(reach, i + nums[i]);
+
+            return i == nums.Length;
+        }
+
+        public static int[][] Merge(int[][] intervals)
+        {
+            var ans = new List<int[]>();
+
+            Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
+
+            foreach (var interval in intervals)
+            {
+                if (ans.Count == 0 || ans[ans.Count - 1][1] < interval[0])
+                {
+                    ans.Add(interval);
+                }
+                else
+                {
+                    ans[ans.Count - 1][1] = Math.Max(ans[ans.Count - 1][1], interval[1]);
+                }
+            }
+
+            return ans.ToArray();
+        }
+
+        public static int[][] Merge2(int[][] intervals)
+        {
+            var ans = new List<int[]>();
+
+            Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
+
+            int c1 = intervals[0][0];
+            int c2 = intervals[0][1];
+
+            for (int i = 1; i < intervals.Length; i++)
+            {
+                if (c2 >= intervals[i][0] && i < intervals.Length)
+                {
+                    c2 = Math.Max(c2, intervals[i][1]);
+                }
+                else
+                {
+                    ans.Add(new int[] { c1, c2 });
+                    c1 = intervals[i][0];
+                    c2 = intervals[i][1];
+                }
+            }
+            ans.Add(new int[] { c1, c2 });
+
+            return ans.ToArray();
+        }
+
     }
 }
 
