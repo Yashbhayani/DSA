@@ -708,9 +708,30 @@ foreach (var item in res)
 Console.WriteLine(LeetCodeClass.canJump(nums));*/
 
 //56. Merge Intervals
-int[][] intervals = [[1, 3], [2, 6], [8, 10], [15, 18]];
+/*int[][] intervals = [[1, 3], [2, 6], [8, 10], [15, 18]];
 intervals = LeetCodeClass.Merge2(intervals);
 foreach (var item in intervals)
 {
     Console.WriteLine("[" + string.Join(", ", item) + "]");
+}*/
+
+
+//57. Insert Interval
+/*int[][] intervals = [[1, 3], [6, 9]];int[] newInterval = [2, 5];
+intervals = LeetCodeClass.Insert3(intervals, newInterval);
+foreach (var item in intervals)
+{
+    Console.WriteLine("[" + string.Join(", ", item) + "]");
+}*/
+
+//59. Spiral Matrix II
+/*int[][] intervals = LeetCodeClass.GenerateMatrix(4);
+foreach (var item in intervals)
+{
+    Console.WriteLine("[" + string.Join(", ", item) + "]");
 }
+*/
+
+
+//60. Permutation Sequence
+Console.WriteLine(LeetCodeClass.GetPermutation2(3,3));

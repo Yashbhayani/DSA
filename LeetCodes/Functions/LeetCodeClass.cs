@@ -4615,7 +4615,7 @@ namespace LeetCodes.Functions
 
             for (int i = 1; i < intervals.Length; i++)
             {
-                if (c2 >= intervals[i][0] && i < intervals.Length)
+                if (c2 >= intervals[i][0])
                 {
                     c2 = Math.Max(c2, intervals[i][1]);
                 }
@@ -4631,6 +4631,267 @@ namespace LeetCodes.Functions
             return ans.ToArray();
         }
 
+        public static int[][] Insert(int[][] intervals, int[] newInterval)
+        {
+            int n = intervals.Length;
+            var ans = new List<int[]>();
+            int i = 0;
+
+            while (i < n && intervals[i][1] < newInterval[0])
+            {
+                ans.Add(intervals[i]);
+                i++;
+            }
+
+            while (i < n && intervals[i][0] <= newInterval[1])
+            {
+                newInterval[0] = Math.Min(newInterval[0], intervals[i][0]);
+                newInterval[1] = Math.Max(newInterval[1], intervals[i][1]);
+                i++;
+            }
+
+            ans.Add(newInterval);
+
+            while (i < n)
+            {
+                ans.Add(intervals[i]);
+                i++;
+            }
+
+            return ans.ToArray();
+        }
+
+        public static int[][] Insert2(int[][] intervals, int[] newInterval)
+        {
+            var list = intervals.ToList();
+            list.Add(newInterval);
+
+            intervals = list.ToArray();
+
+            Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
+
+            var ans = new List<int[]>();
+
+            int c1 = intervals[0][0];
+            int c2 = intervals[0][1];
+
+            for (int i = 1; i < intervals.Length; i++)
+            {
+                if (c2 >= intervals[i][0])
+                {
+                    c2 = Math.Max(c2, intervals[i][1]);
+                }
+                else
+                {
+                    ans.Add(new int[] { c1, c2 });
+                    c1 = intervals[i][0];
+                    c2 = intervals[i][1];
+                }
+            }
+
+            ans.Add(new int[] { c1, c2 });
+
+            return ans.ToArray();
+        }
+
+        public static int[][] Insert3(int[][] intervals, int[] newInterval)
+        {
+            var ans = new List<int[]>();
+
+            Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
+
+            int c1 = intervals[0][0];
+            int c2 = intervals[0][1];
+
+            bool IsUsed = true;
+
+            for (int i = 1; i < intervals.Length; i++)
+            {
+                if (newInterval[0] > c2 && newInterval[1] <= intervals[i][0] && IsUsed)
+                {
+                    ans.Add(new int[] { c1, c2 });
+                    c1 = newInterval[0];
+                    c2 = newInterval[1];
+                    IsUsed = false;
+                    continue;
+                }
+
+                if (newInterval[0] <= c2 && IsUsed)
+                {
+                    c2 = Math.Max(c2, newInterval[1]);
+                    IsUsed = false;
+                    continue;
+                }
+
+                if (c2 >= intervals[i][0])
+                {
+                    c2 = Math.Max(c2, intervals[i][1]);
+                }
+                else
+                {
+                    ans.Add(new int[] { c1, c2 });
+                    c1 = intervals[i][0];
+                    c2 = intervals[i][1];
+                }
+            }
+
+            if (IsUsed)
+            {
+                if (newInterval[0] <= c2)
+                    c2 = Math.Max(c2, newInterval[1]);
+                else
+                {
+                    ans.Add(new int[] { c1, c2 });
+                    c1 = newInterval[0];
+                    c2 = newInterval[1];
+                }
+            }
+
+            ans.Add(new int[] { c1, c2 });
+
+            return ans.ToArray();
+        }
+
+        public static int[][] GenerateMatrix(int n)
+        {
+            int[][] ans = new int[n][];
+            for (int i = 0; i < n; i++)
+                ans[i] = new int[n];
+
+            int count = 1;
+
+            for (int mn = 0; mn < n / 2; ++mn)
+            {
+                int mx = n - mn - 1;
+
+                for (int i = mn; i < mx; ++i)
+                    ans[mn][i] = count++;
+
+                for (int i = mn; i < mx; ++i)
+                    ans[i][mx] = count++;
+
+                for (int i = mx; i > mn; --i)
+                    ans[mx][i] = count++;
+
+                for (int i = mx; i > mn; --i)
+                    ans[i][mn] = count++;
+            }
+
+            if (n % 2 == 1)
+                ans[n / 2][n / 2] = count;
+
+            return ans;
+        }
+
+        public static int[][] GenerateMatrix2(int n)
+        {
+            int[][] matrix = new int[n][];
+            for (int i = 0; i < n; i++)
+                matrix[i] = new int[n];
+
+            int top = 0, bottom = n - 1;
+            int left = 0, right = n - 1;
+
+            int num = 1;
+
+            while (num <= n * n)
+            {
+                for (int i = left; i <= right; i++)
+                    matrix[top][i] = num++;
+                top++;
+
+                for (int i = top; i <= bottom; i++)
+                    matrix[i][right] = num++;
+                right--;
+
+                for (int i = right; i >= left; i--)
+                    matrix[bottom][i] = num++;
+                bottom--;
+
+                for (int i = bottom; i >= top; i--)
+                    matrix[i][left] = num++;
+                left++;
+            }
+
+            return matrix;
+        }
+
+        public static string GetPermutation(int n, int k)
+        {
+            var sb = new System.Text.StringBuilder();
+            var nums = new List<int>();
+            int[] fact = new int[n + 1];
+
+            for (int i = 1; i <= n; ++i)
+                nums.Add(i);
+
+            for (int i = 0; i <= n; i++)
+                fact[i] = 1;
+
+            for (int i = 2; i <= n; ++i)
+                fact[i] = fact[i - 1] * i;
+
+            k--;
+
+            for (int i = n - 1; i >= 0; --i)
+            {
+                int j = k / fact[i];
+                k %= fact[i];
+
+                sb.Append(nums[j]);
+                nums.RemoveAt(j);
+            }
+
+            return sb.ToString();
+        }
+
+
+        public static string GetPermutation2(int n, int k)
+        {
+            int[] fact = new int[n];
+
+            for (int l = 0; l < n; l++)
+                fact[l] = l + 1;
+
+            while (k - 1 > 0)
+            {
+                int i = fact.Length - 1;
+                int MinPos = -1, MaxPos = -1;
+                while (i - 1 >= 0)
+                {
+                    if (fact[i] > fact[i - 1])
+                    {
+                        MinPos = i - 1;
+                        break;
+                    }
+                    i--;
+                }
+                i = fact.Length - 1;
+                while (i - 1 >= 0 && MinPos != -1)
+                {
+                    if (fact[MinPos] < fact[i])
+                    {
+                        MaxPos = i;
+                        break;
+                    }
+                    i--;
+                }
+
+                if (MinPos == MaxPos)
+                {
+                    Array.Sort(fact);
+                }
+                else
+                {
+                    int tempval = fact[MaxPos];
+                    fact[MaxPos] = fact[MinPos];
+                    fact[MinPos] = tempval;
+                    Array.Reverse(fact, MinPos + 1, fact.Length - (MinPos + 1));
+                }
+                k--;
+            }
+            return string.Join("", fact);
+        }
     }
 }
 
