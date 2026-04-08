@@ -4892,6 +4892,100 @@ namespace LeetCodes.Functions
             }
             return string.Join("", fact);
         }
+        public static string GetPermutation3(int n, int k)
+        {
+            string s = null, l = null;
+            for (int i = 0; i < n; i++)
+            {
+                l += (i + 1).ToString();
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                int o = GetFactorialRecursive(l.Length - 1);
+                int index = k / o;
+                s += l[index].ToString();
+                l = l.Remove(index, 1);
+                k %= o;
+            }
+
+            return s;
+        }
+
+        public static int GetFactorialRecursive(int n)
+        {
+            if (n == 0) return 1;
+            return n * GetFactorialRecursive(n - 1);
+        }
+
+        public static Node RotateRight(Node head, int k)
+        {
+            if (head == null || head.next == null || k == 0)
+                return head;
+
+            int length = 1;
+            Node tail = head;
+
+            while (tail.next != null)
+            {
+                tail = tail.next;
+                length++;
+            }
+
+            tail.next = head;
+
+            int t = length - (k % length);
+
+            for (int i = 0; i < t; i++)
+            {
+                tail = tail.next;
+            }
+
+            Node newHead = tail.next;
+            tail.next = null;
+
+            return newHead;
+        }
+
+        public static int UniquePaths2(int m, int n)
+        {
+            int[,] arr = new int[m, n];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if(i == 0 || j == 0) arr[i, j] = 1;
+                    else
+                    {
+                        arr[i, j] = arr[i - 1, j] + arr[i, j - 1];
+                    }
+                }
+            }
+            return arr[m - 1, n - 1];
+
+        }
+
+        public static int UniquePaths(int m, int n)
+        {
+            int[,] dp = new int[m, n];
+
+            for (int i = 0; i < m; i++)
+                dp[i, 0] = 1;
+
+            for (int j = 0; j < n; j++)
+                dp[0, j] = 1;
+
+            for (int i = 1; i < m; i++)
+            {
+                for (int j = 1; j < n; j++)
+                {
+                    dp[i, j] = dp[i - 1, j] + dp[i, j - 1];
+                }
+            }
+
+            return dp[m - 1, n - 1];
+        }
+
     }
 }
 

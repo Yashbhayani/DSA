@@ -996,6 +996,37 @@ namespace LeetCodes.Functions
                 Console.WriteLine(s);
             }
         }
+        public ListNode RotateRight(ListNode head, int k)
+        {
+            if (head == null || head.next == null || k == 0)
+                return head;
 
+            int length = 1;
+            ListNode tail = head;
+
+            // Find length and tail
+            while (tail.next != null)
+            {
+                tail = tail.next;
+                length++;
+            }
+
+            // Make circular
+            tail.next = head;
+
+            int t = length - (k % length);
+
+            // Move to new tail
+            for (int i = 0; i < t; i++)
+            {
+                tail = tail.next;
+            }
+
+            // Set new head and break circle
+            ListNode newHead = tail.next;
+            tail.next = null;
+
+            return newHead;
+        }
     }
 }

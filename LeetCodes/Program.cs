@@ -734,4 +734,14 @@ foreach (var item in intervals)
 
 
 //60. Permutation Sequence
-Console.WriteLine(LeetCodeClass.GetPermutation2(3,3));
+/*Console.WriteLine(LeetCodeClass.GetPermutation3(4,17));*/
+
+//61. Rotate List
+/*int[] values = { 0,1,2};
+int k = 4;
+Node head = LeetCodeCodeFunctionsClass.createList(values);
+Node nh = LeetCodeClass.RotateRight(head, k);
+LeetCodeCodeFunctionsClass.printList(nh);*/
+
+//Unique Paths
+Console.WriteLine(LeetCodeClass.UniquePaths2(3,7));
