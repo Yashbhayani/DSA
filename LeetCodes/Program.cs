@@ -744,4 +744,8 @@ Node nh = LeetCodeClass.RotateRight(head, k);
 LeetCodeCodeFunctionsClass.printList(nh);*/
 
 //Unique Paths
-Console.WriteLine(LeetCodeClass.UniquePaths2(3,7));
+//Console.WriteLine(LeetCodeClass.UniquePaths2(3,7));
+
+//63. Unique Paths II
+int[][] obs = [[0, 0, 0], [0, 1, 0], [0, 0, 0]];
+Console.WriteLine(LeetCodeClass.UniquePathsWithObstacles(obs));
