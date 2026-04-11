@@ -5084,6 +5084,80 @@ namespace LeetCodes.Functions
             }
             return grid[m-1][n-1];
         }
+
+        public static int MinPathSum2(int[][] grid)
+        {
+            for (var i = grid.Length - 1; i >= 0; i--)
+                for (var j = grid[i].Length - 1; j >= 0; j--)
+                {
+                    var downMin = i + 1 < grid.Length ? grid[i + 1][j] : int.MaxValue;
+                    var rightMin = j + 1 < grid[i].Length ? grid[i][j + 1] : int.MaxValue;
+
+                    var min = Math.Min(downMin, rightMin);
+                    grid[i][j] += min is int.MaxValue ? 0 : min;
+                }
+
+            return grid[0][0];
+        }
+
+        public static int MinPathSum3(int[][] grid)
+        {
+            int[][] dp = new int[grid.Length][];
+            for (int i = 0; i < grid.Length; i++)
+            {
+                dp[i] = new int[grid[0].Length];
+            }
+            dp[0][0] = grid[0][0];
+            for (int i = 1; i < grid.Length; i++)
+            {
+                dp[i][0] = grid[i][0] + dp[i - 1][0];
+            }
+
+            for (int j = 1; j < grid[0].Length; j++)
+            {
+                dp[0][j] = grid[0][j] + dp[0][j - 1];
+            }
+
+            for (int i = 1; i < grid.Length; i++)
+            {
+                for (int j = 1; j < grid[0].Length; j++)
+                {
+                    dp[i][j] = grid[i][j] + Math.Min(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+
+            return dp[grid.Length - 1][grid[0].Length - 1];
+        }
+
+        public static int MinPathSum4(int[][] grid)
+        {
+            int rows = grid.Length;
+            int cols = grid[0].Length;
+
+            int[,] dp = new int[rows, cols];
+
+            dp[0, 0] = grid[0][0];
+
+            for (int col = 1; col < cols; col++)
+            {
+                dp[0, col] = dp[0, col - 1] + grid[0][col];
+            }
+
+            for (int row = 1; row < rows; row++)
+            {
+                dp[row, 0] = dp[row - 1, 0] + grid[row][0];
+            }
+
+            for (int row = 1; row < rows; row++)
+            {
+                for (int col = 1; col < cols; col++)
+                {
+                    dp[row, col] = Math.Min(dp[row - 1, col], dp[row, col - 1]) + grid[row][col];
+                }
+            }
+
+            return dp[rows - 1, cols - 1];
+        }
     }
 }
 
