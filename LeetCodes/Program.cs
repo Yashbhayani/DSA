@@ -747,5 +747,9 @@ LeetCodeCodeFunctionsClass.printList(nh);*/
 //Console.WriteLine(LeetCodeClass.UniquePaths2(3,7));
 
 //63. Unique Paths II
-int[][] obs = [[0, 0, 0], [0, 1, 0], [0, 0, 0]];
-Console.WriteLine(LeetCodeClass.UniquePathsWithObstacles(obs));
+/*int[][] obs = [[0, 0, 0], [0, 1, 0], [0, 0, 0]];
+Console.WriteLine(LeetCodeClass.UniquePathsWithObstacles(obs));*/
+
+//64. Minimum Path Sum
+int[][] grid = [[1, 3, 1], [1, 5, 1], [4, 2, 1]];
+Console.WriteLine(LeetCodeClass.MinPathSum(grid));
