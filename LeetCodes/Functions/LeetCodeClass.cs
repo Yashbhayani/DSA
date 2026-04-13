@@ -5281,7 +5281,7 @@ namespace LeetCodes.Functions
             return string.Join(" ", row).Trim();
         }
 
-        public IList<string> FullJustify3(string[] words, int maxWidth)
+        public static IList<string> FullJustify3(string[] words, int maxWidth)
         {
             List<string> result = new List<string>();
             List<string> Chunk = new List<string>();
