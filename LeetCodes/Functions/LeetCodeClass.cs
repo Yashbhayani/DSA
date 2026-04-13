@@ -5256,7 +5256,8 @@ namespace LeetCodes.Functions
                 row.Add(words[i]);
                 wordco += words[i].Length;
             }
-            if (row.Count > 0) {
+            if (row.Count > 0)
+            {
                 set.Add(LeetCodeClass.newGString(row, maxWidth - wordco));
                 row.Clear();
                 wordco = 0;
@@ -5277,8 +5278,38 @@ namespace LeetCodes.Functions
                     rc = 0;
             }
 
-            return string.Join(" ", row).Trim(); 
+            return string.Join(" ", row).Trim();
         }
+
+        public IList<string> FullJustify3(string[] words, int maxWidth)
+        {
+            List<string> result = new List<string>();
+            List<string> Chunk = new List<string>();
+            int num_of_letters = 0;
+
+            foreach (var word in words)
+            {
+                if (word.Length + Chunk.Count + num_of_letters > maxWidth)
+                {
+                    for (int i = 0; i < maxWidth - num_of_letters; i++)
+                    {
+                        Chunk[i % (Chunk.Count - 1 > 0 ? Chunk.Count - 1 : 1)] += " ";
+                    }
+                    result.Add(string.Join("", Chunk));
+                    Chunk.Clear();
+                    num_of_letters = 0;
+                }
+                Chunk.Add(word);
+                num_of_letters += word.Length;
+            }
+
+            string lastLine = string.Join(" ", Chunk);
+            while (lastLine.Length < maxWidth) lastLine += " ";
+            result.Add(lastLine);
+
+            return result;
+        }
+
     }
 }
 
