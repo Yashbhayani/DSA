@@ -758,7 +758,7 @@ Console.WriteLine(LeetCodeClass.MinPathSum(grid));*/
 /*Console.WriteLine(LeetCodeClass.IsNumber("0"));1*/
 
 //68. Text Justification0
-string[] words = ["This", "is", "an", "example", "of", "text", "justification."];
+/*string[] words = ["This", "is", "an", "example", "of", "text", "justification."];
 int maxWidth = 16;
 
 words = ["Science", "is", "what", "we", "understand", "well", "enough", "to", "explain", "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"];
@@ -767,4 +767,7 @@ IList<string> res = LeetCodeClass.FullJustify2(words, maxWidth);
 foreach (var item in res)
 {
     Console.WriteLine(item);
-}
+}*/
+
+//71. Simplify Path
+Console.WriteLine(LeetCodeClass.SimplifyPath("\"/home/user/Documents/../Pictures\""));

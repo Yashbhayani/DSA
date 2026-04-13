@@ -5310,6 +5310,107 @@ namespace LeetCodes.Functions
             return result;
         }
 
+        public static string SimplifyPath(string path)
+        {
+            string[] dirs = path.Split('/');
+            var stack = new Stack<string>();
+
+            foreach (var dir in dirs)
+            {
+                if (string.IsNullOrEmpty(dir) || dir == ".")
+                    continue;
+
+                if (dir == "..")
+                {
+                    if (stack.Count > 0)
+                        stack.Pop();
+                }
+                else
+                {
+                    stack.Push(dir);
+                }
+            }
+
+            var result = string.Join("/", stack.Reverse());
+            return "/" + result;
+        }
+
+        public static string SimplifyPath2(string path)
+        {
+            string[] dirs = path.Split('/');
+            var queue = new Queue<string>();
+
+            foreach (var dir in dirs)
+            {
+                if (string.IsNullOrEmpty(dir) || dir == ".")
+                    continue;
+
+                if (dir == "..")
+                {
+                    if (queue.Count > 0)
+                    {
+                        var temp = new Queue<string>();
+
+                        while (queue.Count > 1)
+                            temp.Enqueue(queue.Dequeue());
+
+                        queue.Dequeue();
+
+                        queue = temp;
+                    }
+                }
+                else
+                {
+                    queue.Enqueue(dir);
+                }
+            }
+
+            return "/" + string.Join("/", queue);
+        }
+
+        public static string SimplifyPath3(string path)
+        {
+            string[] dirs = path.Split('/');
+            var list = new List<string>();
+
+            foreach (var dir in dirs)
+            {
+                if (string.IsNullOrEmpty(dir) || dir == ".")
+                    continue;
+
+                if (dir == "..")
+                {
+                    if (list.Count > 0)
+                        list.RemoveAt(list.Count - 1);
+                }
+                else
+                {
+                    list.Add(dir);
+                }
+            }
+
+            return "/" + string.Join("/", list);
+        }
+
+        public static string SimplifyPath4(string path)
+        {
+            var elements = new List<string>();
+            var paths = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < paths.Length; i++)
+            {
+                if (paths[i] != "." && paths[i] != "..")
+                {
+                    elements.Add(paths[i]);
+                }
+                else if (paths[i] == ".." && elements.Count > 0)
+                {
+                    elements.RemoveAt(elements.Count - 1);
+                }
+            }
+
+            return "/" + string.Join("/", elements);
+        }
     }
 }
 
