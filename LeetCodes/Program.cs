@@ -751,5 +751,20 @@ LeetCodeCodeFunctionsClass.printList(nh);*/
 Console.WriteLine(LeetCodeClass.UniquePathsWithObstacles(obs));*/
 
 //64. Minimum Path Sum
-int[][] grid = [[1, 3, 1], [1, 5, 1], [4, 2, 1]];
-Console.WriteLine(LeetCodeClass.MinPathSum(grid));
+/*int[][] grid = [[1, 3, 1], [1, 5, 1], [4, 2, 1]];
+Console.WriteLine(LeetCodeClass.MinPathSum(grid));*/
+
+//65. Valid Number
+/*Console.WriteLine(LeetCodeClass.IsNumber("0"));1*/
+
+//68. Text Justification0
+string[] words = ["This", "is", "an", "example", "of", "text", "justification."];
+int maxWidth = 16;
+
+words = ["Science", "is", "what", "we", "understand", "well", "enough", "to", "explain", "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"];
+maxWidth = 20;
+IList<string> res = LeetCodeClass.FullJustify2(words, maxWidth);
+foreach (var item in res)
+{
+    Console.WriteLine(item);
+}

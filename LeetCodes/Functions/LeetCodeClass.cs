@@ -1,22 +1,8 @@
 ﻿using LeetCodes.Controller;
 using LeetCodes.Model;
-using Microsoft.VisualBasic;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Numerics;
-using System.Runtime.Intrinsics;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LeetCodes.Functions
 {
@@ -5079,10 +5065,10 @@ namespace LeetCodes.Functions
                     int up = (i > 0) ? grid[i - 1][j] : grid[i][j];
                     int left = (j > 0) ? grid[i][j - 1] : grid[i][j];
 
-                    grid[i][j] = (i ==0 || j ==0 ) ? up + left : Math.Min(up + grid[i][j], left + grid[i][j]);
+                    grid[i][j] = (i == 0 || j == 0) ? up + left : Math.Min(up + grid[i][j], left + grid[i][j]);
                 }
             }
-            return grid[m-1][n-1];
+            return grid[m - 1][n - 1];
         }
 
         public static int MinPathSum2(int[][] grid)
@@ -5157,6 +5143,141 @@ namespace LeetCodes.Functions
             }
 
             return dp[rows - 1, cols - 1];
+        }
+
+        public static bool IsNumber(string s)
+        {
+            s = s.Trim();
+            if (string.IsNullOrEmpty(s))
+                return false;
+
+            bool seenNum = false;
+            bool seenDot = false;
+            bool seenE = false;
+
+            for (int i = 0; i < s.Length; ++i)
+            {
+                switch (s[i])
+                {
+                    case '.':
+                        if (seenDot || seenE)
+                            return false;
+                        seenDot = true;
+                        break;
+
+                    case 'e':
+                    case 'E':
+                        if (seenE || !seenNum)
+                            return false;
+                        seenE = true;
+                        seenNum = false;
+                        break;
+
+                    case '+':
+                    case '-':
+                        if (i > 0 && s[i - 1] != 'e' && s[i - 1] != 'E')
+                            return false;
+                        seenNum = false;
+                        break;
+
+                    default:
+                        if (!char.IsDigit(s[i]))
+                            return false;
+                        seenNum = true;
+                        break;
+                }
+            }
+
+            return seenNum;
+        }
+
+
+        public static IList<string> FullJustify(string[] words, int maxWidth)
+        {
+            var ans = new List<string>();
+            var row = new List<StringBuilder>();
+            int rowLetters = 0;
+
+            foreach (var word in words)
+            {
+                if (rowLetters + row.Count + word.Length > maxWidth)
+                {
+                    int spaces = maxWidth - rowLetters;
+
+                    if (row.Count == 1)
+                    {
+                        row[0].Append(new string(' ', spaces));
+                    }
+                    else
+                    {
+                        for (int i = 0; i < spaces; ++i)
+                        {
+                            row[i % (row.Count - 1)].Append(' ');
+                        }
+                    }
+
+                    string joinedRow = string.Concat(row.Select(sb => sb.ToString()));
+                    ans.Add(joinedRow);
+
+                    row.Clear();
+                    rowLetters = 0;
+                }
+
+                row.Add(new StringBuilder(word));
+                rowLetters += word.Length;
+            }
+
+            string lastRow = string.Join(" ", row.Select(sb => sb.ToString()));
+            var sbLast = new StringBuilder(lastRow);
+
+            int spacesToBeAdded = maxWidth - sbLast.Length;
+            sbLast.Append(new string(' ', spacesToBeAdded));
+
+            ans.Add(sbLast.ToString());
+
+            return ans;
+        }
+
+        public static IList<string> FullJustify2(string[] words, int maxWidth)
+        {
+            var set = new List<string>();
+            List<string> row = new List<string>();
+            int wordco = 0;
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (row.Count + wordco + words[i].Length > maxWidth)
+                {
+                    set.Add(LeetCodeClass.newGString(row, maxWidth - wordco));
+                    row.Clear();
+                    wordco = 0;
+                }
+
+                row.Add(words[i]);
+                wordco += words[i].Length;
+            }
+            if (row.Count > 0) {
+                set.Add(LeetCodeClass.newGString(row, maxWidth - wordco));
+                row.Clear();
+                wordco = 0;
+            }
+
+            return set;
+        }
+
+        private static string newGString(List<string> row, int space)
+        {
+            int rc = 0;
+            for (int j = 0; j < space; j++)
+            {
+                row[rc] = row[rc] + " ";
+                if (row.Count - 2 > rc)
+                    rc++;
+                else
+                    rc = 0;
+            }
+
+            return string.Join(" ", row).Trim(); 
         }
     }
 }
