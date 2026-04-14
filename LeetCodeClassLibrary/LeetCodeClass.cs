@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace LeetCodes.Functions
 {
-    internal class LeetCodeClass
+    public class LeetCodeClass
     {
 
         public static int[]? TwoSum(int[] nums, int target)
@@ -5332,7 +5332,7 @@ namespace LeetCodes.Functions
             }
 
             var result = string.Join("/", stack.Reverse());
-            return "/" + result;
+            return result;
         }
 
         public static string SimplifyPath2(string path)

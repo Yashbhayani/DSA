@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LeetCodes.Controller
 {
-    internal class addTwoNumbersClass
+    public class addTwoNumbersClass
     {
 
         public ListNode addTwoNumbers(ListNode l1, ListNode l2)

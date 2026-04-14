@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LeetCodes.Model
 {
-    internal class NodeClass
+    public class NodeClass
     {
         public int data;
         public NodeClass left, right;
