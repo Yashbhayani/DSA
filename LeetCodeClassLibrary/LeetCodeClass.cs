@@ -5411,6 +5411,90 @@ namespace LeetCodes.Functions
 
             return "/" + string.Join("/", elements);
         }
+        public static int MinDistance(string word1, string word2)
+        {
+            int m = word1.Length;
+            int n = word2.Length;
+
+            int[,] dp = new int[m + 1, n + 1];
+
+            for (int i = 1; i <= m; i++)
+                dp[i, 0] = i;
+
+            for (int j = 1; j <= n; j++)
+                dp[0, j] = j;
+
+            for (int i = 1; i <= m; i++)
+            {
+                for (int j = 1; j <= n; j++)
+                {
+                    if (word1[i - 1] == word2[j - 1])
+                    {
+                        dp[i, j] = dp[i - 1, j - 1];
+                    }
+                    else
+                    {
+                        dp[i, j] = Math.Min(
+                            dp[i - 1, j - 1],
+                            Math.Min(
+                                dp[i - 1, j],
+                                dp[i, j - 1]
+                            )
+                        ) + 1;
+                    }
+                }
+            }
+
+            return dp[m, n];
+        }
+        public static int MinDistance2(string word1, string word2)
+        {
+            var l1 = word1.Length;
+            var l2 = word2.Length;
+
+            if (l1 == 0) return l2;
+            if (l2 == 0) return l1;
+
+            if (l2 > l1)
+            {
+                (word1, word2) = (word2, word1);
+                (l1, l2) = (l2, l1);
+            }
+
+            Span<int> dp = stackalloc int[l2 + 1];
+
+            for (var j = 0; j <= l2; j++) dp[j] = j;
+
+            for (var i = 1; i <= l1; i++)
+            {
+                var prevDiagonal = dp[0];
+                dp[0] = i;
+
+                var c1 = word1[i - 1];
+
+                for (var j = 1; j <= l2; j++)
+                {
+                    var up = dp[j];
+                    var cost = c1 == word2[j - 1] ? 0 : 1;
+
+                    var insert = dp[j - 1] + 1;
+                    var delete = up + 1;
+                    var replace = prevDiagonal + cost;
+
+                    var best = insert < delete ? insert : delete;
+                    if (replace < best) best = replace;
+
+                    dp[j] = best;
+                    prevDiagonal = up;
+                }
+            }
+            return dp[l2];
+        }
+
+        public void SetZeroes(int[][] matrix)
+        {
+            int
+        }
     }
 }
 

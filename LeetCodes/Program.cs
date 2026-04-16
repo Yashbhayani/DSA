@@ -769,4 +769,11 @@ foreach (var item in res)
 }*/
 
 //71. Simplify Path
-Console.WriteLine(LeetCodeClass.SimplifyPath("\"/home/user/Documents/../Pictures\""));
+//Console.WriteLine(LeetCodeClass.SimplifyPath("\"/home/user/Documents/../Pictures\""));
+
+
+//72. Edit Distance
+//Console.WriteLine(LeetCodeClass.MinDistance2("intention", "execution"));
+
+//73. Set Matrix Zeroes
+int[][] matrix = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]];
