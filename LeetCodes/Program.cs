@@ -777,3 +777,8 @@ foreach (var item in res)
 
 //73. Set Matrix Zeroes
 int[][] matrix = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]];
+int[][]res  = LeetCodeClass.SetZeroes(matrix);
+foreach (var item in res)
+{
+    Console.WriteLine("[" + string.Join(", ", item) + "]");
+}

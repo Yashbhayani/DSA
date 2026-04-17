@@ -5491,10 +5491,138 @@ namespace LeetCodes.Functions
             return dp[l2];
         }
 
-        public void SetZeroes(int[][] matrix)
+        public static int[][] SetZeroes(int[][] matrix)
         {
-            int
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+
+            bool shouldFillFirstRow = false;
+            bool shouldFillFirstCol = false;
+
+            for (int j = 0; j < n; j++)
+            {
+                if (matrix[0][j] == 0)
+                {
+                    shouldFillFirstRow = true;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < m; i++)
+            {
+                if (matrix[i][0] == 0)
+                {
+                    shouldFillFirstCol = true;
+                    break;
+                }
+            }
+
+            for (int i = 1; i < m; i++)
+            {
+                for (int j = 1; j < n; j++)
+                {
+                    if (matrix[i][j] == 0)
+                    {
+                        matrix[i][0] = 0;
+                        matrix[0][j] = 0;
+                    }
+                }
+            }
+
+            for (int i = 1; i < m; i++)
+            {
+                for (int j = 1; j < n; j++)
+                {
+                    if (matrix[i][0] == 0 || matrix[0][j] == 0)
+                    {
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+
+            if (shouldFillFirstRow)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    matrix[0][j] = 0;
+                }
+            }
+
+            if (shouldFillFirstCol)
+            {
+                for (int i = 0; i < m; i++)
+                {
+                    matrix[i][0] = 0;
+                }
+            }
+
+            return matrix;
         }
+
+        public static int[][] SetZeroes2(int[][] matrix)
+        {
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+            Queue<List<int>> data = new Queue<List<int>>();
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (matrix[i][j] == 0)
+                    {
+                        data.Enqueue(new List<int> { i, j });
+                    }
+                }
+            }
+
+            while (data.Count > 0)
+            {
+                List<int> res = data.Dequeue();
+
+                for (int i = 0; i < m; i++)
+                {
+                    matrix[res[0]][i] = 0;
+                    matrix[i][res[1]] = 0;
+                }
+            }
+
+            return matrix;
+        }
+
+        public static int[][] SetZeroes3(int[][] matrix)
+        {
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+
+            bool[] rowFlags = new bool[m];
+            bool[] colFlags = new bool[n];
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (matrix[i][j] == 0)
+                    {
+                        rowFlags[i] = true;
+                        colFlags[j] = true;
+                    }
+                }
+            }
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (rowFlags[i] || colFlags[j])
+                    {
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+
+            return matrix;
+        }
+
     }
 }
 
