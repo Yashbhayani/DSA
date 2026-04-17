@@ -776,9 +776,14 @@ foreach (var item in res)
 //Console.WriteLine(LeetCodeClass.MinDistance2("intention", "execution"));
 
 //73. Set Matrix Zeroes
-int[][] matrix = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]];
+/*int[][] matrix = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]];
 int[][]res  = LeetCodeClass.SetZeroes(matrix);
 foreach (var item in res)
 {
     Console.WriteLine("[" + string.Join(", ", item) + "]");
-}
+}*/
+
+//74. Search a 2D Matrix
+int[][] matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]];
+int target = 3;
+Console.WriteLine(LeetCodeClass.SearchMatrix(matrix, target));

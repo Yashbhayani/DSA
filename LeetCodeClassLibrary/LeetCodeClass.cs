@@ -5623,6 +5623,57 @@ namespace LeetCodes.Functions
             return matrix;
         }
 
+
+        public static bool SearchMatrix(int[][] matrix, int target)
+        {
+            if (matrix.Length == 0)
+                return false;
+
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+
+            int l = 0;
+            int r = m * n;
+
+            while (l < r)
+            {
+                int mid = (l + r) / 2;
+                int i = mid / n;
+                int j = mid % n;
+
+                if (matrix[i][j] == target)
+                    return true;
+
+                if (matrix[i][j] < target)
+                    l = mid + 1;
+                else
+                    r = mid;
+            }
+
+            return false;
+        }
+
+        public static bool SearchMatrix3(int[][] matrix, int target) => matrix
+       .SelectMany(m => m)
+       .Any(x => x == target);
+
+        public static bool SearchMatrix2(int[][] matrix, int target)
+        {
+            if (matrix.Length == 0)
+                return false;
+
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; i < n; j++)
+                {
+                    if(matrix[i][j] == target) return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
 
