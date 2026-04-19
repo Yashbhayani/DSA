@@ -5665,14 +5665,264 @@ namespace LeetCodes.Functions
             int m = matrix.Length;
             int n = matrix[0].Length;
 
-            for (int i = 0; i < m; i++) {
+            for (int i = 0; i < m; i++)
+            {
                 for (int j = 0; i < n; j++)
                 {
-                    if(matrix[i][j] == target) return true;
+                    if (matrix[i][j] == target) return true;
                 }
             }
 
             return false;
+        }
+
+        public static int[] sortColors(int[] nums)
+        {
+            int zero = -1;
+            int one = -1;
+            int two = -1;
+
+            foreach (var num in nums)
+                if (num == 0)
+                {
+                    nums[++two] = 2;
+                    nums[++one] = 1;
+                    nums[++zero] = 0;
+                }
+                else if (num == 1)
+                {
+                    nums[++two] = 2;
+                    nums[++one] = 1;
+                }
+                else
+                {
+                    nums[++two] = 2;
+                }
+            return nums;
+        }
+
+        public static int[] sortColors2(int[] nums)
+        {
+            int low = 0, mid = 0, high = nums.Length - 1;
+            while (mid <= high)
+            {
+                if (nums[mid] == 0)
+                {
+                    nums = sortColors2swap(nums, low++, mid++);
+                }
+                else if (nums[mid] == 1)
+                {
+                    mid++;
+                }
+                else
+                {
+                    nums = sortColors2swap(nums, mid, high--);
+                }
+            }
+            return nums;
+        }
+        private static int[] sortColors2swap(int[] nums, int i, int j)
+        {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+            return nums;
+        }
+
+        public static int[] SortColors3(int[] nums)
+        {
+
+            int low = 0, mid = 0, high = nums.Length - 1;
+
+            while (mid <= high)
+            {
+                if (nums[mid] == 0)
+                {
+                    nums = SortColors3SwapNumbers(nums, low, mid);
+                    low++;
+                    mid++;
+                }
+                else if (nums[mid] == 1)
+                {
+                    mid++;
+                }
+                else
+                {
+                    nums = SortColors3SwapNumbers(nums, mid, high);
+                    high--;
+                }
+            }
+            return nums;
+        }
+
+        private static int[] SortColors3SwapNumbers(int[] nums, int i, int j)
+        {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+
+            return nums;
+        }
+
+        public static int[] SortColors4(int[] nums)
+        {
+            int temp;
+
+            for (int i = 0; i < nums.Length - 1; i++)
+            {
+                for (int j = 0; j < nums.Length - 1 - i; j++)
+                {
+                    if (nums[j] > nums[j + 1])
+                    {
+                        temp = nums[j];
+                        nums[j] = nums[j + 1];
+                        nums[j + 1] = temp;
+                    }
+                }
+            }
+            return nums;
+        }
+
+        public static string MinWindow(string s, string t)
+        {
+            int[] count = new int[128];
+            int required = t.Length;
+            int bestLeft = -1;
+            int minLength = s.Length + 1;
+
+            foreach (char c in t)
+                count[c]++;
+
+            for (int l = 0, r = 0; r < s.Length; r++)
+            {
+                if (--count[s[r]] >= 0)
+                    required--;
+
+                while (required == 0)
+                {
+                    if (r - l + 1 < minLength)
+                    {
+                        bestLeft = l;
+                        minLength = r - l + 1;
+                    }
+
+                    if (++count[s[l++]] > 0)
+                        required++;
+                }
+            }
+
+            return bestLeft == -1 ? "" : s.Substring(bestLeft, minLength);
+        }
+        public static string MinWindow2(string s, string t)
+        {
+            if (t.Length == 0 || s.Length < t.Length)
+            {
+                return "";
+            }
+
+            Span<int> count = stackalloc int[58];
+            int missingSoFar = 0;
+            foreach (char ch in t)
+            {
+                if (count[ch - 'A']++ == 0)
+                {
+                    missingSoFar++;
+                }
+            }
+
+            int start = 0, end = 0;
+            int fStart = -1, fEnd = 0;
+            bool foundOnce = false;
+            while (true)
+            {
+                if (start > end || (end == s.Length && missingSoFar > 0))
+                { // start = 0; end = 0,1
+                    if (fStart != -1)
+                    {
+                        return s.Substring(fStart, fEnd - fStart + 1);
+                    }
+                    return "";
+                }
+                if (missingSoFar > 0)
+                { // 3,2,1
+                    if (foundOnce)
+                    { // false,false,true
+                        if (count[s[start] - 'A']++ == 0)
+                        { //O,B ,E,C
+                            missingSoFar++; //2
+                        }
+                        start++; //2,3,4,5
+                    }
+                    if (count[s[end] - 'A']-- == 1)
+                    { // A:1->0, B:0, C:1 E:0 D:-1 O:-1
+                        missingSoFar--; //1
+                    }
+                    end++;
+                }
+                if (missingSoFar == 0)
+                {
+                    foundOnce = true;
+                    fStart = start; //0
+                    fEnd = end - 1; //5
+                    if (count[s[start] - 'A']++ == 0)
+                    { // 1
+                        missingSoFar++; //1
+                    }
+                    start++; //1
+                }
+            }
+            return "";
+        }
+
+        public static string MinWindow3(string s, string t)
+        {
+            Hashtable thash = new Hashtable();
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                if (thash.ContainsKey(t[i]))
+                {
+                    thash[t[i]] = (int)thash[t[i]] + 1;
+                    continue;
+                }
+                thash.Add(t[i], 1);
+            }
+
+            Hashtable shash = new Hashtable(thash);
+            string news = "";
+            string minstri = "";
+
+            foreach (var item in s)
+            {
+
+                if (news == "" && !t.Contains(item))
+                {
+                    continue;
+                }
+                if (t.Contains(item))
+                {
+
+                    int newValue = (int)shash[item] - 1;
+                    if (newValue <= 0)
+                    {
+                        shash.Remove(item);
+                    }
+                    else
+                    {
+                        shash[item] = newValue;
+                    }
+                }
+                news += item;
+
+                if (shash.Count == 0)
+                {
+                    minstri = minstri == "" ? news : (minstri.Length > news.Length) ? news : minstri;
+                    news = "";
+                    shash = new Hashtable(thash);
+                }
+            }
+
+            return minstri;
         }
     }
 }

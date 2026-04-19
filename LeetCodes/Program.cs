@@ -784,6 +784,19 @@ foreach (var item in res)
 }*/
 
 //74. Search a 2D Matrix
-int[][] matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]];
+/*int[][] matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]];
 int target = 3;
-Console.WriteLine(LeetCodeClass.SearchMatrix(matrix, target));
+Console.WriteLine(LeetCodeClass.SearchMatrix(matrix, target));*/
+
+
+//75. Sort Colors
+/*int[] nums = [2, 0, 2, 1, 1, 0];
+nums = LeetCodeClass.SortColors4(nums);
+foreach (var item in nums)
+{
+    Console.Write(string.Join(", ", item));
+}*/
+
+//76. Minimum Window Substring
+string s = "ADOBECODEBANC", t = "ABC";
+Console.WriteLine(LeetCodeClass.MinWindow2(s,t));
