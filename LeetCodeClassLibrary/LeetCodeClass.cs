@@ -5876,6 +5876,7 @@ namespace LeetCodes.Functions
 
         public static string MinWindow3(string s, string t)
         {
+
             Hashtable thash = new Hashtable();
 
             for (int i = 0; i < t.Length; i++)
@@ -5892,37 +5893,52 @@ namespace LeetCodes.Functions
             string news = "";
             string minstri = "";
 
-            foreach (var item in s)
-            {
 
-                if (news == "" && !t.Contains(item))
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (news == "" && !t.Contains(s[i]))
                 {
                     continue;
                 }
-                if (t.Contains(item))
+
+                int j = i;
+                shash = new Hashtable(thash);
+                while (j < s.Length)
                 {
 
-                    int newValue = (int)shash[item] - 1;
-                    if (newValue <= 0)
+                    if (t.Contains(s[j]))
                     {
-                        shash.Remove(item);
+                        if (!shash.ContainsKey(s[j]))
+                        {
+                            break;
+                        }
+                        int newValue = (int)shash[s[j]] - 1;
+                        if (newValue <= 0)
+                        {
+                            shash.Remove(s[j]);
+                        }
+                        else
+                        {
+                            shash[s[j]] = newValue;
+                        }
                     }
-                    else
-                    {
-                        shash[item] = newValue;
-                    }
-                }
-                news += item;
+                    news += s[j];
 
-                if (shash.Count == 0)
-                {
-                    minstri = minstri == "" ? news : (minstri.Length > news.Length) ? news : minstri;
-                    news = "";
-                    shash = new Hashtable(thash);
+                    if (shash.Count == 0)
+                    {
+                        minstri = minstri == "" ? news : (minstri.Length > news.Length) ? news : minstri;
+                        news = "";
+                        break;
+                    }
+                    j++;
+
                 }
             }
-
             return minstri;
+        }
+        public static IList<IList<int>> Combine(int n, int k)
+        {
+            return null;
         }
     }
 }
