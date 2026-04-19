@@ -798,6 +798,7 @@ foreach (var item in nums)
 }*/
 
 //76. Minimum Window Substring
-string s = "ADOBECODEBANC", t = "ABC";
+/*string s = "ADOBECODEBANC", t = "ABC";
 //s = "bdab"; t = "ab";
-Console.WriteLine(LeetCodeClass.MinWindow4(s,t));
+Console.WriteLine(LeetCodeClass.MinWindow3(s,t));*/
+

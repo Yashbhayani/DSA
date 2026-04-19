@@ -5903,6 +5903,7 @@ namespace LeetCodes.Functions
 
                 int j = i;
                 shash = new Hashtable(thash);
+                news = "";
                 while (j < s.Length)
                 {
 
@@ -5927,7 +5928,6 @@ namespace LeetCodes.Functions
                     if (shash.Count == 0)
                     {
                         minstri = minstri == "" ? news : (minstri.Length > news.Length) ? news : minstri;
-                        news = "";
                         break;
                     }
                     j++;
