@@ -5936,9 +5936,120 @@ namespace LeetCodes.Functions
             }
             return minstri;
         }
+
         public static IList<IList<int>> Combine(int n, int k)
         {
-            return null;
+            var ans = new List<IList<int>>();
+            Backtrack(n, k, 1, new List<int>(), ans);
+            return ans;
+        }
+
+        private static void Backtrack(int n, int k, int start, List<int> path, IList<IList<int>> ans)
+        {
+            if (path.Count == k)
+            {
+                ans.Add(new List<int>(path));
+                return;
+            }
+
+            for (int i = start; i <= n; i++)
+            {
+                path.Add(i);
+                Backtrack(n, k, i + 1, path, ans);
+                path.RemoveAt(path.Count - 1);
+            }
+        }
+        public static IList<IList<int>> Combine2(int n, int k)
+        {
+            var res = new List<IList<int>>();
+
+            if (k == 1)
+            {
+                for (int i = 1; i <= n; i++)
+                    res.Add(new List<int> { i });
+                return res;
+            }
+
+            for (int i = 1; i <= n; i++)
+            {
+                int l = i;
+                while (l < n)
+                {
+                    List<int> tempres = new List<int>();
+                    tempres.Add(i);
+                    for (int j = 1; l + j <= k; j++)
+                    {
+                        tempres.Add(l + j);
+                    }
+                    if (tempres.Count == k) res.Add(tempres);
+                    l++;
+                }
+            }
+            return res;
+        }
+        public static IList<IList<int>> Combine3(int n, int k)
+        {
+            List<IList<int>> result = [];
+            List<int> list = [];
+            Combination(n, k);
+            return result;
+
+            void Combination(int n, int k)
+            {
+                if (k <= 0)
+                {
+                    result.Add(list.ToArray());
+                    return;
+                }
+                while (n >= k)
+                {
+                    list.Add(n);
+                    Combination(n - 1, k - 1);
+                    list.RemoveAt(list.Count - 1);
+                    n--;
+                }
+            }
+        }
+
+        public static IList<IList<int>> Subsets(int[] nums)
+        {
+            var ans = new List<IList<int>>();
+            SubsetsDfs(nums, 0, new List<int>(), ans);
+            return ans;
+        }
+
+        private static void SubsetsDfs(int[] nums, int start, List<int> path, IList<IList<int>> ans)
+        {
+            ans.Add(new List<int>(path));
+
+            for (int i = start; i < nums.Length; i++)
+            {
+                path.Add(nums[i]);           
+                SubsetsDfs(nums, i + 1, path, ans); 
+                path.RemoveAt(path.Count - 1); 
+            }
+        }
+
+        public static IList<IList<int>> Subsets2(int[] nums)
+        {
+            var ans = new List<IList<int>>();
+            ans.Add(new List<int>());
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                var newans = new List<IList<int>>();
+
+                for (int j = 0; j < ans.Count; j++)
+                {
+                    var subset = new List<int>(ans[j]); 
+                    subset.Add(nums[i]);               
+                    newans.Add(subset);                
+                }
+
+                ans.AddRange(newans);
+            }
+
+            return ans;
         }
     }
 }

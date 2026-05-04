@@ -802,3 +802,17 @@ foreach (var item in nums)
 //s = "bdab"; t = "ab";
 Console.WriteLine(LeetCodeClass.MinWindow3(s,t));*/
 
+//77. Combinations
+/*var res = LeetCodeClass.Combine(4,2);
+foreach (var item in res)
+{
+    Console.WriteLine("[" + string.Join(", ", item) + "]");
+}*/
+
+//78. Subsets
+int[] nums = [1, 2, 3];
+var res = LeetCodeClass.Subsets2(nums);
+foreach (var item in res)
+{
+    Console.WriteLine("[" + string.Join(", ", item) + "]");
+}
