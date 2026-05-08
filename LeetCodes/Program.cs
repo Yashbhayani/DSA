@@ -4,6 +4,7 @@ using LeetCodes.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection.Emit;
 using System.Xml.Linq;
 
@@ -810,9 +811,15 @@ foreach (var item in res)
 }*/
 
 //78. Subsets
-int[] nums = [1, 2, 3];
+/*int[] nums = [1, 2, 3];
 var res = LeetCodeClass.Subsets2(nums);
 foreach (var item in res)
 {
     Console.WriteLine("[" + string.Join(", ", item) + "]");
-}
+}*/
+
+
+//79. Word Search
+char[][] board3 = [['A', 'B', 'C', 'E'], ['S', 'F', 'C', 'S'], ['A', 'D', 'E', 'E']]; 
+string word = "ABCB";
+Console.WriteLine(LeetCodeClass.Exist2(board3, word));

@@ -6024,9 +6024,9 @@ namespace LeetCodes.Functions
 
             for (int i = start; i < nums.Length; i++)
             {
-                path.Add(nums[i]);           
-                SubsetsDfs(nums, i + 1, path, ans); 
-                path.RemoveAt(path.Count - 1); 
+                path.Add(nums[i]);
+                SubsetsDfs(nums, i + 1, path, ans);
+                path.RemoveAt(path.Count - 1);
             }
         }
 
@@ -6041,15 +6041,115 @@ namespace LeetCodes.Functions
 
                 for (int j = 0; j < ans.Count; j++)
                 {
-                    var subset = new List<int>(ans[j]); 
-                    subset.Add(nums[i]);               
-                    newans.Add(subset);                
+                    var subset = new List<int>(ans[j]);
+                    subset.Add(nums[i]);
+                    newans.Add(subset);
                 }
 
                 ans.AddRange(newans);
             }
 
             return ans;
+        }
+
+        public static bool Exist(char[][] board, string word)
+        {
+            for (int i = 0; i < board.Length; ++i)
+            {
+                for (int j = 0; j < board[0].Length; ++j)
+                {
+                    if (ExistDfs(board, word, i, j, 0))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool ExistDfs(char[][] board, string word, int i, int j, int s)
+        {
+            if (i < 0 || i >= board.Length || j < 0 || j >= board[0].Length)
+                return false;
+
+            if (board[i][j] != word[s] || board[i][j] == '*')
+                return false;
+
+            if (s == word.Length - 1)
+                return true;
+
+            char cache = board[i][j];
+            board[i][j] = '*';
+
+            bool isExist =
+                ExistDfs(board, word, i + 1, j, s + 1) ||
+                ExistDfs(board, word, i - 1, j, s + 1) ||
+                ExistDfs(board, word, i, j + 1, s + 1) ||
+                ExistDfs(board, word, i, j - 1, s + 1);
+
+            board[i][j] = cache;
+
+            return isExist;
+        }
+
+        public static bool Exist2(char[][] board, string word)
+        {
+            int rl = board.Length - 1;
+            int cl = board[0].Length - 1;
+            int w = word.Length - 1;
+            for (int i = 0; i <= rl; ++i)
+            {
+                for (int j = 0; j <= cl; ++j)
+                {
+                    if (CheckExist(i, j, 0, board, word))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool CheckExist(int m, int n, int k, char[][] board, string word)
+        {
+            int rl = board.Length - 1;
+            int cl = board[0].Length - 1;
+            int w = word.Length - 1;
+            while (board[m][n] == word[k])
+            {
+                board[m][n] = '*';
+                if (m < rl && board[m + 1][n] == word[k + 1])
+                {
+                    if (w == k + 1)
+                    {
+                        return true;
+                    }
+                    m += 1;
+                }
+                else if (m != 0 && board[m - 1][n] == word[k + 1])
+                {
+                    if (w == k + 1)
+                    {
+                        return true;
+                    }
+                    m -= 1;
+                }
+                else if (n < cl && board[m][n + 1] == word[k + 1])
+                {
+                    if (w == k + 1)
+                    {
+                        return true;
+                    }
+                    n += 1;
+                }
+                else if (n != 0 && board[m][n - 1] == word[k + 1])
+                {
+                    if (w == k + 1)
+                    {
+                        return true;
+                    }
+                    n -= 1;
+                }
+
+                k++;
+            }
+            return false;
         }
     }
 }
