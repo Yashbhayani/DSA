@@ -6333,6 +6333,37 @@ namespace LeetCodes.Functions
                 head = head.next;
             }
 
+            return dummy;
+        }
+
+        public static Node DeleteDuplicates3(Node head)
+        {
+            Node dummy = new Node(0);
+            dummy.next = head;
+
+            Node prev = dummy;
+
+            Node curr = head;
+
+            while (curr != null)
+            {
+                if (curr.next != null && curr.value == curr.next.value)
+                {
+                    while (curr.next != null && curr.value == curr.next.value)
+                    {
+                        curr = curr.next;
+                    }
+
+                    prev.next = curr.next;
+                }
+                else
+                {
+                    prev = prev.next;
+                }
+
+                curr = curr.next;
+            }
+
             return dummy.next;
         }
     }

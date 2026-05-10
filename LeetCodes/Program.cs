@@ -840,4 +840,4 @@ Console.WriteLine(LeetCodeClass.Search814(nums, target));*/
 //82. Remove Duplicates from Sorted List II
 int[] head = [1, 2, 3, 3, 4, 4, 5];
 Node res = LeetCodeCodeFunctionsClass.createList(head);
-LeetCodeCodeFunctionsClass.printList(LeetCodeClass.DeleteDuplicates2(res));
+LeetCodeCodeFunctionsClass.printList(LeetCodeClass.DeleteDuplicates3(res));
