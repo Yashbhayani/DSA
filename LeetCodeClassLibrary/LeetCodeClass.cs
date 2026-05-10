@@ -1,5 +1,6 @@
 ﻿using LeetCodes.Controller;
 using LeetCodes.Model;
+using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -2657,6 +2658,7 @@ namespace LeetCodes.Functions
 
                 if (nums[m] == target)
                     return m;
+
 
                 if (nums[l] <= nums[m])
                 {
@@ -6150,6 +6152,188 @@ namespace LeetCodes.Functions
                 k++;
             }
             return false;
+        }
+
+        public static int RemoveDuplicates80(int[] nums)
+        {
+            int i = 0;
+
+            foreach (int num in nums)
+            {
+                if (i < 2 || num > nums[i - 2])
+                {
+                    nums[i++] = num;
+                }
+            }
+
+            return i;
+        }
+
+        public static int RemoveDuplicates802(int[] nums)
+        {
+            int w = 2;
+
+            for (int i = 2; i < nums.Length; i++)
+            {
+                if (nums[w - 2] != nums[i])
+                {
+                    w++;
+                }
+            }
+
+            return w;
+        }
+
+        public static bool Search81(int[] nums, int target)
+        {
+            int l = 0;
+            int r = nums.Length - 1;
+
+            while (l <= r)
+            {
+                int m = (l + r) / 2;
+
+                if (nums[m] == target)
+                    return true;
+
+                if (nums[l] == nums[m] && nums[m] == nums[r])
+                {
+                    l++;
+                    r--;
+                }
+                else if (nums[l] <= nums[m])
+                {
+                    if (nums[l] <= target && target < nums[m])
+                        r = m - 1;
+                    else
+                        l = m + 1;
+                }
+                else
+                {
+                    if (nums[m] < target && target <= nums[r])
+                        l = m + 1;
+                    else
+                        r = m - 1;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool Search812(int[] nums, int target)
+        {
+
+            foreach (var item in nums)
+            {
+                if (item == target)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool Search813(int[] nums, int target)
+        {
+            int lo = 0, hi = nums.Length - 1;
+            int mid, loValue, hiValue, midValue;
+
+            while (lo <= hi)
+            {
+                loValue = nums[lo];
+                hiValue = nums[hi];
+                if (loValue < hiValue && (target < loValue || target > hiValue))
+                {
+                    return false;
+                }
+
+                while (lo < hi && nums[lo] == hiValue)
+                {
+                    lo++;
+                }
+                loValue = nums[lo];
+
+                mid = lo + (hi - lo) / 2;
+                midValue = nums[mid];
+                if (target == midValue) { return true; }
+
+                if (loValue <= midValue)
+                {
+                    if (loValue <= target && target < midValue)
+                    {
+                        hi = mid - 1;
+                    }
+                    else
+                    {
+                        lo = mid + 1;
+                    }
+                }
+                else
+                {
+                    if (target <= hiValue && midValue < target)
+                    {
+                        lo = mid + 1;
+                    }
+                    else
+                    {
+                        hi = mid - 1;
+                    }
+                }
+            }
+
+            return false;
+        }
+        public static bool Search814(int[] nums, int target)
+        {
+            return nums.Contains(target);
+        }
+
+
+
+        public static Node DeleteDuplicates(Node head)
+        {
+            Node dummy = new Node(0);
+            dummy.next = head;
+            Node prev = dummy;
+
+            while (head != null)
+            {
+                while (head.next != null && head.value == head.next.value)
+                    head = head.next;
+
+                if (prev.next == head)
+                    prev = prev.next;
+                else
+                    prev.next = head.next;
+
+
+                head = head.next;
+            }
+
+            return dummy.next;
+        }
+
+        public static Node DeleteDuplicates2(Node head)
+        {
+            Node dummy = head;
+            Node prev = dummy;
+
+            while (head != null)
+            {
+                while (head.next != null && head.value == head.next.value)
+                    head = head.next;
+
+                if (prev.next == head)
+                    prev = prev.next;
+                else
+                    prev.next = head.next;
+
+
+                head = head.next;
+            }
+
+            return dummy.next;
         }
     }
 }

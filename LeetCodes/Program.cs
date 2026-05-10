@@ -820,6 +820,24 @@ foreach (var item in res)
 
 
 //79. Word Search
-char[][] board3 = [['A', 'B', 'C', 'E'], ['S', 'F', 'C', 'S'], ['A', 'D', 'E', 'E']]; 
+/*char[][] board3 = [['A', 'B', 'C', 'E'], ['S', 'F', 'C', 'S'], ['A', 'D', 'E', 'E']]; 
 string word = "ABCB";
-Console.WriteLine(LeetCodeClass.Exist2(board3, word));
+Console.WriteLine(LeetCodeClass.Exist2(board3, word));*/
+
+
+//80. Remove Duplicates from Sorted Array II
+//int[] nums = [0, 0, 1, 1, 1, 1, 2, 3, 3];
+//Console.WriteLine(LeetCodeClass.RemoveDuplicates802(nums));
+
+
+//81. Search in Rotated Sorted Array II
+
+//int[] nums = [2, 5, 6, 0, 0, 1, 2]; 
+/*int[] nums = [1, 0, 1, 1, 1];
+int target = 0;
+Console.WriteLine(LeetCodeClass.Search814(nums, target));*/
+
+//82. Remove Duplicates from Sorted List II
+int[] head = [1, 2, 3, 3, 4, 4, 5];
+Node res = LeetCodeCodeFunctionsClass.createList(head);
+LeetCodeCodeFunctionsClass.printList(LeetCodeClass.DeleteDuplicates2(res));
