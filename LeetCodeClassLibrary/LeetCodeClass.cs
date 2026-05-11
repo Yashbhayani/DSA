@@ -6366,6 +6366,78 @@ namespace LeetCodes.Functions
 
             return dummy.next;
         }
+
+        public static int LargestRectangleArea(int[] heights)
+        {
+            int ans = 0;
+            Stack<int> stack = new Stack<int>();
+
+            for (int i = 0; i <= heights.Length; ++i)
+            {
+                while (stack.Count > 0 &&
+                       (i == heights.Length || heights[stack.Peek()] > heights[i]))
+                {
+                    int h = heights[stack.Pop()];
+                    int w = stack.Count == 0 ? i : i - stack.Peek() - 1;
+                    ans = Math.Max(ans, h * w);
+                }
+
+                stack.Push(i);
+            }
+
+            return ans;
+        }
+
+        public static int LargestRectangleArea2(int[] heights)
+        {
+            int maxArea = 0;
+
+            for (int li = 0; li < heights.Length; li++)
+            {
+                int minHeight = int.MaxValue;
+
+                for (int ri = li; ri < heights.Length; ri++)
+                {
+                    minHeight = Math.Min(minHeight, heights[ri]);
+
+                    int width = ri - li + 1;
+
+                    int area = minHeight * width;
+
+                    maxArea = Math.Max(maxArea, area);
+                }
+            }
+
+            return maxArea;
+        }
+
+        public static int LargestRectangleArea3(int[] heights)
+        {
+            Span<int> stack = stackalloc int[heights.Length];
+            int currentArea, n = heights.Length;
+            int maxArea = 0, top = -1, temp;
+
+            for (int i = 0; i < heights.Length; i++)
+            {
+                while (top >= 0 && heights[stack[top]] >= heights[i])
+                {
+                    temp = stack[top--];
+                    int width = top < 0 ? i : i - stack[top] - 1;
+                    currentArea = heights[temp] * width;
+                    if (maxArea < currentArea)
+                        maxArea = currentArea;
+                }
+                stack[++top] = i;
+            }
+            while (top >= 0)
+            {
+                temp = stack[top--];
+                currentArea = heights[temp] * (top < 0 ? n : n - stack[top] - 1);
+                if (maxArea < currentArea) maxArea = currentArea;
+            }
+            return maxArea;
+
+        }
     }
 }
 

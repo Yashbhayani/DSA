@@ -838,6 +838,10 @@ int target = 0;
 Console.WriteLine(LeetCodeClass.Search814(nums, target));*/
 
 //82. Remove Duplicates from Sorted List II
-int[] head = [1, 2, 3, 3, 4, 4, 5];
+/*int[] head = [1, 2, 3, 3, 4, 4, 5];
 Node res = LeetCodeCodeFunctionsClass.createList(head);
-LeetCodeCodeFunctionsClass.printList(LeetCodeClass.DeleteDuplicates3(res));
+LeetCodeCodeFunctionsClass.printList(LeetCodeClass.DeleteDuplicates3(res));*/
+
+//84. Largest Rectangle in Histogram
+int[] heights = [2, 1, 5, 6, 2, 3];
+Console.WriteLine(LeetCodeClass.LargestRectangleArea2(heights));
