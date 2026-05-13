@@ -6366,6 +6366,143 @@ namespace LeetCodes.Functions
 
             return dummy.next;
         }
+
+        public static int LargestRectangleArea(int[] heights)
+        {
+            int ans = 0;
+            Stack<int> stack = new Stack<int>();
+
+            for (int i = 0; i <= heights.Length; ++i)
+            {
+                while (stack.Count > 0 &&
+                       (i == heights.Length || heights[stack.Peek()] > heights[i]))
+                {
+                    int h = heights[stack.Pop()];
+                    int w = stack.Count == 0 ? i : i - stack.Peek() - 1;
+                    ans = Math.Max(ans, h * w);
+                }
+
+                stack.Push(i);
+            }
+
+            return ans;
+        }
+
+        public static int LargestRectangleArea2(int[] heights)
+        {
+            int max = 0;
+
+            for (int i = 0; i < heights.Length; i++)
+            {
+                int count = 1;
+                int j = i - 1;
+                while (j >= 0 && heights[j] >= heights[i])
+                {
+                    j--;
+                    count++;
+                }
+
+                j = i + 1;
+                while (j < heights.Length && heights[j] >= heights[i])
+                {
+                    j++;
+                    count++;
+                }
+
+                max = Math.Max(max, heights[i] * count);
+
+            }
+
+            return max;
+        }
+
+        public static int LargestRectangleArea3(int[] heights)
+        {
+            int n = heights.Length;
+
+            int[] left = new int[n];
+            int[] right = new int[n];
+
+            Stack<int> stack = new Stack<int>();
+
+            for (int i = 0; i < n; i++)
+            {
+                while (stack.Count > 0 &&
+                       heights[stack.Peek()] >= heights[i])
+                {
+                    stack.Pop();
+                }
+
+                left[i] = stack.Count == 0 ? -1 : stack.Peek();
+
+                stack.Push(i);
+            }
+
+            stack.Clear();
+
+            for (int i = n - 1; i >= 0; i--)
+            {
+                while (stack.Count > 0 &&
+                       heights[stack.Peek()] >= heights[i])
+                {
+                    stack.Pop();
+                }
+
+                right[i] = stack.Count == 0 ? n : stack.Peek();
+
+                stack.Push(i);
+            }
+
+            int max = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                int count = right[i] - left[i] - 1;
+
+                max = Math.Max(max, heights[i] * count);
+            }
+
+            return max;
+        }
+
+        public static int MaximalRectangle(char[][] matrix)
+        {
+            if (matrix.Length == 0)
+                return 0;
+
+            int ans = 0;
+            int[] hist = new int[matrix[0].Length];
+
+            foreach (char[] row in matrix)
+            {
+                for (int i = 0; i < row.Length; ++i)
+                    hist[i] = row[i] == '0' ? 0 : hist[i] + 1;
+
+                ans = Math.Max(ans, LargestRectangleArea(hist));
+            }
+
+            return ans;
+        }
+
+        public static int MaximalRectangle2(char[][] matrix)
+        {
+            if (matrix.Length == 0)
+                return 0;
+
+            int ans = 0;
+            int[] hist = new int[matrix[0].Length];
+
+            foreach (char[] row in matrix)
+            {
+                for (int i = 0; i < row.Length; ++i)
+                    hist[i] = row[i] == '0' ? 0 : hist[i] + 1;
+
+                ans = Math.Max(ans, LargestRectangleArea2(hist));
+
+            }
+
+            return ans;
+        }
     }
 }
 
