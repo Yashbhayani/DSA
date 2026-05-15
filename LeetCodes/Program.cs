@@ -861,9 +861,17 @@ LeetCodeCodeFunctionsClass.printList(res);
 */
 
 //87. Scramble String
-string s1 = "great", s2 = "rgeat";
-/*string s1 = "abcde", s2 = "caebd";
+/*string s1 = "great", s2 = "rgeat";
+string s1 = "abcde", s2 = "caebd";
 string s1 = "aa", s2 = "ab";
 string s1 = "abb", s2 = "bba";
-string s1 = "ab", s2 = "ba";*/
-Console.WriteLine(LeetCodeClass.IsScramble2(s1,s2));
+string s1 = "ab", s2 = "ba";
+Console.WriteLine(LeetCodeClass.IsScramble2(s1,s2));*/
+
+//89. Gray Code
+/*int n = 2;
+IList<int> res = LeetCodeClass.GrayCode2(n);
+foreach (var item in res)
+{
+    Console.WriteLine(item);
+}*/

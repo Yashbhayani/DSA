@@ -6659,7 +6659,7 @@ namespace LeetCodes.Functions
             return false;
         }
 
-        public bool IsScramble2(string s1, string s2)
+        public static bool IsScramble2(string s1, string s2)
         {
             if (s1.Length != s2.Length)
                 return false;
@@ -6740,6 +6740,32 @@ namespace LeetCodes.Functions
             }
 
             return false;
+        }
+
+        public static IList<int> GrayCode(int n)
+        {
+            List<int> ans = new List<int>();
+            ans.Add(0);
+
+            for (int i = 0; i < n; ++i)
+            {
+                for (int j = ans.Count - 1; j >= 0; --j)
+                {
+                    ans.Add(ans[j] | (1 << i));
+                }
+            }
+
+            return ans;
+        }
+
+        public static IList<int> GrayCode2(int n)
+        {
+            int[] result = new int[1 << n];
+            for (var i = 0; i < result.Length; i++)
+            {
+                result[i] = i ^ (i >> 1);
+            }
+            return result;
         }
     }
 }
