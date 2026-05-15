@@ -849,5 +849,21 @@ LeetCodeCodeFunctionsClass.printList(LeetCodeClass.DeleteDuplicates3(res));*/
 Console.WriteLine(LeetCodeClass.LargestRectangleArea(heights));*/
 
 //85. Maximal Rectangle
-char[][] matrix = [['1', '0', '1', '0', '0'], ['1', '0', '1', '1', '1'], ['1', '1', '1', '1', '1'], ['1', '0', '0', '1', '0']];
+/*char[][] matrix = [['1', '0', '1', '0', '0'], ['1', '0', '1', '1', '1'], ['1', '1', '1', '1', '1'], ['1', '0', '0', '1', '0']];
 Console.WriteLine(LeetCodeClass.MaximalRectangle2(matrix));
+*/
+
+//86. Partition List
+/*int[] head = [1, 4, 3, 2, 5, 2]; int x = 3;
+Node node = LeetCodeCodeFunctionsClass.createList(head);
+Node res = LeetCodeClass.Partition(node, 3);
+LeetCodeCodeFunctionsClass.printList(res);
+*/
+
+//87. Scramble String
+string s1 = "great", s2 = "rgeat";
+/*string s1 = "abcde", s2 = "caebd";
+string s1 = "aa", s2 = "ab";
+string s1 = "abb", s2 = "bba";
+string s1 = "ab", s2 = "ba";*/
+Console.WriteLine(LeetCodeClass.IsScramble2(s1,s2));

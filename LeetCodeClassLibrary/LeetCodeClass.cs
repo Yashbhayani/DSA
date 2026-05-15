@@ -2,6 +2,7 @@
 using LeetCodes.Model;
 using System;
 using System.Collections;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -6502,6 +6503,243 @@ namespace LeetCodes.Functions
             }
 
             return ans;
+        }
+
+        public static Node Partition(Node head, int x)
+        {
+            Node dum = new Node(0);
+            Node res = dum;
+
+            Node tempNode = new Node(0);
+            Node restemp = tempNode;
+
+            while (head != null)
+            {
+                Node d = head.next;
+                head.next = null;
+                if (head.value < x)
+                {
+                    res.next = head;
+                    res = res.next;
+                }
+                else
+                {
+                    restemp.next = head;
+                    restemp = restemp.next;
+                }
+                head = d;
+            }
+            restemp.next = null;
+            res.next = tempNode.next;
+
+            return dum.next;
+        }
+
+        public static Node Partition2(Node head, int x)
+        {
+            Node beforeHead = new Node(0);
+            Node afterHead = new Node(0);
+
+            Node before = beforeHead;
+            Node after = afterHead;
+
+            while (head != null)
+            {
+                if (head.value < x)
+                {
+                    before.next = head;
+                    before = head;
+                }
+                else
+                {
+                    after.next = head;
+                    after = head;
+                }
+
+                head = head.next;
+            }
+
+            after.next = null;
+            before.next = afterHead.next;
+
+            return beforeHead.next;
+        }
+
+        public static Node Partition3(Node head, int x)
+        {
+            var dict1 = new Dictionary<int, int>();
+            var dict2 = new Dictionary<int, int>();
+            var curr = head;
+            var temp = new Node(0);
+            var tempCopy = temp;
+            int count1 = 0;
+            int count2 = 0;
+            while (curr != null)
+            {
+                if (curr.value < x)
+                {
+                    dict1.Add(count1, curr.value);
+                    count1++;
+                }
+                else
+                {
+                    dict2.Add(count2, curr.value);
+                    count2++;
+                }
+
+                curr = curr.next;
+            }
+
+            int i = 0;
+            while (i < count1)
+            {
+                temp.next = new Node(dict1[i]);
+                i++;
+                temp = temp.next;
+            }
+
+            i = 0;
+            while (i < count2)
+            {
+                temp.next = new Node(dict2[i]);
+                i++;
+                temp = temp.next;
+            }
+
+            return tempCopy.next;
+        }
+
+        private static Dictionary<string, bool> mem = new Dictionary<string, bool>();
+
+        public static bool IsScramble(string s1, string s2)
+        {
+            if (s1 == s2)
+                return true;
+
+            string hashKey = s1 + "+" + s2;
+
+            if (mem.ContainsKey(hashKey))
+                return mem[hashKey];
+
+            int[] count = new int[128];
+
+            for (int i = 0; i < s1.Length; ++i)
+            {
+                ++count[s1[i]];
+                --count[s2[i]];
+            }
+
+            foreach (int freq in count)
+            {
+                if (freq != 0)
+                {
+                    mem[hashKey] = false;
+                    return false;
+                }
+            }
+
+            for (int i = 1; i < s1.Length; ++i)
+            {
+                if (IsScramble(s1.Substring(0, i), s2.Substring(0, i)) &&
+                    IsScramble(s1.Substring(i), s2.Substring(i)))
+                {
+                    mem[hashKey] = true;
+                    return true;
+                }
+
+                if (IsScramble(s1.Substring(0, i), s2.Substring(s2.Length - i)) &&
+                    IsScramble(s1.Substring(i), s2.Substring(0, s2.Length - i)))
+                {
+                    mem[hashKey] = true;
+                    return true;
+                }
+            }
+
+            mem[hashKey] = false;
+            return false;
+        }
+
+        public bool IsScramble2(string s1, string s2)
+        {
+            if (s1.Length != s2.Length)
+                return false;
+
+            if (s1 == s2)
+                return true;
+
+            char[] a = s1.ToCharArray();
+            char[] b = s2.ToCharArray();
+
+            Array.Sort(a);
+            Array.Sort(b);
+
+            if (!new string(a).Equals(new string(b)))
+                return false;
+
+            int n = s1.Length;
+
+            for (int i = 1; i < n; i++)
+            {
+                string left1 = s1.Substring(0, i);
+                string right1 = s1.Substring(i);
+
+                string left2 = s2.Substring(0, i);
+                string right2 = s2.Substring(i);
+
+                if (IsScramble2(left1, left2) &&
+                    IsScramble2(right1, right2))
+                {
+                    return true;
+                }
+
+                string swapLeft2 = s2.Substring(0, n - i);
+                string swapRight2 = s2.Substring(n - i);
+
+                if (IsScramble2(left1, swapRight2) &&
+                    IsScramble2(right1, swapLeft2))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        public static bool IsScramble3(string s1, string s2)
+        {
+            if (s1 == s2)
+                return true;
+
+            if (s1.Length != s2.Length)
+                return false;
+
+            bool sameChars = s1.OrderBy(c => c)
+                               .SequenceEqual(s2.OrderBy(c => c));
+
+            if (!sameChars)
+                return false;
+
+            int n = s1.Length;
+
+            for (int i = 1; i < n; i++)
+            {
+                bool noSwap =
+                    IsScramble3(s1.Substring(0, i), s2.Substring(0, i)) &&
+                    IsScramble3(s1.Substring(i), s2.Substring(i));
+
+                if (noSwap)
+                    return true;
+
+                bool swap =
+                    IsScramble3(s1.Substring(0, i), s2.Substring(n - i)) &&
+                    IsScramble3(s1.Substring(i), s2.Substring(0, n - i));
+
+                if (swap)
+                    return true;
+            }
+
+            return false;
         }
     }
 }
