@@ -6767,6 +6767,27 @@ namespace LeetCodes.Functions
             }
             return result;
         }
+
+        public static IList<int> GrayCode3(int n)
+        {
+            IList<int> res = new List<int>();
+            res.Add(0);
+
+            if (n == 0) return res;
+            res.Add(1);
+
+            int curr = 1;
+            for (int i = 2; i <= n; i++)
+            {
+                curr *= 2;
+                for (int j = res.Count - 1; j >= 0; j--)
+                {
+                    res.Add(curr + res[j]);
+                }
+
+            }
+            return res;
+        }
     }
 }
 

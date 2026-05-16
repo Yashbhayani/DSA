@@ -869,9 +869,14 @@ string s1 = "ab", s2 = "ba";
 Console.WriteLine(LeetCodeClass.IsScramble2(s1,s2));*/
 
 //89. Gray Code
-/*int n = 2;
-IList<int> res = LeetCodeClass.GrayCode2(n);
+int n = 2;
+IList<int> res = LeetCodeClass.GrayCode3(n);
 foreach (var item in res)
 {
     Console.WriteLine(item);
-}*/
+}
+
+//90. Subsets II
+/*int[] nums = [1, 2, 2];
+IList<IList<int>> res = null;
+*/
