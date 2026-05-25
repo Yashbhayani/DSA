@@ -2,9 +2,12 @@
 using LeetCodes.Model;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace LeetCodes.Functions
 {
@@ -6788,6 +6791,152 @@ namespace LeetCodes.Functions
             }
             return res;
         }
+
+        public static IList<IList<int>> SubsetsWithDup(int[] nums)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+
+            Array.Sort(nums);
+            SubsetsWithDupDfs(nums, 0, new List<int>(), ans);
+
+            return ans;
+        }
+
+        private static void SubsetsWithDupDfs(int[] nums, int start, List<int> path, IList<IList<int>> ans)
+        {
+            ans.Add(new List<int>(path));
+
+            for (int i = start; i < nums.Length; ++i)
+            {
+                if (i > start && nums[i] == nums[i - 1])
+                    continue;
+
+                path.Add(nums[i]);
+                SubsetsWithDupDfs(nums, i + 1, path, ans);
+                path.RemoveAt(path.Count - 1);
+            }
+        }
+
+        public static IList<IList<int>> SubsetsWithDup2(int[] nums)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+
+            Array.Sort(nums);
+            ans.Add(new List<int>());
+
+            int start = 0;
+            int end = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                start = 0;
+
+                if (i > 0 && nums[i] == nums[i - 1])
+                {
+                    start = end + 1;
+                }
+
+                end = ans.Count - 1;
+
+                int currentSize = ans.Count;
+
+                for (int j = start; j < currentSize; j++)
+                {
+                    List<int> subset = new List<int>(ans[j]);
+                    subset.Add(nums[i]);
+
+                    ans.Add(subset);
+                }
+            }
+
+            return ans;
+
+        }
+
+        public static int NumDecodings(string s)
+        {
+            int n = s.Length;
+
+            int[] dp = new int[n + 1];
+
+            dp[n] = 1;
+
+            dp[n - 1] = IsValid(s[n - 1]) ? 1 : 0;
+
+            for (int i = n - 2; i >= 0; --i)
+            {
+                if (IsValid(s[i]))
+                    dp[i] += dp[i + 1];
+
+                if (IsValid(s[i], s[i + 1]))
+                    dp[i] += dp[i + 2];
+            }
+
+            return dp[0];
+        }
+
+        private static bool IsValid(char c)
+        {
+            return c != '0';
+        }
+
+        private static bool IsValid(char c1, char c2)
+        {
+            return c1 == '1' || (c1 == '2' && c2 < '7');
+        }
+
+
+        public static Node ReverseBetween(Node head, int m, int n)
+        {
+            if (head == null || m == n)
+                return head;
+
+            Node dummy = new Node(0, head);
+            Node prev = dummy;
+
+            for (int i = 0; i < m - 1; ++i)
+                prev = prev.next;
+
+            Node tail = prev.next;
+
+            for (int i = 0; i < n - m; ++i)
+            {
+                Node cache = tail.next;
+                tail.next = cache.next;
+                cache.next = prev.next;
+                prev.next = cache;
+            }
+
+            return dummy.next;
+        }
+
+        public static Node ReverseBetween2(Node head, int m, int n)
+        {
+            if (head == null || m == n)
+                return head;
+
+            Node dummy = new Node(0);
+            Node prev = dummy;
+
+            for (int i = 0; i < m - 1; i++)
+            {
+                prev.next = head;
+                prev = prev.next;
+                head = head.next;
+            }
+            Node tail = prev.next;
+
+            for (int i = n - m; i > 0; i--)
+            {
+                Node cache = tail.next;
+                tail.next = cache.next;
+                cache.next = prev.next;
+                prev.next = cache;
+            }
+            return dummy.next;
+        }
+
+
     }
 }
 

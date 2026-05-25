@@ -869,14 +869,27 @@ string s1 = "ab", s2 = "ba";
 Console.WriteLine(LeetCodeClass.IsScramble2(s1,s2));*/
 
 //89. Gray Code
-int n = 2;
+/*int n = 2;
 IList<int> res = LeetCodeClass.GrayCode3(n);
 foreach (var item in res)
 {
     Console.WriteLine(item);
-}
+}*/
 
 //90. Subsets II
 /*int[] nums = [1, 2, 2];
-IList<IList<int>> res = null;
-*/
+IList<IList<int>> res = LeetCodeClass.SubsetsWithDup2(nums);
+foreach (var item in res)
+{
+    Console.WriteLine("[" + string.Join(", ", item) + "]");
+}*/
+
+//91. Decode Ways
+/*string s = "226";
+Console.WriteLine(LeetCodeClass.NumDecodings(s));*/
+
+//92. Reverse Linked List II
+int[] head = [1, 2, 3, 4, 5]; int m = 2, n = 4;
+Node node = LeetCodeCodeFunctionsClass.createList(head);
+Node res = LeetCodeClass.ReverseBetween2(node, m, n);
+LeetCodeCodeFunctionsClass.printList(res);
