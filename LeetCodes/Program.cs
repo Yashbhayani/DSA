@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Xml.Linq;
 
 //LeetCodeCodeFunctionsClass.LoopCode();
@@ -252,6 +253,24 @@ Node head = LeetCodeCodeFunctionsClass.createList(num);*/
 //Node? result  = LeetCodeFunctionsClass.RemoveNthNodeFromEnd(head, 2);
 //Node? result  = LeetCodeFunctionsClass.RemoveNthNodeFromEnd2(head, 2);
 //LeetCodeFunctionsClass.printList(result);
+
+//------------------------------------------------Tree-----------------------------------------------------
+
+//Level 0: Tree Fundamentals
+
+
+//Learn:
+
+/*
+ * Tree terminology
+ * DFS
+ * BFS
+ * Recursive thinking
+ */
+
+//Maximum Depth of Binary Tree
+int[] num = { 3, 9, 20, -1, -1, 15, 7 };
+NodeClass res = LeetCodeCodeFunctionsClass.createTreeList(num);
 
 
 //------------------------------------------------LeetCode---------------------------------------------------------

@@ -975,14 +975,14 @@ namespace LeetCodes.Functions
         public static void LoopCode()
         {
             int n = 6;
-            for (int i = 1; i<= n; i++)
+            for (int i = 1; i <= n; i++)
             {
                 int k = n - 1;
                 string s = "";
                 int val = 0;
-                for(int j = i; j>=1; j--)
+                for (int j = i; j >= 1; j--)
                 {
-                    if(j == i)
+                    if (j == i)
                     {
                         val = i;
                         s = i.ToString();
@@ -1028,6 +1028,39 @@ namespace LeetCodes.Functions
             tail.next = null;
 
             return newHead;
+        }
+
+        public static NodeClass createTreeList(int[] num)
+        {
+
+            if (num.Length == 0 || num.Length == -1)
+                return null;
+
+            NodeClass root = new NodeClass(num[0]);
+            Queue<NodeClass> queue = new Queue<NodeClass>();
+            queue.Enqueue(root);
+
+            int i = 1;
+            if (i < num.Length)
+            {
+                NodeClass curr = queue.Dequeue();
+                if (i < num.Length && num[i] != -1)
+                {
+                    curr.left = new NodeClass(num[i]);
+                    queue.Enqueue(curr);
+                }
+                i++;
+
+                if (i < num.Length && num[i] != -1)
+                {
+                    curr.right = new NodeClass(num[i]);
+                    queue.Enqueue(curr);
+                }
+                i++;
+            }
+
+
+            return root;
         }
     }
 }
