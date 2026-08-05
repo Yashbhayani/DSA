@@ -271,6 +271,15 @@ Node head = LeetCodeCodeFunctionsClass.createList(num);*/
 //Maximum Depth of Binary Tree
 int[] num = { 3, 9, 20, -1, -1, 15, 7 };
 NodeClass res = LeetCodeCodeFunctionsClass.createTreeList(num);
+Console.WriteLine(LeetCodeCodeFunctionsClass.MDheight(res));
+
+
+
+
+
+
+
+
 
 
 //------------------------------------------------LeetCode---------------------------------------------------------
@@ -908,7 +917,7 @@ foreach (var item in res)
 Console.WriteLine(LeetCodeClass.NumDecodings(s));*/
 
 //92. Reverse Linked List II
-int[] head = [1, 2, 3, 4, 5]; int m = 2, n = 4;
+/*int[] head = [1, 2, 3, 4, 5]; int m = 2, n = 4;
 Node node = LeetCodeCodeFunctionsClass.createList(head);
 Node res = LeetCodeClass.ReverseBetween2(node, m, n);
-LeetCodeCodeFunctionsClass.printList(res);
+LeetCodeCodeFunctionsClass.printList(res);*/

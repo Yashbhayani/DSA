@@ -1041,26 +1041,65 @@ namespace LeetCodes.Functions
             queue.Enqueue(root);
 
             int i = 1;
-            if (i < num.Length)
+            while (i < num.Length)
             {
                 NodeClass curr = queue.Dequeue();
                 if (i < num.Length && num[i] != -1)
                 {
                     curr.left = new NodeClass(num[i]);
-                    queue.Enqueue(curr);
+                    queue.Enqueue(curr.left);
                 }
                 i++;
 
                 if (i < num.Length && num[i] != -1)
                 {
                     curr.right = new NodeClass(num[i]);
-                    queue.Enqueue(curr);
+                    queue.Enqueue(curr.right);
                 }
                 i++;
             }
 
 
             return root;
+        }
+
+        public static int[]? printTreeList(NodeClass res)
+        {
+            ArrayList data = new ArrayList();
+
+            if (res == null)
+                return null;
+
+            Queue<NodeClass> queue = new Queue<NodeClass>();
+            queue.Enqueue(res);
+
+
+            while (queue.Count > 0)
+            {
+                NodeClass curr = queue.Dequeue();
+                data.Add(curr.data);
+                if (curr.left != null)
+                    queue.Enqueue(curr.left);
+                else
+                    data.Add(-1);
+                if (curr.right != null)
+                    queue.Enqueue(curr.right);
+                else
+                    data.Add(-1);
+            }
+            return data.ToArray(typeof(int)) as int[];
+        }
+
+
+        public static int MDheight(NodeClass nodeClass)
+        {
+            if (nodeClass == null)
+                return 0;
+
+            int leftHeight = MDheight(nodeClass.left);
+            int rightHeight = MDheight(nodeClass.right);
+
+            return Math.Max(leftHeight, rightHeight) + 1;
         }
     }
 }

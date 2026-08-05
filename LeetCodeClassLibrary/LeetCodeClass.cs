@@ -6936,6 +6936,13 @@ namespace LeetCodes.Functions
             return dummy.next;
         }
 
+        public static int MDheight(NodeClass nodeClass)
+        {
+            if (nodeClass == null)
+                return 0;
+
+            return Math.Max(MDheight(nodeClass.left), MDheight(nodeClass.right)) + 1;
+        }
 
     }
 }
