@@ -6944,6 +6944,16 @@ namespace LeetCodes.Functions
             return Math.Max(MDheight(nodeClass.left), MDheight(nodeClass.right)) + 1;
         }
 
+        public static bool IsSameTree(NodeClass p, NodeClass q)
+        {
+            if (p == null && q == null)
+                return true;
+            if (p == null || q == null)
+                return false;
+            if (p.data != q.data)
+                return false;
+            return IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
+        }
     }
 }
 

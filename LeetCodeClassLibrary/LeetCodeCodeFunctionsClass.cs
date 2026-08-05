@@ -1101,5 +1101,34 @@ namespace LeetCodes.Functions
 
             return Math.Max(leftHeight, rightHeight) + 1;
         }
+
+        public static bool IsSameTree(NodeClass p, NodeClass q)
+        {
+            if (p == null && q == null)
+                return true;
+            if (p == null || q == null)
+                return false;
+            if (p.data != q.data)
+                return false;
+            return IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
+        }
+
+
+        public static bool IsSameTree2(NodeClass p, NodeClass q)
+        {
+
+            if (p == null && q == null)
+                return true;
+            if (p == null || q == null)
+                return false;
+            if (p.data != q.data)
+                return false;
+
+
+            bool leftHeight = IsSameTree2(p.left, q.left);
+            bool rightHeight = IsSameTree2(p.right, q.right);
+            return leftHeight && rightHeight;
+        }
+
     }
 }

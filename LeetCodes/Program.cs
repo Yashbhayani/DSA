@@ -269,12 +269,18 @@ Node head = LeetCodeCodeFunctionsClass.createList(num);*/
  */
 
 //Maximum Depth of Binary Tree
-int[] num = { 3, 9, 20, -1, -1, 15, 7 };
+/*int[] num = { 3, 9, 20, -1, -1, 15, 7 };
 NodeClass res = LeetCodeCodeFunctionsClass.createTreeList(num);
-Console.WriteLine(LeetCodeCodeFunctionsClass.MDheight(res));
+Console.WriteLine(LeetCodeCodeFunctionsClass.MDheight(res));*/
 
+//Same Tree
+/*int[] p = {1, 2, 3}, q = {1, -1, 3};
+NodeClass resp = LeetCodeCodeFunctionsClass.createTreeList(p);
+NodeClass resq = LeetCodeCodeFunctionsClass.createTreeList(q);
+Console.WriteLine(LeetCodeCodeFunctionsClass.IsSameTree2(resp, resq));
+*/
 
-
+//Invert Binary Tree
 
 
 
