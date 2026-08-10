@@ -1130,5 +1130,73 @@ namespace LeetCodes.Functions
             return leftHeight && rightHeight;
         }
 
+        public static NodeClass? InvertTree(NodeClass root)
+        {
+            if (root == null)
+                return root;
+
+            NodeClass nodeClass = root.left;
+            root.left = InvertTree(root.right);
+            root.right = InvertTree(nodeClass);
+
+            return root;
+        }
+        public static NodeClass? InvertTree2(NodeClass root)
+        {
+            if (root == null || (root.right == null && root.left == null)) return root;
+
+            NodeClass temp = root.left;
+            root.left = root.right;
+            root.right = temp;
+
+            root.left = InvertTree(root.left);
+            root.right = InvertTree(root.right);
+
+            return root;
+        }
+        public static NodeClass? InvertTree3(NodeClass root)
+        {
+            if (root == null) return null;
+
+            var queue = new Queue<NodeClass>();
+            queue.Enqueue(root);
+
+            while (queue.Count() != 0)
+            {
+                var count = queue.Count();
+
+                for (var i = 0; i < count; i++)
+                {
+                    var curr = queue.Dequeue();
+                    var tmp = curr.left;
+                    curr.left = curr.right;
+                    curr.right = tmp;
+
+                    if (curr.left != null) queue.Enqueue(curr.left);
+                    if (curr.right != null) queue.Enqueue(curr.right);
+                }
+            }
+
+            return root;
+
+        }
+
+        public static bool IsSymmetric(NodeClass root)
+        {
+            if (root == null)
+                return true;
+
+            return IsSymm(root.left, root.right);
+        }
+
+        public static bool IsSymm(NodeClass left, NodeClass right)
+        {
+            if(left == null && right == null) return true;
+            if(left == null || right == null) return false;
+            if(left.data != right.data) return false;
+
+            return IsSymm(left.left, right.right) && IsSymm(left.right, right.left);
+        }
+
     }
 }

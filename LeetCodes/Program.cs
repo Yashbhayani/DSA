@@ -281,8 +281,19 @@ Console.WriteLine(LeetCodeCodeFunctionsClass.IsSameTree2(resp, resq));
 */
 
 //Invert Binary Tree
+/*int[] root = [4, 2, 7, 1, 3, 6, 9];
+NodeClass res = LeetCodeCodeFunctionsClass.createTreeList(root);    
+NodeClass result = LeetCodeCodeFunctionsClass.InvertTree(res);
+int[] rootres = LeetCodeCodeFunctionsClass.printTreeList(result);
+foreach (var item in rootres)
+{
+    Console.WriteLine(item);
+}*/
 
-
+//Symmetric Tree
+int[] root = [1, 2, 2, 3, 4, 4, 3];
+NodeClass res = LeetCodeCodeFunctionsClass.createTreeList(root);
+Console.WriteLine(LeetCodeCodeFunctionsClass.IsSymmetric(res));
 
 
 
