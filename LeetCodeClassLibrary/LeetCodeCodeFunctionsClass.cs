@@ -1191,12 +1191,96 @@ namespace LeetCodes.Functions
 
         public static bool IsSymm(NodeClass left, NodeClass right)
         {
-            if(left == null && right == null) return true;
-            if(left == null || right == null) return false;
-            if(left.data != right.data) return false;
+            if (left == null && right == null) return true;
+            if (left == null || right == null) return false;
+            if (left.data != right.data) return false;
 
             return IsSymm(left.left, right.right) && IsSymm(left.right, right.left);
         }
 
+
+        public static bool IsSymmetric2(NodeClass root)
+        {
+            if (root == null) return true;
+            return IsMirror(root.left, root.right);
+        }
+
+        private static bool IsMirror(NodeClass t1, NodeClass t2)
+        {
+            if (t1 == null && t2 == null) return true;
+            if (t1 == null || t2 == null) return false;
+
+            return (t1.data == t2.data)
+                && IsMirror(t1.left, t2.right)
+                && IsMirror(t1.right, t2.left);
+        }
+
+        public static bool IsSymmetric3(NodeClass root)
+        {
+            if (root == null) return true;
+            Queue<NodeClass> queue = new Queue<NodeClass>();
+            queue.Enqueue(root.left);
+            queue.Enqueue(root.right);
+            while (queue.Count > 0)
+            {
+                NodeClass left = queue.Dequeue();
+                NodeClass right = queue.Dequeue();
+                if (left == null && right == null) continue;
+                if (left == null || right == null) return false;
+                if (left.data != right.data) return false;
+                queue.Enqueue(left.left);
+                queue.Enqueue(right.right);
+                queue.Enqueue(left.right);
+                queue.Enqueue(right.left);
+            }
+            return true;
+        }
+
+        public static bool IsBalanced(NodeClass root)
+        {
+            if (root == null)
+                return true;
+
+            return Height3(root) != -1 ? true : false;
+        }
+
+        private static int Height(NodeClass node)
+        {
+            if (node == null)
+                return 0;
+            int leftHeight = Height(node.left);
+            if (leftHeight == -1) return -1;
+            int rightHeight = Height(node.right);
+            if (rightHeight == -1) return -1;
+            if (Math.Abs(leftHeight - rightHeight) > 1)
+                return -1;
+            return Math.Max(leftHeight, rightHeight) + 1;
+        }
+
+        private static int Height2(NodeClass node)
+        {
+            if (node == null)
+                return 0;
+            int leftHeight = Height2(node.left);
+            int rightHeight = Height2(node.right);
+            if (leftHeight == -1 || rightHeight == -1 || Math.Abs(leftHeight - rightHeight) > 1)
+                return -1;
+            return Math.Max(leftHeight, rightHeight) + 1;
+        }
+
+        private static int Height3(NodeClass node)
+        {
+            if(node == null)
+                return 0;
+            int leftHeight = Height3(node.left);
+            int rightHeight = Height3(node.right);
+
+            if(Math.Abs(leftHeight - rightHeight) > 1)
+            {
+                return -1;
+            }
+
+            return Math.Max(leftHeight, rightHeight) + 1;
+        }   
     }
 }

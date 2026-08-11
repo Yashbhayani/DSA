@@ -291,10 +291,17 @@ foreach (var item in rootres)
 }*/
 
 //Symmetric Tree
-int[] root = [1, 2, 2, 3, 4, 4, 3];
+/*int[] root = [1, 2, 2, 3, 4, 4, 3];
 NodeClass res = LeetCodeCodeFunctionsClass.createTreeList(root);
-Console.WriteLine(LeetCodeCodeFunctionsClass.IsSymmetric(res));
+Console.WriteLine(LeetCodeCodeFunctionsClass.IsSymmetric(res));*/
 
+//Balanced Binary Tree
+//int[] root = { 3, 9, 20, -1, -1, 15, 7 };
+//int[] root = { 1,2,2,3,3,-1,-1,4,4};
+//int[] root = { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+int[] root = { 1, 2, 2, 3, 3, -1, -1, 4, 4, 5, 5, -1, -1, -1, -1, 6, 6, 7, 7 };
+NodeClass treeRes = LeetCodeCodeFunctionsClass.createTreeList(root);
+Console.WriteLine(LeetCodeCodeFunctionsClass.IsBalanced(treeRes));
 
 
 
