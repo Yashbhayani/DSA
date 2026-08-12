@@ -299,10 +299,15 @@ Console.WriteLine(LeetCodeCodeFunctionsClass.IsSymmetric(res));*/
 //int[] root = { 3, 9, 20, -1, -1, 15, 7 };
 //int[] root = { 1,2,2,3,3,-1,-1,4,4};
 //int[] root = { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-int[] root = { 1, 2, 2, 3, 3, -1, -1, 4, 4, 5, 5, -1, -1, -1, -1, 6, 6, 7, 7 };
-NodeClass treeRes = LeetCodeCodeFunctionsClass.createTreeList(root);
-Console.WriteLine(LeetCodeCodeFunctionsClass.IsBalanced(treeRes));
+//int[] root = { 1, 2, 2, 3, 3, -1, -1, 4, 4, 5, 5, -1, -1, -1, -1, 6, 6, 7, 7 };
+/*NodeClass treeRes = LeetCodeCodeFunctionsClass.createTreeList(root);
+Console.WriteLine(LeetCodeCodeFunctionsClass.IsBalanced(treeRes));*/
 
+//Minimum Depth of Binary Tree
+int[] root = { 3, 9, 20, -1, -1, 15, 7 };
+//int[] root = { 2, -1, 3, -1, 4, -1, 5, -1, 6 };
+NodeClass rootTree = LeetCodeCodeFunctionsClass.createTreeList(root);
+Console.WriteLine(LeetCodeCodeFunctionsClass.MinDepth2(rootTree));
 
 
 

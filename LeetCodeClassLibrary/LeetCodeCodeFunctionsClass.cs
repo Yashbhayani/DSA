@@ -1270,17 +1270,106 @@ namespace LeetCodes.Functions
 
         private static int Height3(NodeClass node)
         {
-            if(node == null)
+            if (node == null)
                 return 0;
             int leftHeight = Height3(node.left);
             int rightHeight = Height3(node.right);
 
-            if(Math.Abs(leftHeight - rightHeight) > 1)
+            if (Math.Abs(leftHeight - rightHeight) > 1)
             {
                 return -1;
             }
 
             return Math.Max(leftHeight, rightHeight) + 1;
-        }   
+        }
+
+        public static int MinDepth(NodeClass root)
+        {
+            if (root == null)
+                return 0;
+
+            int leftdepth = MinDepth(root.left);
+            int rightdepth = MinDepth(root.right);
+
+            if (root.left == null || root.right == null)
+                return leftdepth + rightdepth + 1;
+
+            return Math.Min(leftdepth, rightdepth) + 1;
+        }
+
+        public static int MinDepth2(NodeClass root)
+        {
+            if (root == null) return 0;
+
+            Queue<NodeClass> q = new();
+            root.data = 1;
+
+            q.Enqueue(root);
+
+            while (true)
+            {
+                NodeClass node = q.Dequeue();
+                if (node.left == null && node.right == null) return node.data;
+
+                if (node.left != null)
+                {
+                    node.left.data = node.data + 1;
+                    q.Enqueue(node.left);
+                }
+
+                if (node.right != null)
+                {
+                    node.right.data = node.data + 1;
+                    q.Enqueue(node.right);
+                }
+            }
+        }
+
+        public static int MinDepth3(NodeClass root)
+        {
+            if (root == null) return 0;
+
+            var queue = new Queue<NodeClass>();
+            queue.Enqueue(root);
+            int depth = 0;
+
+            while (queue.Count > 0)
+            {
+
+                depth++;
+                int levelSize = queue.Count;
+
+                for (int i = 0; i < levelSize; i++)
+                {
+
+                    NodeClass node = queue.Dequeue();
+
+                    if (node.left == null && node.right == null)
+                    {
+
+                        return depth;
+
+
+                    }
+                    if (node.left != null)
+                    {
+                        queue.Enqueue(node.left);
+                    }
+                    if (node.right != null)
+                    {
+                        queue.Enqueue(node.right);
+                    }
+
+                }
+            }
+
+            return depth;
+
+        }
+
+        public static IList<int> PreorderTraversal(NodeClass root)
+        {
+            return null;
+        }
     }
 }
