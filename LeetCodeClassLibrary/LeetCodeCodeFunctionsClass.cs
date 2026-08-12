@@ -1434,5 +1434,118 @@ namespace LeetCodes.Functions
 
             return res.Concat(PreorderTraversal(root.right)).ToList();
         }
+
+        public static IList<int> InorderTraversal(NodeClass root)
+        {
+            if (root == null)
+                return new List<int>();
+
+            IList<int> result = new List<int>();
+            LeetCodeCodeFunctionsClass.InorderHelper(root, result);
+            return result;
+        }
+
+        public static void InorderHelper(NodeClass root, IList<int> res)
+        {
+            if (root == null)
+                return;
+            InorderHelper(root.left, res);
+            res.Add(root.data);
+            InorderHelper(root.right, res);
+        }
+
+        public static IList<int> InorderTraversal2(NodeClass root)
+        {
+            if (root == null)
+                return new List<int>();
+
+            IList<int> listL = new List<int>();
+            if (root.left != null)
+                listL = InorderTraversal(root.left);
+
+            IList<int> listR = new List<int>();
+            if (root.right != null)
+                listR = InorderTraversal(root.right);
+
+            listL.Add(root.data);
+            return listL.Concat(listR).ToList();
+        }
+
+        public static IList<int> InorderTraversal3(NodeClass root)
+        {
+            var ans = new List<int>();
+            if (root == null)
+                return ans;
+            var s = new Stack<NodeClass>();
+            NodeClass node = root;
+            while (true)
+            {
+                if (node != null)
+                {
+                    s.Push(node);
+                    node = node.left;
+                }
+                else
+                {
+                    if (s.Count == 0)
+                        break;
+                    node = s.Peek();
+                    s.Pop();
+                    ans.Add(node.data);
+                    node = node.right;
+                }
+            }
+            return ans;
+        }
+
+        public static IList<int> InorderTraversal4(NodeClass root)
+        {
+            var result = new List<int>();
+            var stack = new Stack<NodeClass>();
+            var current = root;
+            while (current != null || stack.Count > 0)
+            {
+                while (current != null)
+                {
+                    stack.Push(current);
+                    current = current.left;
+                }
+                current = stack.Pop();
+                result.Add(current.data);
+                current = current.right;
+            }
+            return result;
+        }
+
+        public static IList<int> InorderTraversal5(NodeClass root)
+        {
+            var result = new List<int>();
+            var stack = new Stack<NodeClass>();
+            stack.Push(root);
+
+            while (stack.Count > 0)
+            {
+                var node = stack.Pop();
+                
+                if(node.right != null)
+                    stack.Push(node.right);
+
+                if (node.left == null)
+                {
+                    result.Add(node.data);
+                }
+                else
+                {
+                    var templeft = node.left;
+                    node.left = null;
+                    node.right = null;
+                    stack.Push(node);
+                    stack.Push(templeft);
+                }
+
+            }
+
+            return result;
+        }
     }
 }

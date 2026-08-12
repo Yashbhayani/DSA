@@ -310,13 +310,41 @@ Console.WriteLine(LeetCodeCodeFunctionsClass.IsBalanced(treeRes));*/
 Console.WriteLine(LeetCodeCodeFunctionsClass.MinDepth2(rootTree));*/
 
 //Binary Tree Preorder Traversal
-int[] root = { 1, 2, 3, 4, 5, -1, 8, -1, -1, 6, 7, 9 };
+/*int[] root = { 1, 2, 3, 4, 5, -1, 8, -1, -1, 6, 7, 9 };
 NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
 IList<int> res = LeetCodeCodeFunctionsClass.PreorderTraversal2(treeRoot);
 foreach (var item in res)
 {
     Console.Write(item + ", ");
+}*/
+
+//Binary Tree Inorder Traversal
+int[] root = { 1, 2, 3, 4, 5, -1, 8, -1, -1, 6, 7, 9 };
+NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
+IList<int> res = LeetCodeCodeFunctionsClass.InorderTraversal5(treeRoot);
+foreach (var item in res)
+{
+    Console.Write(item + ", ");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //------------------------------------------------LeetCode---------------------------------------------------------
 
 
