@@ -1369,7 +1369,70 @@ namespace LeetCodes.Functions
 
         public static IList<int> PreorderTraversal(NodeClass root)
         {
-            return null;
+            if (root == null)
+                return new List<int>();
+
+            IList<int> result = new List<int>();
+            LeetCodeCodeFunctionsClass.PreorderHelper(root, result);
+            return result;
+        }
+
+        private static void PreorderHelper(NodeClass node, IList<int> result)
+        {
+            if (node == null)
+                return;
+            result.Add(node.data);
+            PreorderHelper(node.left, result);
+            PreorderHelper(node.right, result);
+        }
+
+        public static IList<int> PreorderTraversal2(NodeClass root)
+        {
+            if (root == null)
+                return new List<int>();
+
+            var stack = new Stack<NodeClass>();
+            IList<int> result = new List<int>();
+            stack.Push(root);
+
+            while (stack.Count > 0)
+            {
+                var node = stack.Pop();
+                result.Add(node.data);
+                if (node.right != null)
+                    stack.Push(node.right);
+                if (node.left != null)
+                    stack.Push(node.left);
+            }
+
+
+            return result;
+        }
+
+        public static IList<int> PreorderTraversal3(NodeClass root)
+        {
+            var result = traverse(root);
+            return result.ToList();
+        }
+
+        private static IEnumerable<int> traverse(NodeClass root)
+        {
+            if (root is null) yield break;
+            yield return root.data;
+            foreach (var val in traverse(root.left))
+                yield return val;
+            foreach (var val in traverse(root.right))
+                yield return val;
+        }
+
+        public static IList<int> PreorderTraversal4(NodeClass root)
+        {
+            if (root == null) return new List<int>();
+
+            var res = PreorderTraversal(root.left);
+            res.Insert(0, root.data);
+
+            return res.Concat(PreorderTraversal(root.right)).ToList();
         }
     }
 }
