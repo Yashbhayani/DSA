@@ -1526,8 +1526,8 @@ namespace LeetCodes.Functions
             while (stack.Count > 0)
             {
                 var node = stack.Pop();
-                
-                if(node.right != null)
+
+                if (node.right != null)
                     stack.Push(node.right);
 
                 if (node.left == null)
@@ -1543,6 +1543,137 @@ namespace LeetCodes.Functions
                     stack.Push(templeft);
                 }
 
+            }
+
+            return result;
+        }
+
+        public static IList<int> PostorderTraversal(NodeClass root)
+        {
+            IList<int> result = new List<int>();
+            LeetCodeCodeFunctionsClass.PostorderHelper(root, result);
+            return result;
+        }
+
+        private static void PostorderHelper(NodeClass node, IList<int> result)
+        {
+            if (node == null)
+                return;
+            PostorderHelper(node.left, result);
+            PostorderHelper(node.right, result);
+            result.Add(node.data);
+        }
+
+        public static IList<int> PostorderTraversal2(NodeClass root)
+        {
+
+            IList<int> result = new List<int>();
+
+            if (root == null)
+                return result;
+
+            var stack = new Stack<NodeClass>();
+
+            stack.Push(root);
+
+            while (stack.Count > 0)
+            {
+                var current = stack.Pop();
+
+                if (current.left != null)
+                    stack.Push(current.left);
+
+                if (current.right != null)
+                    stack.Push(current.right);
+
+                result.Add(current.data);
+            }
+
+            return result.Reverse().ToList();
+        }
+
+        public static IList<int> PostorderTraversal3(NodeClass root)
+        {
+            if (root == null)
+                return new List<int>();
+
+            Stack<(NodeClass, List<int>)> stack = new();
+            List<int> order = new();
+
+            stack.Push((root.right, new List<int> { root.data }));
+            stack.Push((root.left, new List<int>()));
+            while (stack.Count > 0)
+            {
+                (NodeClass node, List<int> pending) = stack.Pop();
+
+                if (node == null)
+                {
+                    for (int i = pending.Count - 1; i >= 0; i--)
+                        order.Add(pending[i]);
+                }
+                else
+                {
+                    pending.Add(node.data);
+                    stack.Push((node.right, pending));
+                    stack.Push((node.left, new List<int>()));
+                }
+            }
+
+            return order;
+        }
+
+        public static IList<int> PostorderTraversal4(NodeClass root)
+        {
+
+            List<int> result = [];
+
+            if (root == null)
+            {
+                return result;
+            }
+
+            if (root.left != null)
+            {
+                result.AddRange(PostorderTraversal(root.left));
+            }
+
+            if (root.right != null)
+            {
+                result.AddRange(PostorderTraversal(root.right));
+            }
+
+            result.Add(root.data);
+
+            return result;
+        }
+
+        public static IList<int> PostorderTraversal5(NodeClass root)
+        {
+            var stack = new Stack<NodeClass>();
+            var visited = new HashSet<NodeClass>();
+            var result = new List<int>();
+
+            if (root is not null)
+                stack.Push(root);
+
+            while (stack.Count > 0)
+            {
+                var node = stack.Peek();
+
+                if ((node.right is null && node.left is null)
+                    || visited.Contains(node.left) || visited.Contains(node.right))
+                {
+                    visited.Add(node);
+                    result.Add(node.data);
+                    stack.Pop();
+
+                    continue;
+                }
+
+                if (node.right is not null)
+                    stack.Push(node.right);
+                if (node.left is not null)
+                    stack.Push(node.left);
             }
 
             return result;

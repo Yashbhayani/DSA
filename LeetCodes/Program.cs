@@ -319,17 +319,23 @@ foreach (var item in res)
 }*/
 
 //Binary Tree Inorder Traversal
-int[] root = { 1, 2, 3, 4, 5, -1, 8, -1, -1, 6, 7, 9 };
+/*int[] root = { 1, 2, 3, 4, 5, -1, 8, -1, -1, 6, 7, 9 };
 NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
 IList<int> res = LeetCodeCodeFunctionsClass.InorderTraversal5(treeRoot);
 foreach (var item in res)
 {
     Console.Write(item + ", ");
+}*/
+
+//Binary Tree Postorder Traversal
+
+int[] root = { 1, 2, 3, 4, 5, -1, 8, -1, -1, 6, 7, 9 };
+NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
+IList<int> res = LeetCodeCodeFunctionsClass.PostorderTraversal(treeRoot);
+foreach (var item in res)
+{
+    Console.Write(item + ", ");
 }
-
-
-
-
 
 
 
