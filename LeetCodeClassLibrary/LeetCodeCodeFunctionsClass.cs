@@ -1678,5 +1678,105 @@ namespace LeetCodes.Functions
 
             return result;
         }
+
+        public static IList<IList<int>> LevelOrder(NodeClass root)
+        {
+            IList<IList<int>> res = new List<IList<int>>();
+
+            levelOrderRec(root, 0, res);
+            return res;
+        }
+
+        private static void levelOrderRec(NodeClass root, int level,
+                          IList<IList<int>> res)
+        {
+            if (root == null)
+                return;
+
+            if (res.Count <= level)
+                res.Add(new List<int>());
+
+            res[level].Add(root.data);
+
+            levelOrderRec(root.left, level + 1, res);
+            levelOrderRec(root.right, level + 1, res);
+        }
+
+        int MaxLevel = 0;
+        public IList<IList<int>> LevelOrder2(NodeClass root)
+        {
+            Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
+
+            PreOrder(root, dict, 0);
+
+            var result = new List<IList<int>>();
+            if (root == null)
+            {
+                return result;
+            }
+            for (int i = 0; i <= MaxLevel; i++)
+            {
+                result.Add(dict[i]);
+            }
+
+            return result;
+        }
+
+        public void PreOrder(NodeClass root, Dictionary<int, List<int>> dict, int level)
+        {
+            if (root == null)
+            {
+                return;
+            }
+
+            MaxLevel = Math.Max(level, MaxLevel);
+            if (!dict.ContainsKey(level))
+            {
+                dict.Add(level, new List<int>());
+            }
+
+            dict[level].Add(root.data);
+            PreOrder(root.left, dict, level + 1);
+            PreOrder(root.right, dict, level + 1);
+        }
+
+        public static IList<IList<int>> LevelOrder3(NodeClass root)
+        {
+            Queue<NodeClass> queue = new Queue<NodeClass>();
+            IList<IList<int>> list = new List<IList<int>>();
+
+            if (root != null)
+            {
+                queue.Enqueue(root);
+                levelOrderRec2(queue, list);
+            }
+
+            return list;
+        }
+
+        public static void levelOrderRec2(Queue<NodeClass> q, IList<IList<int>> l)
+        {
+            if (q.Count == 0)
+                return;
+
+            Queue<NodeClass> tempQ = new Queue<NodeClass>();
+            List<int> d = new List<int>();
+            while (q.Count > 0)
+            {
+                NodeClass tempn = q.Dequeue();
+
+                if (tempn != null)
+                    d.Add(tempn.data);
+
+                if (tempn?.left != null)
+                    tempQ.Enqueue(tempn.left);
+
+                if (tempn?.right != null)
+                    tempQ.Enqueue(tempn.right);
+            }
+
+            l.Add(d);
+            levelOrderRec2(tempQ, l);
+        }
     }
 }
