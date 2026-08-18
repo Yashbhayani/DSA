@@ -339,16 +339,25 @@ foreach (var item in res)
 
 
 //Binary Tree Level Order Traversal
-int[] root = { 3, 9, 20, -1, -1, 15, 7 };
+/*int[] root = { 3, 9, 20, -1, -1, 15, 7 };
 NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
 IList<IList<int>> res = LeetCodeCodeFunctionsClass.LevelOrder3(treeRoot);
 foreach (var item in res)
 {
     Console.Write("[" + string.Join(", ", item) + "]");
 }
+*/
 
 
+//Binary Tree Zigzag Level Order Traversal
 
+int[] root = { 3, 9, 20, -1, -1, 15, 7 };
+NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
+IList<IList<int>> res =  LeetCodeCodeFunctionsClass.ZigzagLevelOrder2(treeRoot);
+foreach (var item in res)
+{
+    Console.Write("[" + string.Join(", ", item) + "]");
+}
 
 
 

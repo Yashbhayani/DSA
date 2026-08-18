@@ -1778,5 +1778,189 @@ namespace LeetCodes.Functions
             l.Add(d);
             levelOrderRec2(tempQ, l);
         }
+
+        public static IList<IList<int>> ZigzagLevelOrder(NodeClass root)
+        {
+            IList<IList<int>> res = new List<IList<int>>();
+            levelOrderZigzag(root, 0, res);
+            return res;
+        }
+
+        private static void levelOrderZigzag(NodeClass root, int level,
+                          IList<IList<int>> res)
+        {
+            if (root == null)
+                return;
+
+            if (res.Count <= level)
+                res.Add(new List<int>());
+
+            if (level % 2 == 0)
+                res[level].Add(root.data);
+            else
+                res[level].Insert(0, root.data);
+
+            levelOrderZigzag(root.left, level + 1, res);
+            levelOrderZigzag(root.right, level + 1, res);
+        }
+
+        public static IList<IList<int>> ZigzagLevelOrder2(NodeClass root)
+        {
+            IList<IList<int>> res = new List<IList<int>>();
+            Stack<NodeClass> currentLevel = new Stack<NodeClass>();
+            currentLevel.Push(root);
+            levelOrderZigzag2(root, res, currentLevel, 1);
+            return res;
+        }
+
+        private static void levelOrderZigzag2(NodeClass root, IList<IList<int>> res, Stack<NodeClass> currentLevel, int level)
+        {
+            if (currentLevel.Count == 0)
+                return;
+
+            Stack<NodeClass> nextLevel = new Stack<NodeClass>();
+
+            while (currentLevel.Count > 0)
+            {
+                NodeClass node = currentLevel.Pop();
+
+                if (res.Count <= level)
+                    res.Add(new List<int>());
+
+                res[level - 1].Add(node.data);
+
+                if (level % 2 != 0)
+                {
+                    if (node.left != null)
+                        nextLevel.Push(node.left);
+                    if (node.right != null)
+                        nextLevel.Push(node.right);
+                }
+                else
+                {
+                    if (node.right != null)
+                        nextLevel.Push(node.right);
+                    if (node.left != null)
+                        nextLevel.Push(node.left);
+                }
+            }
+
+            levelOrderZigzag2(root, res, nextLevel, level + 1);
+        }
+
+        public IList<IList<int>> ZigzagLevelOrder3(NodeClass root)
+        {
+            List<IList<int>> result = new List<IList<int>>();
+            if (root == null) return result;
+            Queue<NodeClass> queue = new Queue<NodeClass>();
+            queue.Enqueue(root);
+            result.Add(new List<int>() { root.data });
+            bool reverse = false;
+            while (queue.Count > 0)
+            {
+                var size = queue.Count;
+                reverse = !reverse;
+                List<int> values = new List<int>();
+                for (int i = 0; i < size; i++)
+                {
+                    var curr = queue.Dequeue();
+                    if (curr.left != null)
+                    {
+                        values.Add(curr.left.data);
+                        queue.Enqueue(curr.left);
+                    }
+                    if (curr.right != null)
+                    {
+                        values.Add(curr.right.data);
+                        queue.Enqueue(curr.right);
+                    }
+                }
+                if (values.Count > 0)
+                {
+                    if (reverse == true)
+                        values.Reverse();
+                    result.Add(values);
+                }
+            }
+            return result;
+
+        }
+
+        public IList<IList<int>> ZigzagLevelOrder4(NodeClass root)
+        {
+            var ans = new List<IList<int>>();
+            if (root == null) return ans;
+            Queue<NodeClass> queue = new Queue<NodeClass>();
+            queue.Enqueue(root);
+            int height = 0;
+            while (queue.Count > 0)
+            {
+                int size = queue.Count;
+                var level = new List<int>();
+
+                for (int i = 0; i < size; i++)
+                {
+
+                    NodeClass current = queue.Dequeue();
+                    level.Add(current.data);
+                    if (current.left != null) queue.Enqueue(current.left);
+                    if (current.right != null) queue.Enqueue(current.right);
+
+                }
+                if (height % 2 == 0) ans.Add(level);
+                else ans.Add(level.AsEnumerable().Reverse().ToList());
+                height += 1;
+            }
+
+            return ans;
+        }
+
+        public IList<IList<int>> ZigzagLevelOrder5(NodeClass root)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+            if (root == null)
+            {
+                return result;
+            }
+
+            var queue = new Queue<NodeClass>();
+            queue.Enqueue(root);
+            int levels = 0;
+
+            while (queue.Count > 0)
+            {
+                int size = queue.Count;
+                List<int> temp = new List<int>();
+                for (int i = 0; i < size; i++)
+                {
+                    NodeClass curr = queue.Dequeue();
+
+                    temp.Add(curr.data);
+
+                    if (curr.left != null)
+                    {
+                        queue.Enqueue(curr.left);
+                    }
+
+                    if (curr.right != null)
+                    {
+                        queue.Enqueue(curr.right);
+                    }
+                }
+
+                if (levels % 2 != 0)
+                {
+                    temp.Reverse();
+                }
+
+
+
+                levels++;
+                result.Add(temp);
+            }
+
+            return result;
+        }
+
     }
 }
