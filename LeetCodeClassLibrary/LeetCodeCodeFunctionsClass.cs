@@ -1962,5 +1962,55 @@ namespace LeetCodes.Functions
             return result;
         }
 
+        public static IList<double> AverageOfLevels(NodeClass root)
+        {
+            IList<double> result = new List<double>();
+            if (root == null) return result;
+            Queue<NodeClass> queue = new Queue<NodeClass>();
+            queue.Enqueue(root);
+            while (queue.Count > 0)
+            {
+                int size = queue.Count;
+                double sum = 0;
+                for (int i = 0; i < size; i++)
+                {
+                    NodeClass curr = queue.Dequeue();
+                    sum += curr.data;
+                    if (curr.left != null) queue.Enqueue(curr.left);
+                    if (curr.right != null) queue.Enqueue(curr.right);
+                }
+                result.Add(sum / size);
+            }
+            return result;
+        }
+
+        public static IList<double> AverageOfLevels2(NodeClass root)
+        {
+            IList<double> result = new List<double>();
+            IList<int> lcount = new List<int>();
+            levelOrderAverage(root, result, lcount, 0);
+            return result;
+        }
+
+        public static void levelOrderAverage(NodeClass root, IList<double> res, IList<int> lc, int level)
+        {
+            if (root == null) return;
+
+            if (level < res.Count)
+            {
+                res[level] = (res[level] * lc[level] + root.data) / (lc[level] + 1);
+                lc[level]++;
+            }
+            else
+            {
+                res.Add(root.data);
+                lc.Add(1);
+            }
+
+            levelOrderAverage(root.left, res, lc, level + 1);
+            levelOrderAverage(root.right, res, lc, level + 1);
+        }
+
+
     }
 }
