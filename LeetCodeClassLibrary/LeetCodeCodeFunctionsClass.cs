@@ -2011,6 +2011,30 @@ namespace LeetCodes.Functions
             levelOrderAverage(root.right, res, lc, level + 1);
         }
 
+        public static bool HasPathSum(NodeClass root, int targetSum)
+        {
+            if (root == null) return false;
+            if (root.left == null && root.right == null) return root.data == targetSum;
+            return HasPathSum(root.left, targetSum - root.data) || HasPathSum(root.right, targetSum - root.data);
+        }
 
+        public static bool HasPathSum2(NodeClass root, int targetSum)
+        {
+            if (root == null)
+                return false;
+
+            if (root.left == null && root.right == null)
+            {
+                return targetSum == root.data;
+            }
+            targetSum -= root.data;
+            return HasPathSum2(root.left, targetSum) || HasPathSum2(root.right, targetSum);
+        }
+
+        public static IList<IList<int>> PathSum(NodeClass root, int targetSum)
+        {
+
+            return null;
+        }
     }
 }

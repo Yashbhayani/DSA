@@ -361,15 +361,19 @@ foreach (var item in res)
 
 
 //Average of Levels in Binary Tree
-
-int[] root = { 3, 9, 20, -1, -1, 15, 7 };
+/*int[] root = { 3, 9, 20, -1, -1, 15, 7 };
 NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
 IList<double> res = LeetCodeCodeFunctionsClass.AverageOfLevels2(treeRoot);
 foreach (var item in res)
 {
     Console.Write("[" + string.Join(", ", item) + "]");
-}
+}*/
 
+
+//Path Sum
+int[] root = { 5, 4, 8, 11, -1, 13, 4, 7, 2, -1, -1, -1, 1 };
+NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
+Console.WriteLine(LeetCodeCodeFunctionsClass.HasPathSum2(treeRoot, 22));
 
 
 
