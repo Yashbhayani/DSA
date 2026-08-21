@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
+using System.Xml.Linq;
 
 
 namespace LeetCodes.Functions
@@ -2033,8 +2034,81 @@ namespace LeetCodes.Functions
 
         public static IList<IList<int>> PathSum(NodeClass root, int targetSum)
         {
+            IList<IList<int>> result = new List<IList<int>>();
+            //IList<int> temp = new List<int>();
+            PathSumHelper(root, targetSum, result, new List<int>());
+            return result;
+        }
 
-            return null;
+        private static void PathSumHelper(NodeClass root, int targetSum, IList<IList<int>> result, IList<int> temp)
+        {
+            if (root == null)
+                return;
+            temp.Add(root.data);
+            targetSum -= root.data;
+            if (root.left == null && root.right == null && targetSum == 0)
+            {
+                result.Add(new List<int>(temp));
+            }
+            else
+            {
+                PathSumHelper(root.left, targetSum, result, temp);
+                PathSumHelper(root.right, targetSum, result, temp);
+            }
+            temp.RemoveAt(temp.Count - 1);
+        }
+
+        private static void PathSumHelper2(NodeClass root, int targetSum, IList<IList<int>> result, IList<int> temp)
+        {
+            if (root == null) return;
+
+            temp.Add(root.data);
+
+            if (root.left == null && root.right == null && targetSum == root.data)
+            {
+                result.Add(new List<int>(temp));
+            }
+            else
+            {
+                PathSumHelper2(root.left, targetSum - root.data, result, temp);
+                PathSumHelper2(root.right, targetSum - root.data, result, temp);
+            }
+
+            temp.RemoveAt(temp.Count - 1);
+        }
+
+        public static IList<IList<int>> PathSum2(NodeClass root, int targetSum)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+
+            var stack = new Stack<(NodeClass nc, List<int> list, int sum)>();
+
+            stack.Push(new(root, new List<int>(), 0));
+
+            while (stack.Count > 0)
+            {
+                var (node, list, sum) = stack.Pop();
+                var newCom = new List<int>(list);
+                newCom.Add(node.data);
+
+                if (node.left == null && node.right == null && node.data + sum == targetSum)
+                {
+                    result.Add(new List<int>(newCom));
+                }
+
+                if (node.right != null && node.data + sum < targetSum)
+                {
+                    stack.Push(new(node.right, newCom, sum + node.data));
+                }
+
+                if (node.left != null && node.data + sum < targetSum)
+                {
+                    stack.Push(new(node.left, newCom, sum + node.data));
+                }
+            }
+
+
+            return result;
         }
     }
 }
