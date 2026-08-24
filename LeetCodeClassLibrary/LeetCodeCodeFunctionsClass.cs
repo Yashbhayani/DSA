@@ -3,6 +3,7 @@ using LeetCodes.Controller;
 using LeetCodes.Model;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
@@ -2110,5 +2111,136 @@ namespace LeetCodes.Functions
 
             return result;
         }
+
+        public static IList<string> BinaryTreePaths(NodeClass root)
+        {
+
+            IList<string> result = new List<string>();
+            BinaryTreePathsHelper2(root, result, new List<int>());
+            return result;
+        }
+        private static void BinaryTreePathsHelper2(NodeClass root, IList<string> result, IList<int> temp)
+        {
+            if (root == null) return;
+
+            temp.Add(root.data);
+
+            if (root.left == null && root.right == null)
+            {
+                result.Add(string.Join("->", temp.Select(item => string.Join("", item))));
+            }
+            else
+            {
+                BinaryTreePathsHelper2(root.left, result, temp);
+                BinaryTreePathsHelper2(root.right, result, temp);
+            }
+
+            temp.RemoveAt(temp.Count - 1);
+        }
+
+        public static IList<string> BinaryTreePaths2(NodeClass root)
+        {
+            IList<string> result = new List<string>();
+
+            BinaryTreePathsDFS(root, "", result);
+
+            return result;
+        }
+
+        private static void BinaryTreePathsDFS(NodeClass node, string path, IList<string> result)
+        {
+            if (node == null)
+                return;
+
+            path += node.data.ToString();
+
+            // Leaf node
+            if (node.left == null && node.right == null)
+            {
+                result.Add(path);
+                return;
+            }
+
+            path += "->";
+
+            BinaryTreePathsDFS(node.left, path, result);
+            BinaryTreePathsDFS(node.right, path, result);
+        }
+        public static IList<string> BinaryTreePaths3(NodeClass root)
+        {
+            var solutions = new List<string>();
+
+            BTPGetPaths(root, solutions, new List<int>());
+
+            return solutions;
+        }
+
+        private static void BTPGetPaths(NodeClass root, IList<string> solutions, IList<int> current)
+        {
+            if (root == null)
+            {
+                return;
+            }
+
+            var newCurrent = new List<int>(current);
+            newCurrent.Add(root.data);
+
+            if (root.left != null)
+            {
+                BTPGetPaths(root.left, solutions, newCurrent);
+            }
+            if (root.right != null)
+            {
+                BTPGetPaths(root.right, solutions, newCurrent);
+            }
+
+            if (root.left == null && root.right == null)
+            {
+
+                var sol = string.Join("->", newCurrent);
+                solutions.Add(sol);
+            }
+        }
+
+        public static IList<string> BinaryTreePaths4(NodeClass root)
+        {
+            IList<string> result = new List<string>();
+
+            var stack = new Stack<(NodeClass nc, string path)>();
+
+            stack.Push((root, ""));
+
+            while (stack.Count > 0)
+            {
+                var (node, path) = stack.Pop();
+                path += node.data.ToString();
+
+                if (node.left == null && node.right == null)
+                {
+                    result.Add(path);
+                }
+
+                path += "->";
+                if (node.right != null)
+                {
+                    stack.Push(new(node.right, path));
+                }
+
+                if (node.left != null)
+                {
+                    stack.Push(new(node.left, path));
+                }
+            }
+
+
+            return result;
+        }
+
+        public static int SumNumbers(NodeClass root)
+        {
+
+            return 0;
+        }
+
     }
 }

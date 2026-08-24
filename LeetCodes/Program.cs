@@ -377,17 +377,23 @@ Console.WriteLine(LeetCodeCodeFunctionsClass.HasPathSum2(treeRoot, 22));
 */
 
 //Path Sum II
-int[] root = { 5, 4, 8, 11, -1, 13, 4, 7, 2, -1, -1, 5, 1 };
+/*int[] root = { 5, 4, 8, 11, -1, 13, 4, 7, 2, -1, -1, 5, 1 };
 NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
 IList<IList<int>> res = LeetCodeCodeFunctionsClass.PathSum2(treeRoot, 22);
 foreach (var item in res)
 {
     Console.Write("[" + string.Join(", ", item) + "]");
+}*/
+
+
+//Binary Tree Paths
+int[] root = { 1, 2, 3, -1, 5 };
+NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
+IList<string> res = LeetCodeCodeFunctionsClass.BinaryTreePaths4(treeRoot);
+foreach (var item in res)
+{
+    Console.Write("[" + string.Join(", ", item) + "]");
 }
-
-
-
-
 
 //------------------------------------------------LeetCode---------------------------------------------------------
 
