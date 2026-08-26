@@ -2236,11 +2236,124 @@ namespace LeetCodes.Functions
             return result;
         }
 
-        public static int SumNumbers(NodeClass root)
+        public static int SumNumbers(NodeClass root, int sum = 0)
         {
+            if (root == null)
+                return 0;
 
-            return 0;
+            sum = sum * 10 + root.data;
+
+            if (root.left == null && root.right == null)
+                return sum;
+
+            return SumNumbers(root.left, sum) + SumNumbers(root.right, sum);
         }
 
+        public static int SumNumbers2(NodeClass root)
+        {
+            if (root == null)
+                return root.data;
+
+            List<int> tempval = new List<int>();
+            SumNumberHelper(root, 0, tempval);
+            return tempval.Sum();
+        }
+
+        public static void SumNumberHelper(NodeClass root, int s, List<int> tempval)
+        {
+            if (root == null)
+                return;
+
+            s = s * 10 + root.data;
+            if (root.left == null && root.right == null)
+            {
+                tempval.Add(s);
+            }
+            else
+            {
+                SumNumberHelper(root.left, s, tempval);
+                SumNumberHelper(root.right, s, tempval);
+            }
+            s = (s - root.data) / 10;
+        }
+
+        public static int SumNumbers3(NodeClass root)
+        {
+            if (root == null)
+                return 0;
+            IList<int> res = new List<int>();
+            HelperSumNumber2(root, res);
+            return res.Sum();
+        }
+
+        public static void HelperSumNumber2(NodeClass root, IList<int> res)
+        {
+            if (root.right == null && root.left == null)
+            {
+                res.Add(root.data);
+                return;
+            }
+
+            if (root.left != null)
+            {
+                root.left.data = (root.data * 10) + root.left.data;
+                HelperSumNumber2(root.left, res);
+            }
+
+            if (root.right != null)
+            {
+                root.right.data = (root.data * 10) + root.right.data;
+                HelperSumNumber2(root.right, res);
+            }
+        }
+
+        public static int pathSumIII(NodeClass root, int sum)
+        {
+            if (root == null)
+                return 0;
+            return pathSumIIIdfs(root, sum) + pathSumIII(root.left, sum) + pathSumIII(root.right, sum);
+        }
+
+        private static int pathSumIIIdfs(NodeClass root, long sum)
+        {
+            if (root == null)
+                return 0;
+            return (sum == root.data ? 1 : 0) +
+                pathSumIIIdfs(root.left, sum - root.data) +
+                pathSumIIIdfs(root.right, sum - root.data);
+        }
+
+        public static int k = 0;
+
+        public static int PathSumIII2(NodeClass root, int sum)
+        {
+            if (root == null)
+                return k;
+            pathSumIIIdfs2(root, sum);
+            return k;
+
+        }
+
+        private static void pathSumIIIdfs2(NodeClass root, int sum)
+        {
+            if (root == null)
+                return;
+            helperOfSumIII(root, sum);
+
+            if (root.left != null)
+                pathSumIIIdfs2(root.left, sum);
+
+            if (root.right != null)
+                pathSumIIIdfs2(root.right, sum);
+        }
+        private static void helperOfSumIII(NodeClass root, int sum)
+        {
+            if (sum - root.data == 0) k++;
+
+            if (root.left != null)
+                helperOfSumIII(root.left, sum - root.data);
+            if (root.right != null)
+                helperOfSumIII(root.right, sum - root.data);
+        }
     }
 }

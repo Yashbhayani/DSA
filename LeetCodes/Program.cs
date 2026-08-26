@@ -387,13 +387,30 @@ foreach (var item in res)
 
 
 //Binary Tree Paths
-int[] root = { 1, 2, 3, -1, 5 };
+/*int[] root = { 1, 2, 3, -1, 5 };
 NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
 IList<string> res = LeetCodeCodeFunctionsClass.BinaryTreePaths4(treeRoot);
 foreach (var item in res)
 {
     Console.Write("[" + string.Join(", ", item) + "]");
-}
+}*/
+
+
+//Sum Root to Leaf Numbers
+/*int[] root = { 4, 9, 0, 5, 1 };
+NodeClass treeRoot =  LeetCodeCodeFunctionsClass.createTreeList(root);
+Console.WriteLine(LeetCodeCodeFunctionsClass.SumNumbers3(treeRoot));*/
+
+
+//Path Sum III
+int[] root = { 10, 5, -3, 3, 2, -1, 11, 3, -2, -1, 1 }; int targetSum = 8;
+NodeClass treeRoot = LeetCodeCodeFunctionsClass.createTreeList(root);
+Console.WriteLine(LeetCodeCodeFunctionsClass.PathSumIII2(treeRoot, targetSum));
+
+
+
+
+
 
 //------------------------------------------------LeetCode---------------------------------------------------------
 
